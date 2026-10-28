@@ -1,0 +1,47 @@
+---
+name: [[.Name]]-release
+description: Prepare distribution and releases for the [[.Name]] CLI. Use to find existing publishing infrastructure, configure release destinations or release an authorised version.
+---
+
+# Release [[.Name]]
+
+The generated GitHub Actions workflow tests all six native OS/architecture targets
+and uses GoReleaser for archives and checksums. A pushed `v*` tag publishes to the
+current repository's GitHub Releases. Initialising the project does not authorise
+pushing a release tag or creating external infrastructure.
+
+Before choosing a destination, inspect the repository remote and existing CI,
+search accessible organisation repositories for taps, Scoop buckets and shared
+publishing workflows, and inspect local registry configuration for Artifactory or
+other established destinations. Report credential availability without displaying
+or copying values. Do not ask a nontechnical user to identify infrastructure that
+you can discover. If access is unavailable, state what could not be checked.
+
+Verify the CLI's location relative to the repository root. GitHub only discovers
+workflows in the root `.github/workflows/`. For a monorepo, integrate the generated
+jobs there with the CLI's working directory and path to its Go module/configuration.
+Do not replace existing workflows. The scaffold assumes a dedicated CLI repo root.
+
+Prefer existing infrastructure that supports the artefacts and intended audience.
+Internal Artifactory may be appropriate for colleagues but insufficient for public
+users. Resolve a consequential ambiguity in plain language. Existing credentials
+establish feasibility, not permission to publish. Preserve existing access controls.
+
+When no suitable destination exists, offer to create a reusable, multi-project
+publishing repository from a template. Once accepted, create and configure it using
+available provider tools. Homebrew and Scoop use owned repositories, while WinGet
+requires catalogue submissions. Do not claim Loop has an automated provisioner:
+this version provides the workflow and guidance, not provider-specific setup code.
+
+Configure the selected destination in the release workflow/GoReleaser configuration
+using the existing CI credential mechanism. The default GitHub release recipe is a
+working starting point, not evidence that GitHub is the company's preferred channel.
+Do not commit tokens, introduce a credential vault or bypass OS security checks.
+Signing/notarisation requires publisher-owned credentials and may involve costs.
+
+Before an authorised release, commit `go.sum`, run the project tests and validate
+`.goreleaser.yaml` with the pinned GoReleaser version from the workflow. Exercise a
+snapshot release. Confirm that the six native CI jobs pass at the intended commit.
+Push the agreed semantic version tag only within the user's release authorisation.
+Verify artefacts and publication results, and distinguish a submitted catalogue
+update from an accepted one. Do not overwrite edited scaffold files during upgrades.

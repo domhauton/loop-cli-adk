@@ -1,0 +1,17 @@
+# Working on [[.Name]]
+
+This CLI uses Loop's shared runtime. Keep project behaviour in `project.json`.
+The small Go entry point embeds that file and calls the public project/CLI facade.
+Do not duplicate request handling or copy runtime internals into this repository.
+
+Load only the relevant skill:
+
+- [Develop this CLI](.agents/skills/[[.Name]]-develop/SKILL.md): extend operations or their supporting API and verify behaviour.
+- [Prepare a release](.agents/skills/[[.Name]]-release/SKILL.md): discover existing distribution infrastructure and configure publishing.
+
+Use `go mod tidy`, then `go vet ./...` and `go test ./...` before shipping.
+The fixture tests use a local HTTP server, never the configured real API.
+Keep `go.sum` under version control after dependency resolution.
+Never put credential values in the manifest, source, tests or release configuration.
+The endpoint in the initial manifest is an example. Adapt it and its contract test
+to the project's actual admin API before treating the CLI as production-ready.

@@ -42,6 +42,11 @@ jobs:
         run: go vet ./...
       - name: Test and compile a real project CLI
         run: go test -coverpkg=./... -coverprofile=coverage.out ./...
+      - name: Scaffold a project with the published SDK pin
+        run: go run ./cmd/loop init --name fixturectl --dir "${{ runner.temp }}/loop-scaffold"
+      - name: Test generated project against the published SDK
+        working-directory: ${{ runner.temp }}/loop-scaffold
+        run: go test ./...
       - name: Unix installation smoke test
         if: runner.os != 'Windows'
         run: bash scripts/test-install.sh

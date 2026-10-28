@@ -1,0 +1,59 @@
+# [[.Name]]
+
+A project CLI powered by Loop's shared runtime.
+
+## Develop
+
+The generated command is an example GET `/health`. Adapt `project.json` and the
+fixture in `main_test.go` to the actual admin API before distributing it.
+
+```sh
+go mod tidy
+go test ./...
+go run . describe
+go build -o bin/[[.Name]] .
+```
+
+Go 1.26 or later is needed for development. Installed executables need no Go runtime.
+Commit `go.sum` after resolving the pinned SDK. The initial module path is
+`loop.local/[[.Name]]`; it can be changed to your repository's module path if needed.
+The scaffold template version and SDK pin are recorded in `.loop/scaffold.json`.
+Use this directory as the CLI repository root. Initialisation does not create a Git
+repository or remote. If the CLI belongs inside a larger repository, integrate its
+workflows at that repository's `.github/workflows/` and adjust working directories
+before expecting GitHub Actions to run them.
+
+With Loop installed, `loop run --manifest project.json -- describe` works without
+Go or API credentials. The built CLI embeds the same `project.json`.
+
+## Connect to the project
+
+Set `[[.BaseURLEnv]]` to the admin API base URL and `[[.TokenEnv]]` to an authorised
+bearer token using your existing credential setup. Then run:
+
+```sh
+go run . status get
+```
+
+Help and `describe` do not require credentials. Results go to stdout, structured
+errors to stderr. Tests use their own local fixture and never contact the real API.
+On Windows, build to `bin/[[.Name]].exe` and run `.\bin\[[.Name]].exe`.
+
+## Release
+
+The included CI runs on Linux, macOS and Windows, each on amd64 and arm64. After
+successful verification, pushing a `v*` tag triggers GoReleaser to publish archives
+and SHA-256 checksums to this repository's GitHub Releases. No extra release token
+is needed for that default recipe. Repository Actions policies still apply.
+
+Read the [release skill](.agents/skills/[[.Name]]-release/SKILL.md) before choosing a
+distribution destination. Reuse suitable organisation infrastructure and configured
+registries before creating a new tap, bucket or registry. No external setup or
+publication happens during `loop init`.
+
+Once this directory is committed in a Git repository with its intended remote,
+run `goreleaser check`, then
+`goreleaser release --snapshot --clean --skip=publish,sign` using the workflow's
+pinned GoReleaser version. For installation from a release, download the archive
+matching the OS/architecture, verify its checksum, and put the executable on PATH.
+Package-manager setup and platform signing are configured for the chosen publisher.

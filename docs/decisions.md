@@ -9,16 +9,34 @@ direction is not a claim that every capability has been implemented.
 | Local manifest runner and named standalone executable use the same facade | Avoid divergent behaviour | Implemented |
 | Declarative JSON manifest, separate from runtime objects | No language toolchain for ordinary local execution | Implemented; YAML not required for v1 |
 | Small config for ordinary API calls, ordinary code for exceptional workflows | Avoid a workflow language inside config | Config implemented; custom handler API pending |
-| CLI plus API-building skills, no server SDK initially | Work with the project's existing backend | Skills pending |
+| CLI plus API-building skills, no server SDK initially | Work with the project's existing backend | Development/release skills scaffolded |
 | Agent development and verification is the first workflow | Prove prepare/exercise/inspect/clean-up incrementally | Inspect step implemented |
 | One Go module, isolated packages and explicit registration | Compiler checks and small local development context | Implemented |
 | Frontend and backend protocol boundaries are distinct | Independent development of CLI/MCP and HTTP/gRPC | CLI/HTTP implemented |
-| Semantic versioning and pinned SDK/template inputs | Repeatable builds and deliberate upgrades | Explicit SDK selection implemented |
+| Semantic versioning and pinned SDK/template inputs | Repeatable builds and deliberate upgrades | SDK pin/checksums and template version scaffolded |
 | Linux, macOS and Windows, each amd64 and arm64 | Consumers need no Go/Node runtime | Release/CI configuration included |
-| GitHub Actions and GoReleaser for release automation | Reuse existing release machinery | Loop release configuration included; project templates pending |
-| Discover and reuse suitable organisation publishing infrastructure | Avoid unnecessary repos and technical questions | Recorded; discovery pending |
+| GitHub Actions and GoReleaser for release automation | Reuse existing release machinery | Loop and generated project workflows included |
+| Discover and reuse suitable organisation publishing infrastructure | Avoid unnecessary repos and technical questions | Guided by generated release skill; provider tooling pending |
 | Offer templated multi-project publishing repos when needed | Automate the setup once authorised | Pending |
-| Progressive-disclosure agent guidance | Keep component tasks locally understandable | Module guidance implemented; product skills pending |
+| Progressive-disclosure agent guidance | Keep component tasks locally understandable | Module guidance and generated project skills implemented |
+
+## Scaffold decisions
+
+`loop init` accepts a project name, destination and optional SDK version. It renders
+locally without credentials, network access or a Go toolchain. Names are portable
+across the supported operating systems. Existing files and symlink parents cause a
+conflict before any generated files are written. Unrelated files are preserved.
+
+The bootstrap SDK pin is the immutable public Go revision of `09c9d70`, which passed
+all six native targets. This avoids a fictional release tag or a dependency on a
+moving branch. `go.sum` is included for the default pin; custom pins resolve their
+checksums with `go mod tidy`. `.loop/scaffold.json` records template and SDK versions.
+No automatic template migration is implied.
+
+The generated `/health` operation is an example, exercised by an offline fixture.
+Agents adapt it and its test to the real admin API. The generated GitHub release
+workflow is executable by default but can be retargeted to discovered organisation
+infrastructure. Creating a scaffold does not authorise publishing or provisioning.
 
 ## Alternatives considered
 

@@ -44,3 +44,28 @@ func TestAuthoringCommandArguments(t *testing.T) {
 		})
 	}
 }
+
+func TestInitCommand(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "cli project")
+	var out, errout bytes.Buffer
+	status := execute(context.Background(), []string{"init", "--name", "reefctl", "--dir", dir}, &out, &errout)
+	if status != 0 || errout.Len() != 0 {
+		t.Fatalf("status=%d stderr=%s", status, &errout)
+	}
+	var result struct {
+		Directory string   `json:"directory"`
+		Files     []string `json:"files"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
+	if result.Directory != dir || len(result.Files) == 0 {
+		t.Fatalf("unexpected result: %s", &out)
+	}
+	out.Reset()
+	errout.Reset()
+	status = execute(context.Background(), []string{"init", "--name", "reefctl", "--dir", dir}, &out, &errout)
+	if status != 2 || out.Len() != 0 || !json.Valid(errout.Bytes()) {
+		t.Fatalf("repeat init: status=%d stdout=%s stderr=%s", status, &out, &errout)
+	}
+}

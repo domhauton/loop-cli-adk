@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -27,15 +28,18 @@ func run() int {
 
 func execute(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 || args[0] == "--help" || args[0] == "help" {
-		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
+		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop init --name myproject --dir ./myproject-cli\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
 		return 0
 	}
 	if args[0] == "version" || args[0] == "--version" {
 		fmt.Fprintln(stdout, version)
 		return 0
 	}
+	if args[0] == "init" {
+		return initialise(args[1:], stdout, stderr)
+	}
 	if args[0] != "run" && args[0] != "check" && args[0] != "build" {
-		return cli.WriteError(stderr, operation.NewError("usage", "expected run, check, build or version", nil))
+		return cli.WriteError(stderr, operation.NewError("usage", "expected init, run, check, build or version", nil))
 	}
 	flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
 	flags.SetOutput(io.Discard)
@@ -76,4 +80,31 @@ func execute(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 		return 0
 	}
 	return 1
+}
+
+func initialise(args []string, stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("init", flag.ContinueOnError)
+	flags.SetOutput(io.Discard)
+	var opts authoring.InitOptions
+	flags.StringVar(&opts.Directory, "dir", ".", "destination directory")
+	flags.StringVar(&opts.Name, "name", "", "project executable name")
+	flags.StringVar(&opts.SDKVersion, "sdk-version", authoring.DefaultSDKVersion, "pinned SDK semantic version")
+	if err := flags.Parse(args); err != nil {
+		if err == flag.ErrHelp {
+			fmt.Fprintln(stdout, "loop init --name NAME [--dir DIRECTORY] [--sdk-version VERSION]\nCreates a manifest, project entry point, skills, tests and release workflow. Existing files are never overwritten.")
+			return 0
+		}
+		return cli.WriteError(stderr, operation.NewError("usage", err.Error(), err))
+	}
+	if flags.NArg() != 0 {
+		return cli.WriteError(stderr, operation.NewError("usage", "unexpected positional arguments", nil))
+	}
+	result, err := authoring.Init(opts)
+	if err != nil {
+		return cli.WriteError(stderr, operation.NewError("configuration", "initialise project: "+err.Error(), err))
+	}
+	if err := json.NewEncoder(stdout).Encode(result); err != nil {
+		return cli.WriteError(stderr, operation.NewError("output", "cannot write scaffold result", err))
+	}
+	return 0
 }

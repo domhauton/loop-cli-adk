@@ -153,6 +153,7 @@ const projectMain = `package main
 import (
     "context"
     _ "embed"
+    "fmt"
     "os"
     "os/signal"
 
@@ -163,9 +164,15 @@ import (
 //go:embed project.json
 var manifest []byte
 
+var version = "dev"
+
 func main() { os.Exit(run()) }
 
 func run() int {
+    if len(os.Args) == 2 && os.Args[1] == "--version" {
+        fmt.Println(version)
+        return 0
+    }
     ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
     defer stop()
     p, err := project.New(manifest, os.Getenv)

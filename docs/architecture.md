@@ -14,7 +14,7 @@ operations. The same execution path powers local use and embedded project CLIs.
 | `internal/httpapi` | URL/query encoding, auth, HTTP lifecycle, response bounds | operation |
 | `pkg/project` | Composition facade, definition-to-runtime translation | definition, execution, httpapi, operation |
 | `pkg/cli` | Arguments, discovery, help, output and exit codes | project, operation |
-| `internal/authoring` | Bounded file loading and standalone builds | definition |
+| `internal/authoring` | Scaffolding/templates, bounded file loading and standalone builds | definition |
 | `cmd/loop` | Authoring command entry point and process lifecycle | authoring, cli, project, operation |
 
 Production imports are checked in `internal/architecture/dependencies_test.go`.
@@ -37,7 +37,34 @@ sources. Build outputs contain the runtime, not the authoring tooling.
 Building requires Go. Running an installed Loop or project executable does not.
 Development builds select an SDK checkout explicitly. Released builds select a
 pinned SDK semantic version. There is no implicit download of a moving branch.
-No SDK release exists yet, so the working path today is `--sdk-dir`.
+No SDK release tag exists yet. The scaffold pins an immutable Go pseudo-version
+which resolves through the public module service. Local SDK checkouts remain an
+explicit development option.
+
+## Scaffolding
+
+`loop init --name NAME --dir DIRECTORY` renders a complete project inside the
+authoring module. The process entry point only parses flags and serialises results.
+No runtime package imports the templates or scaffolder. The generated main and the
+temporary build main share the same entry-point source.
+
+Scaffolding uses embedded, versioned templates, validates the manifest before writing,
+preflights all destination files, rejects symlink parents and creates files exclusively
+within an `os.Root`. Existing content is preserved. Repeating init reports a conflict
+instead of reconciling or migrating files. On a write failure, newly created files
+are removed where possible, but empty directories may remain.
+
+The generated project includes local development/release skills and a six-target CI
+workflow. Tagged releases use GoReleaser only after that CI succeeds. The default
+SDK pin includes known module checksums. Custom pins resolve checksums using normal
+Go tooling. Init never invokes Go, accesses credentials, contacts a registry or
+creates external infrastructure. A release skill handles infrastructure discovery
+and intent, using the agent's available tools. There is no automatic provider
+provisioner in this version.
+
+Template tests run a generated project against the current SDK through a temporary
+Go workspace, without committing local `replace` directives. Native CI separately
+builds/tests the default published SDK pin, detecting template/runtime incompatibility.
 
 ## Extension boundaries
 

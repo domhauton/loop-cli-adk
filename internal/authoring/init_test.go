@@ -1,0 +1,196 @@
+package authoring
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io/fs"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"reflect"
+	"strconv"
+	"strings"
+	"testing"
+	"time"
+
+	"github.com/domhauton/loop-cli-adk/internal/definition"
+)
+
+func TestInitCreatesUsableDefinition(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "project with spaces")
+	result, err := Init(InitOptions{Directory: dir, Name: "reefctl"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.Directory != dir || result.SDKVersion != DefaultSDKVersion || result.TemplateVersion != TemplateVersion {
+		t.Fatalf("wrong result: %+v", result)
+	}
+	data, err := os.ReadFile(filepath.Join(dir, "project.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := definition.Parse(data)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if m.Name != "reefctl" || m.API.BaseURLEnv != "REEFCTL_API_URL" || m.API.TokenEnv != "REEFCTL_API_TOKEN" {
+		t.Fatalf("wrong manifest: %+v", m)
+	}
+	roundTrip, err := json.Marshal(m)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := definition.Parse(roundTrip); err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []string{"main.go", "main_test.go", "go.mod", "go.sum", "AGENTS.md", "README.md", ".loop/scaffold.json", ".goreleaser.yaml", ".github/workflows/ci.yml", ".github/workflows/release.yml", ".agents/skills/reefctl-develop/SKILL.md", ".agents/skills/reefctl-release/SKILL.md"} {
+		if _, err := os.Stat(filepath.Join(dir, filepath.FromSlash(name))); err != nil {
+			t.Errorf("missing %s: %v", name, err)
+		}
+	}
+	before := snapshot(t, dir)
+	if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err == nil {
+		t.Fatal("repeat init overwrote project")
+	}
+	if after := snapshot(t, dir); !reflect.DeepEqual(before, after) {
+		t.Fatal("repeat init changed files")
+	}
+}
+
+func TestInitPreflightsEveryConflict(t *testing.T) {
+	for _, conflicting := range []string{"README.md", "project.json", ".github/workflows/release.yml", ".agents/skills/reefctl-release/SKILL.md"} {
+		t.Run(conflicting, func(t *testing.T) {
+			dir := t.TempDir()
+			name := filepath.Join(dir, filepath.FromSlash(conflicting))
+			if err := os.MkdirAll(filepath.Dir(name), 0755); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.WriteFile(name, []byte("user-owned\r\n"), 0644); err != nil {
+				t.Fatal(err)
+			}
+			before := snapshot(t, dir)
+			if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err == nil {
+				t.Fatal("accepted conflict")
+			}
+			if after := snapshot(t, dir); !reflect.DeepEqual(before, after) {
+				t.Fatal("conflict changed files")
+			}
+		})
+	}
+}
+
+func TestInitPreservesUnrelatedFiles(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "notes.txt"), []byte("keep me"), 0644); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err != nil {
+		t.Fatal(err)
+	}
+	data, err := os.ReadFile(filepath.Join(dir, "notes.txt"))
+	if err != nil || string(data) != "keep me" {
+		t.Fatal("unrelated file changed")
+	}
+}
+
+func TestInitRejectsUnsafeOptionsBeforeWriting(t *testing.T) {
+	for _, name := range []string{"", "../escape", "UPPER", "a/b", "nul", "com1", "name-", "two--hyphens", "a\nrun: bad", strings.Repeat("a", 49)} {
+		t.Run(name, func(t *testing.T) {
+			dir := filepath.Join(t.TempDir(), "new-project")
+			if _, err := Init(InitOptions{Directory: dir, Name: name}); err == nil {
+				t.Fatal("accepted invalid name")
+			}
+			if _, err := os.Stat(dir); !os.IsNotExist(err) {
+				t.Fatal("invalid options created destination")
+			}
+		})
+	}
+	for _, version := range []string{"latest", "main", "v1.0.0", "v0.1.0\nreplace x => y"} {
+		if _, err := Init(InitOptions{Directory: filepath.Join(t.TempDir(), "new"), Name: "reefctl", SDKVersion: version}); err == nil {
+			t.Fatalf("accepted version %q", version)
+		}
+	}
+}
+
+func TestInitRejectsSymlinkParent(t *testing.T) {
+	dir, outside := t.TempDir(), t.TempDir()
+	if err := os.Symlink(outside, filepath.Join(dir, ".agents")); err != nil {
+		t.Skipf("symlink creation unavailable: %v", err)
+	}
+	if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err == nil {
+		t.Fatal("accepted symlink parent")
+	}
+	if files := snapshot(t, outside); len(files) != 0 {
+		t.Fatalf("wrote outside destination: %v", files)
+	}
+	if _, err := os.Stat(filepath.Join(dir, "project.json")); !os.IsNotExist(err) {
+		t.Fatal("symlink conflict caused partial scaffold")
+	}
+}
+
+func TestGeneratedProjectBuildsAndTests(t *testing.T) {
+	if testing.Short() {
+		t.Skip("compiles and tests a complete generated project")
+	}
+	dir := filepath.Join(t.TempDir(), "generated project")
+	if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err != nil {
+		t.Fatal(err)
+	}
+	// Go workspaces compare physical paths; macOS temp directories use /var symlinks.
+	dir, err := filepath.EvalSymlinks(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	root, err := filepath.Abs("../..")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// A separate workspace exercises the current SDK without modifying the generated
+	// go.mod or requiring network access. CI separately checks the published SDK pin.
+	workspace := filepath.Join(t.TempDir(), "go.work")
+	content := fmt.Sprintf("go 1.26.0\n\nuse (\n%s\n%s\n)\n", strconv.Quote(filepath.ToSlash(dir)), strconv.Quote(filepath.ToSlash(root)))
+	if err := os.WriteFile(workspace, []byte(content), 0600); err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, "go", "test", "-v", "./...")
+	cmd.Dir = dir
+	cmd.Env = replaceEnv(os.Environ(), map[string]string{"GOWORK": workspace, "GOPROXY": "off", "GOSUMDB": "off"})
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		t.Fatalf("generated project test failed: %v\n%s", err, output)
+	}
+	if !bytes.Contains(output, []byte("--- PASS: TestNativeExecutable")) {
+		t.Fatalf("generated binary test did not run:\n%s", output)
+	}
+}
+
+func snapshot(t *testing.T, directory string) map[string]string {
+	t.Helper()
+	files := map[string]string{}
+	err := filepath.WalkDir(directory, func(name string, entry fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if entry.IsDir() {
+			return nil
+		}
+		data, err := os.ReadFile(name)
+		if err != nil {
+			return err
+		}
+		rel, err := filepath.Rel(directory, name)
+		if err != nil {
+			return err
+		}
+		files[rel] = string(data)
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	return files
+}

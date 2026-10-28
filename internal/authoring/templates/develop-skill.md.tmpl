@@ -1,0 +1,29 @@
+---
+name: [[.Name]]-develop
+description: Extend and test the [[.Name]] CLI and its supporting admin API. Use for command changes and API integration, not publishing setup.
+---
+
+# Develop [[.Name]]
+
+Work from the project root. Read `project.json` and `main_test.go` first.
+Discover the actual admin API in the host project before inventing new endpoints.
+If an endpoint is missing, implement it in that project's existing stack, reusing
+its authentication and authorisation. Keep business logic on the server.
+
+The pinned runtime supports GET, string query inputs and unary JSON responses.
+Map input names to API query names in `http.query`. Do not silently represent a
+write as GET or invent manifest fields. A capability outside this contract needs
+an SDK extension or upgrade before the project can use it.
+
+Add or change a fixture test alongside each command. Cover the exact request path,
+query encoding, auth requirements, successful result and relevant failure. Keep
+tests offline with `httptest`, and never use a real token. `main_test.go` also builds
+and executes the native CLI so the embedded manifest is tested.
+
+Run `go mod tidy`, `go vet ./...` and `go test ./...`. `go run . describe` exposes
+the actual command contract without credentials. If Loop is installed, use
+`loop check --manifest project.json` and `loop run --manifest project.json -- describe`.
+
+Configuration names are `[[.BaseURLEnv]]` and `[[.TokenEnv]]`. Do not read their
+values merely for discovery or put them in diagnostics. Keep the dependency in
+`go.mod` pinned and update `.loop/scaffold.json` when deliberately upgrading it.

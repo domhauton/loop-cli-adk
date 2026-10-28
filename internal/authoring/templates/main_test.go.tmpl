@@ -1,0 +1,82 @@
+package main
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"runtime"
+	"testing"
+	"time"
+
+	"github.com/domhauton/loop-cli-adk/pkg/cli"
+	"github.com/domhauton/loop-cli-adk/pkg/project"
+)
+
+func TestDiscoveryWithoutCredentials(t *testing.T) {
+	p, err := project.New(manifest, func(string) string { t.Fatal("discovery read credentials"); return "" })
+	if err != nil { t.Fatal(err) }
+	var out, errout bytes.Buffer
+	if status := cli.Run(context.Background(), p, []string{"describe"}, &out, &errout); status != 0 || !json.Valid(out.Bytes()) || errout.Len() != 0 {
+		t.Fatalf("status=%d stdout=%s stderr=%s", status, &out, &errout)
+	}
+}
+
+func TestHealthCommand(t *testing.T) {
+	server := fixtureAPI(t)
+	defer server.Close()
+	p, err := project.New(manifest, func(key string) string {
+		switch key {
+		case "[[.BaseURLEnv]]": return server.URL
+		case "[[.TokenEnv]]": return "fixture-only"
+		default: t.Fatalf("unexpected environment key %s", key); return ""
+		}
+	})
+	if err != nil { t.Fatal(err) }
+	for _, tc := range []struct{ args []string; status int }{
+		{[]string{"status", "get"}, 0},
+		{[]string{"status", "get", "--input", `{"unknown":"field"}`}, 2},
+	} {
+		var out, errout bytes.Buffer
+		status := cli.Run(context.Background(), p, tc.args, &out, &errout)
+		if status != tc.status { t.Fatalf("args=%v status=%d stderr=%s", tc.args, status, &errout) }
+		if status == 0 && (out.String() != "{\"status\":\"ok\"}\n" || errout.Len() != 0) { t.Fatalf("stdout=%s stderr=%s", &out, &errout) }
+		if status != 0 && (out.Len() != 0 || !json.Valid(errout.Bytes())) { t.Fatalf("stdout=%s stderr=%s", &out, &errout) }
+	}
+}
+
+func TestNativeExecutable(t *testing.T) {
+	if testing.Short() { t.Skip("compiles and executes the native CLI") }
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	name := "[[.Name]]"
+	if runtime.GOOS == "windows" { name += ".exe" }
+	binary := filepath.Join(t.TempDir(), name)
+	build := exec.CommandContext(ctx, "go", "build", "-o", binary, ".")
+	if output, err := build.CombinedOutput(); err != nil { t.Fatalf("build: %v\n%s", err, output) }
+	server := fixtureAPI(t)
+	defer server.Close()
+	t.Setenv("[[.BaseURLEnv]]", server.URL)
+	t.Setenv("[[.TokenEnv]]", "fixture-only")
+	cmd := exec.CommandContext(ctx, binary, "status", "get")
+	cmd.Env = os.Environ()
+	if output, err := cmd.CombinedOutput(); err != nil || string(output) != "{\"status\":\"ok\"}\n" { t.Fatalf("command: %v\n%s", err, output) }
+}
+
+func fixtureAPI(t *testing.T) *httptest.Server {
+	t.Helper()
+	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet || r.URL.RequestURI() != "/health" || r.Header.Get("Authorization") != "Bearer fixture-only" {
+			t.Errorf("unexpected request method/path/auth")
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w, `{"status":"ok"}`)
+	}))
+}

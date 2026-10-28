@@ -2,10 +2,11 @@
 
 Build agent-facing project CLIs from small admin-API definitions.
 
-The first slice is implemented: validate a JSON manifest, discover commands, call
-an HTTP API, and build a standalone project executable using the same runtime.
-Publishing discovery, project scaffolding, custom handlers and additional protocols
-are planned. See [architecture](docs/architecture.md) and [decisions](docs/decisions.md).
+Scaffold a project with config, agent skills, tests and release automation, then
+run it locally or build a standalone executable using the same runtime. The current
+API bindings support GET commands and string query inputs. Provider provisioning,
+custom handlers and additional protocols are planned. See
+[architecture](docs/architecture.md) and [decisions](docs/decisions.md).
 
 ## Installation
 
@@ -53,6 +54,44 @@ and `$env:DEMO_API_TOKEN = 'demo-local'`. Build to `bin/democtl.exe` and invoke
 The result is `{"users":[{"id":"user-1","name":"Ada"}]}`. Help and `describe`
 also work without either environment variable. All commands are non-interactive.
 
+## Scaffold a project CLI
+
+```sh
+./bin/loop init --name myproject --dir ./myproject-cli
+cd myproject-cli
+go test ./...
+go run . describe
+go build -o bin/myproject .
+```
+
+`loop init` needs no Go installation or network access when using the installed
+Loop binary. The generated project's Go development and CI commands download its
+pinned SDK on first use. The default pin and verified checksums refer to an existing
+immutable SDK revision, so a release tag is not required to get started.
+
+The scaffold includes:
+
+- `project.json`: an example `status get` command for GET `/health`.
+- `main.go`, `go.mod` and `go.sum`: a thin executable with a pinned runtime.
+- `main_test.go`: HTTP fixture, discovery, input failure and native executable tests.
+- `AGENTS.md` and two `.agents/skills/` skills for development and publishing setup.
+- Native CI for all six targets, a tag-triggered release workflow and GoReleaser config.
+- README, ignore rules and `.loop/scaffold.json` recording the template/SDK versions.
+
+Adapt the example endpoint and its fixture to the project's actual API. The generated
+environment names are derived from the executable name, for example
+`MYPROJECT_API_URL` and `MYPROJECT_API_TOKEN`. The release skill guides agents to
+discover and reuse organisation infrastructure before proposing new publishing repos.
+Scaffolding itself never creates external infrastructure or publishes a release.
+
+Use `--sdk-version v0.x.y` to select another immutable SDK version. For a custom pin,
+run `go mod tidy` and commit its resulting `go.sum` before release. Existing files
+are never replaced, even on repeated init. Choose a new directory when integrating
+with a project that already has its own Go module, README or workflows. The scaffold
+is laid out as a dedicated CLI repository root. For a monorepo, an agent must merge
+the generated workflows into the repository-root `.github/workflows/` with the
+appropriate working directories. Init does not modify the parent repository.
+
 ## Project definition
 
 ```json
@@ -75,8 +114,9 @@ map maps input names to API query names. Unknown inputs are rejected. Only the
 declared string inputs and GET bindings are supported today. API prefixes in the
 base URL are preserved. Put credential variable names, never tokens, in manifests.
 
-`loop build --sdk-dir /path/to/loop-cli-adk` is the development path. Once an SDK
-release exists, use `--sdk-version v0.x.y` instead. For cross-compilation add
+`loop build --sdk-dir /path/to/loop-cli-adk` is the development path. Alternatively
+use `--sdk-version` with a published tag or immutable Go pseudo-version, as recorded
+in a generated project's `.loop/scaffold.json`. For cross-compilation add
 `--goos linux --goarch arm64`, for example. Build needs Go, execution does not.
 
 ## Development
@@ -90,7 +130,9 @@ go test -race ./...
 ```
 
 Tests run a real HTTP fixture and build a real project executable in a temporary
-directory. They compare local and embedded discovery, success and error behaviour.
+directory. They compare local and embedded discovery, success and error behaviour,
+exercise scaffold conflicts, and compile/test a complete generated project offline
+against the current SDK. Native CI additionally tests a scaffold against its public SDK pin.
 Dependency tests enforce module boundaries. Use `go test -short ./...` for a quicker
 iteration without compiling the project executable.
 
