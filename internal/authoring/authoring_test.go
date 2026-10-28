@@ -44,7 +44,22 @@ func TestBuiltCLIEqualsLocalRunner(t *testing.T) {
 		name += ".exe"
 	}
 	output := filepath.Join(t.TempDir(), "path with spaces", name)
-	if err := Build(ctx, manifest, BuildOptions{Output: output, SDKDir: root}); err != nil {
+	// Reproduce Windows Git checkouts on every platform, including a spaced SDK path.
+	sdkRoot := filepath.Join(t.TempDir(), "sdk checkout")
+	for _, dir := range []string{"pkg", "internal"} {
+		if err := os.CopyFS(filepath.Join(sdkRoot, dir), os.DirFS(filepath.Join(root, dir))); err != nil {
+			t.Fatal(err)
+		}
+	}
+	module, err := os.ReadFile(filepath.Join(root, "go.mod"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	module = bytes.ReplaceAll(bytes.ReplaceAll(module, []byte("\r\n"), []byte("\n")), []byte("\n"), []byte("\r\n"))
+	if err := os.WriteFile(filepath.Join(sdkRoot, "go.mod"), module, 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err := Build(ctx, manifest, BuildOptions{Output: output, SDKDir: sdkRoot}); err != nil {
 		t.Fatal(err)
 	}
 	env := map[string]string{"DEMO_API_URL": server.URL, "DEMO_API_TOKEN": "fixture-token"}

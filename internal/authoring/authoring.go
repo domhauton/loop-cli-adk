@@ -69,7 +69,9 @@ func Build(ctx context.Context, manifest []byte, opts BuildOptions) error {
 		if err != nil {
 			return fmt.Errorf("read SDK module: %w", err)
 		}
-		if !strings.Contains(string(mod), "module "+modulePath+"\n") {
+		// Git may check out go.mod with CRLF on Windows.
+		moduleText := strings.ReplaceAll(string(mod), "\r\n", "\n")
+		if !strings.Contains(moduleText, "module "+modulePath+"\n") {
 			return fmt.Errorf("sdk-dir is not a Loop SDK checkout")
 		}
 		goMod += "v0.0.0\n\nreplace " + modulePath + " => " + strconv.Quote(filepath.ToSlash(root)) + "\n"
