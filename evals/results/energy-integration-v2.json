@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_revision": "8c3792048d6f4665fc5d35d815fd3e592c8a1bd2",
+  "loop_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+  "loop_dirty": false,
+  "passed": [
+    "TestLoopEnergy/discovery_has_no_requests",
+    "TestLoopEnergy/actual_status",
+    "TestLoopEnergy/actual_dashboard",
+    "TestLoopEnergy/invalid_token_is_safe_structured_error",
+    "TestLoopEnergy/invalid_input_never_reaches_handler",
+    "TestLoopEnergy"
+  ],
+  "duration_seconds": 3.618,
+  "model_tokens": null,
+  "kind": "offline_integration"
+}
