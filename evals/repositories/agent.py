@@ -48,6 +48,15 @@ def main():
     harness_hash = hashlib.sha256(b''.join((HERE / p).read_bytes() for p in harness_files)).hexdigest()
     env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'SYSTEMROOT', 'WINDIR') if k in os.environ}
     env.update(CGO_ENABLED='0', GOWORK='off')
+    identity = {'schema_version': 1, 'experiment': 'native_component_repair_v2',
+        'profile': args.profile, 'condition': args.condition, 'source_revision': revision,
+        'harness_sha256': harness_hash, 'model': args.model, 'reasoning_effort': 'low',
+        'codex_version': subprocess.check_output(['codex', '--version'], text=True).strip()}
+    def fail_preflight(phase, evidence):
+        report = {**identity, 'passed': False, 'model_started': False, 'usage': summarise([]),
+                  'checks': {'preflight': False}, 'failure_phase': phase, 'preflight': evidence}
+        (output / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
+        print(json.dumps(report, indent=2))
     with tempfile.TemporaryDirectory(prefix='loop-native-agent-') as temp:
         work = Path(temp) / 'project'
         work.mkdir()
@@ -66,16 +75,19 @@ def main():
             result, _ = command(argv, work, env, output, f'setup-{i}')
             setup.append(result)
             if not command_passed(result):
-                raise RuntimeError('Native prerequisites failed; inspect setup log')
+                fail_preflight('setup', setup)
+                return
         baseline, _ = command(focused, work, env, output, 'baseline')
         target = work / profile.mutation_file
         original = target.read_bytes()
         if not command_passed(baseline) or original.count(profile.before.encode()) != 1:
-            raise RuntimeError('Baseline or mutation anchor failed')
+            fail_preflight('baseline_or_anchor', {'setup': setup, 'baseline': baseline})
+            return
         target.write_bytes(original.replace(profile.before.encode(), profile.after.encode()))
         mutation, text = command(focused, work, env, output, 'mutation')
         if not mutation_detected(mutation, text, profile.failure_marker):
-            raise RuntimeError('Mutation not detected before agent trial')
+            fail_preflight('mutation', {'baseline': baseline, 'mutation': mutation})
+            return
         if args.condition == 'skill':
             feedback = work / '.loop'
             feedback.mkdir(exist_ok=True)
@@ -85,6 +97,8 @@ def main():
             skill = work / '.agents/skills/loop-feedback'
             skill.mkdir(parents=True)
             shutil.copyfile(HERE / 'skill/SKILL.md', skill / 'SKILL.md')
+        helper_paths = ['.loop/native_command.py', '.loop/feedback.py', '.loop/feedback.json'] if args.condition == 'skill' else []
+        prepared = digest_files(work, helper_paths)
         subprocess.run(['git', 'init', '-q'], cwd=work, check=True)
         # Keep generated caches out of discovery without changing source guidance.
         (work / '.git/info/exclude').write_text('.eval-cache/\n.loop/logs/\nnode_modules/\n__pycache__/\n')
@@ -120,13 +134,22 @@ Dependencies are prepared. The Python test interpreter is {args.python}.
         suite_result, _ = command(suite, work, env, output, 'grade-suite')
         checks = {'model_completed': exit_code == 0, 'protected_files_unchanged': protected == digest_files(work, paths),
             'focused_tests': command_passed(focused_result), 'native_suite': command_passed(suite_result)}
+        observed = []
         if args.condition == 'skill':
-            checks['helper_unchanged'] = all((work / '.loop' / name).read_bytes() == (HERE / name).read_bytes() for name in ('native_command.py', 'feedback.py'))
+            checks['helper_unchanged'] = prepared == digest_files(work, helper_paths)
+            audit = work / '.loop/logs/invocations.jsonl'
+            if audit.is_file():
+                with audit.open('rb') as stream:
+                    raw = stream.read(65537)
+                if len(raw) <= 65536:
+                    try:
+                        observed = [json.loads(line)['check'] for line in raw.splitlines()]
+                    except (ValueError, KeyError, TypeError):
+                        observed = []
         (output / 'repaired-source.txt').write_bytes(target.read_bytes())
-        result = {'schema_version': 1, 'experiment': 'native_component_repair_v1',
-            'profile': args.profile, 'condition': args.condition, 'source_revision': revision,
-            'harness_sha256': harness_hash, 'model': args.model, 'reasoning_effort': 'low',
-            'codex_version': subprocess.check_output(['codex', '--version'], text=True).strip(),
+        result = {**identity, 'model_started': True,
+            'feedback_checks_observed': observed,
+            'used_prepared_feedback': set(('focused', 'suite')).issubset(observed) if args.condition == 'skill' else None,
             'duration_seconds': round(elapsed, 3), 'usage': usage, 'checks': checks,
             'passed': all(checks.values()), 'preflight': {'setup': setup, 'baseline': baseline, 'mutation': mutation}}
         (output / 'result.json').write_text(json.dumps(result, indent=2) + '\n')

@@ -5,10 +5,13 @@ description: Run this project's configured native checks with compact results an
 
 # Native feedback
 
-`.loop/feedback.json` records this project's native test commands. Run
-`python3 .loop/feedback.py list` to discover them, or read that small file.
-`python3 .loop/feedback.py focused` runs the relevant component checks;
-`python3 .loop/feedback.py suite` runs the configured broader native suite.
+Use `python3 .loop/feedback.py focused` for component feedback while iterating.
+When ready, `python3 .loop/feedback.py focused suite` runs both configured checks
+in one invocation and stops at the first failure. Already-passing focused checks
+need not be repeated before running `suite` alone.
+
+The commands are configured in `.loop/feedback.json`. Read it or run `list` when
+you need to inspect their scope; discovery is not a prerequisite to execution.
 
 The helper prints a JSON result and returns non-zero on failure, timeout or output
 limit. Successful logs stay out of context. Failures include an excerpt and a local

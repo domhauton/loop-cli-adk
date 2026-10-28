@@ -27,3 +27,11 @@ class NativeReportTests(unittest.TestCase):
         rows[-1]['source_revision'] = 'other'
         with self.assertRaises(ValueError):
             aggregate(rows)
+
+    def test_abandoned_helper_is_not_a_prepared_workflow_win(self):
+        rows = records()
+        for row in rows:
+            row['used_prepared_feedback'] = row['condition'] == 'skill'
+        self.assertTrue(aggregate(rows)['profiles']['fixture']['comparison_valid'])
+        rows[-1]['used_prepared_feedback'] = False
+        self.assertFalse(aggregate(rows)['profiles']['fixture']['comparison_valid'])

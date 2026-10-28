@@ -29,10 +29,13 @@ def aggregate(records):
                 'total_tokens': r['usage']['tokens']['input_tokens'] + r['usage']['tokens']['output_tokens']} for r in known]
             groups[condition] = {'trials': len(runs), 'passed': sum(r['passed'] is True for r in runs),
                 'unknown_usage': len(runs) - len(known),
+                'prepared_feedback_used': sum(r.get('used_prepared_feedback') is True for r in runs),
                 'median_tokens': {k: statistics.median(c[k] for c in costs) for k in costs[0]} if costs else None,
                 'total_tokens': sum(c['total_tokens'] for c in costs) if len(known) == len(runs) and runs else None,
                 'median_commands': statistics.median(r['usage']['command_count'] for r in runs) if runs else None}
         valid = all(g['trials'] >= 3 and g['trials'] == g['passed'] and not g['unknown_usage'] for g in groups.values())
+        if any('used_prepared_feedback' in r for r in selected):
+            valid = valid and all(r.get('used_prepared_feedback') is True for r in selected if r['condition'] == 'skill')
         a, b = groups['natural'], groups['skill']
         ratio = b['total_tokens'] / a['total_tokens'] if valid and a['total_tokens'] else None
         profiles[profile] = {'identity': {k: selected[0][k] for k in IDENTITY},
