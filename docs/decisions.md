@@ -130,3 +130,26 @@ project-development and manifest-only guidance. A measured trial guessed a JSON
 Schema-style object and needed a repair. A short generic example supplies the
 missing contract; it does not introduce another manifest language or prescribe
 an application's API. Both generated examples are validated by `loop check`.
+
+## Native feedback remains opt-in experimental work
+
+The modular harness has been validated against Loop's Go tests, Landing's Node
+suite and PorscheConnect's Home Assistant tests at pinned revisions. Eighteen
+model repair trials passed. The prepared skill reduced median total tokens on the
+PorscheConnect defect, but increased them on the Go and Node defects; uncached
+input did not move consistently with total input. This does not establish a
+universal cost saving or justify making another runtime dependency mandatory.
+
+The next measured revision batches configured native checks and removes an
+unnecessary discovery prerequisite. It records actual helper use and protects the
+prepared configuration from edits. Those are experimental changes, not a decision
+to ship a native-process protocol or a verification language in the CLI runtime.
+
+A fresh comparison of the batched native feedback prototype passed all 18 repairs
+and confirmed helper use in all nine prepared-workflow runs. Median total tokens
+fell for Loop and PorscheConnect but remained higher for Landing. Uncached input
+improved only on PorscheConnect. These results support continuing an optional
+native-check workflow experiment; they do not justify mandatory adoption or a
+universal cost claim. Preserve native assertions and keep process execution apart
+from admin-API operations. Configuration and installation costs still need explicit
+measurement before claiming a pay-off period.

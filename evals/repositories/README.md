@@ -81,3 +81,28 @@ establish broad transfer, installation pay-off, or full production readiness.
 The installed helper and dependency preparation are excluded from model timing;
 preflight durations and parent engineering usage are recorded separately. Keep
 this frontend experimental pending broader evidence.
+
+### Batched feedback revision
+
+`../results/native-repair-v2.json` contains a fresh 18-run comparison. The revised
+helper accepts `focused suite` in one invocation, validates the whole selection
+first and stops at the first failed check. Guidance makes discovery optional.
+Invocation records confirm both checks ran in all nine skill trials; the grader
+also verifies the supplied helper configuration is unchanged. All 18 repairs pass.
+
+| Repository | Natural median total tokens | Skill median total tokens |
+| --- | ---: | ---: |
+| Loop | 145,891 | 122,792 |
+| Landing | 91,876 | 96,896 |
+| PorscheConnect | 178,327 | 117,197 |
+
+The same-run comparison shows about 16% fewer median total tokens for Loop and
+34% fewer for PorscheConnect; Landing is about 5% higher. Median uncached input
+increases for Loop (15,609 to 18,540) and Landing (10,231 to 14,302), but decreases
+for PorscheConnect (17,933 to 12,504). Monetary savings are not inferred. The old
+and new harnesses are not pooled, and the changes bundle guidance and batching,
+so this is not an isolated causal estimate for either change.
+
+The result supports an optional prepared native workflow, particularly for verbose
+failure output, but installation/configuration pay-off and broader defect coverage
+remain unproven. The current frontend still lives only in evaluation tooling.

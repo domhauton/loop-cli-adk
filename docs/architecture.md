@@ -150,3 +150,25 @@ these values without understanding HTTP; a future protocol can expose its own
 safe keys. Existing error codes, messages and exit codes are unchanged. Causes,
 credentials, URLs and response bodies remain excluded. Consumers should tolerate
 additional details rather than parsing human-readable messages for protocol data.
+
+## Native feedback experiments
+
+`evals/repositories` exercises existing project test frameworks without adding a
+server API or entering the runtime graph. `profiles.py` owns each repository's
+pinned source, prerequisites, test commands and regression fixture. The shared
+`native_command.py` owns bounded subprocess execution and logs. The experimental
+`feedback.py` frontend selects configured commands and emits compact results;
+assertions stay in native tests. `agent.py` owns isolated model trials and
+independent grading, while `report.py` checks provenance and accounts for usage.
+
+This separation lets a new repository adapter supply its native workflow without
+changing the executor or understanding another repository's stack. The experiment
+requires the host project's normal tools plus Python for orchestration. It does
+not change the installed Loop/project executable's Go-free, Python-free runtime
+contract. `loop init` does not currently install this experimental frontend.
+
+Batched feedback commands validate the whole selection before execution and stop
+on the first failed check. Skipped checks are explicit; a partial batch cannot
+report success. Full bounded logs stay local, with compact results and labelled
+failure excerpts. Independent grading runs original native tests regardless of
+the helper's claimed outcome and checks that tests/configuration remain unchanged.
