@@ -4,13 +4,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
-	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -138,27 +136,26 @@ func TestGeneratedProjectBuildsAndTests(t *testing.T) {
 	if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err != nil {
 		t.Fatal(err)
 	}
-	// Go workspaces compare physical paths; macOS temp directories use /var symlinks.
-	dir, err := filepath.EvalSymlinks(dir)
-	if err != nil {
-		t.Fatal(err)
-	}
 	root, err := filepath.Abs("../..")
 	if err != nil {
 		t.Fatal(err)
 	}
 	// A separate workspace exercises the current SDK without modifying the generated
 	// go.mod or requiring network access. CI separately checks the published SDK pin.
-	workspace := filepath.Join(t.TempDir(), "go.work")
-	content := fmt.Sprintf("go 1.26.0\n\nuse (\n%s\n%s\n)\n", strconv.Quote(filepath.ToSlash(dir)), strconv.Quote(filepath.ToSlash(root)))
-	if err := os.WriteFile(workspace, []byte(content), 0600); err != nil {
-		t.Fatal(err)
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
 	defer cancel()
+	// Let Go use '.' and discover go.work from its actual working directory.
+	// Absolute temp paths can have different symlink/short-name spellings on macOS
+	// and Windows, which prevents Go from recognising an otherwise valid workspace.
+	env := replaceEnv(os.Environ(), map[string]string{"GOWORK": "", "GOPROXY": "off", "GOSUMDB": "off"})
+	setup := exec.CommandContext(ctx, "go", "work", "init", ".", root)
+	setup.Dir, setup.Env = dir, env
+	if output, err := setup.CombinedOutput(); err != nil {
+		t.Fatalf("initialise test workspace: %v\n%s", err, output)
+	}
 	cmd := exec.CommandContext(ctx, "go", "test", "-v", "./...")
 	cmd.Dir = dir
-	cmd.Env = replaceEnv(os.Environ(), map[string]string{"GOWORK": workspace, "GOPROXY": "off", "GOSUMDB": "off"})
+	cmd.Env = env
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Fatalf("generated project test failed: %v\n%s", err, output)
