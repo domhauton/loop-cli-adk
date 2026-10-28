@@ -37,7 +37,7 @@ def compare(natural, loop):
         rows.append({"tasks_completed": index + 1, "all_checks_passed_so_far": bool(valid),
                      "natural": dict(totals["natural"]), "loop": dict(totals["loop"]),
                      "loop_minus_natural_total_tokens": delta})
-    return {"schema_version": 1, "identity": {key: natural[key] for key in IDENTITY},
+    return {"schema_version": 1, "loop_mode": loop.get("loop_mode", "scaffold"), "identity": {key: natural[key] for key in IDENTITY},
             "first_observed_total_token_break_even_after_tasks": first,
             "all_checks_passed": bool(valid), "cumulative": rows,
             "limitations": ["Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",

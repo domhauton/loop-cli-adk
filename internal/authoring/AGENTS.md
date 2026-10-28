@@ -18,3 +18,9 @@ Use real fixtures and temporary directories. Read the shared contract in
 `pkg/operation` and the import budget in `internal/architecture`.
 
 Verify with `go test ./internal/authoring` and `go test ./internal/architecture`.
+
+`project` mode is the default standalone scaffold. `manifest` mode emits only the
+manifest, inspection skill and metadata; it must not write a Go module, README,
+root AGENTS file or workflows into an existing host project. It cannot select an
+SDK version because it uses the installed runner. Keep both modes on the same
+preflight/exclusive-create path and bump the template version for recipe changes.

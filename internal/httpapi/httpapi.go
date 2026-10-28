@@ -58,6 +58,8 @@ func Bind(cfg Config) operation.Handler {
 			return nil, operation.NewError("configuration", "cannot construct API request", err)
 		}
 		req.Header.Set("Accept", "application/json")
+		// Identify the shared client in server diagnostics without exposing credentials.
+		req.Header.Set("User-Agent", "loop-cli-adk")
 		if cfg.TokenEnv != "" {
 			token := cfg.Getenv(cfg.TokenEnv)
 			if token == "" {

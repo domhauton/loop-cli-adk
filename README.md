@@ -152,3 +152,20 @@ Non-2xx HTTP errors expose a machine-readable status, for example
 `{"error":{"code":"http_status","message":"API returned HTTP 401","details":{"http_status":"401"}}}`.
 The optional details map contains safe string values. Existing error codes and
 exit codes are unchanged; consumers need not parse the message to identify 401.
+
+For API checks inside an existing project, start without a standalone build:
+
+```sh
+loop init --mode manifest --name myproject --dir .
+loop check --manifest project.json
+loop run --manifest project.json -- describe
+```
+
+Manifest mode creates only `project.json`, an inspection skill and scaffold
+metadata. It preserves existing README, agent guidance and language build files.
+It uses the installed Loop directly and needs no Go toolchain or SDK dependency.
+Choose the default project mode when you need a named CLI with tests and release
+workflows. Both modes retain the same refusal to overwrite existing files.
+
+HTTP requests identify the shared client with `User-Agent: loop-cli-adk` for server
+diagnostics. This sends no user or machine identifier and collects no analytics.

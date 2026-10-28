@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "experiment": "natural_workflow_amortisation_pilot",
+  "condition": "loop",
+  "loop_mode": "runner",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "low",
+  "harness_sha256": "e684b2a5186df03cf3cc7e666590cb90d2113d84e247c186e62637edff30919d",
+  "loop_revision": "9637917f70b3f88d000a30b48d0285bcd7c52ae5",
+  "codex_version": "codex-cli 0.164.0-alpha.11.1",
+  "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+  "stages": [
+    {
+      "exit_code": 0,
+      "duration_seconds": 22.463,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 97380,
+          "cached_input_tokens": 88576,
+          "output_tokens": 970
+        },
+        "reasoning_output_tokens": 21,
+        "command_count": 7,
+        "failed_command_count": 0,
+        "event_bytes": 9848
+      },
+      "stage": 0,
+      "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+      "checks": {
+        "verification_command": true,
+        "normal": true,
+        "wrong_state": true,
+        "wrong_battery": true
+      },
+      "passed": true
+    },
+    {
+      "exit_code": 0,
+      "duration_seconds": 22.432,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 97709,
+          "cached_input_tokens": 92800,
+          "output_tokens": 866
+        },
+        "reasoning_output_tokens": 100,
+        "command_count": 5,
+        "failed_command_count": 0,
+        "event_bytes": 7089
+      },
+      "stage": 1,
+      "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+      "checks": {
+        "verification_command": true,
+        "normal": true,
+        "wrong_state": true,
+        "wrong_battery": true,
+        "auth_bypass": true
+      },
+      "passed": true
+    },
+    {
+      "exit_code": 0,
+      "duration_seconds": 12.391,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 64266,
+          "cached_input_tokens": 59520,
+          "output_tokens": 324
+        },
+        "reasoning_output_tokens": 24,
+        "command_count": 3,
+        "failed_command_count": 0,
+        "event_bytes": 7449
+      },
+      "stage": 2,
+      "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+      "checks": {
+        "verification_command": true,
+        "normal": true,
+        "wrong_state": true,
+        "wrong_battery": true,
+        "auth_bypass": true
+      },
+      "passed": true
+    },
+    {
+      "exit_code": 0,
+      "duration_seconds": 15.01,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 71333,
+          "cached_input_tokens": 64768,
+          "output_tokens": 627
+        },
+        "reasoning_output_tokens": 12,
+        "command_count": 3,
+        "failed_command_count": 0,
+        "event_bytes": 9919
+      },
+      "stage": 3,
+      "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+      "checks": {
+        "verification_command": true,
+        "normal": true,
+        "wrong_state": true,
+        "wrong_battery": true,
+        "auth_bypass": true
+      },
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "manual_observations": [
+    "Initial agent generated and deleted a complete project to discover the manifest shape.",
+    "Final verifier used Python urllib for both status and auth checks; later task costs are not evidence of continued Loop use.",
+    "No paired natural run used this exact revised grader; this is a diagnostic pilot, not a controlled savings claim."
+  ]
+}

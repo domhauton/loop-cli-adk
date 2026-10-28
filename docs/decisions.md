@@ -94,3 +94,17 @@ tests and reusable scripts; never force it to rewrite scripts. Count CLI setup a
 maintenance, preserve workspace artefacts between tasks in both arms, and grade
 the same outcomes. Paid CI evals are opt-in; deterministic grader checks run in
 the ordinary six-target matrix.
+
+## Starting small
+
+Template version 3 adds an explicit `manifest` init mode. The agent runner pilot
+created a full project merely to learn the manifest shape, then deleted its Go and
+release files. Manifest mode replaces that unnecessary setup with three files:
+the definition, an inspection skill and scaffold metadata. The installed Loop owns
+execution; no SDK version is recorded because no project Go dependency exists.
+The default `project` mode continues to generate a distributable named CLI.
+
+A full CLI is not assumed to repay its setup cost for a small API. The lifecycle
+evaluation lets agents retain their own verification scripts, measures cumulative
+setup/maintenance cost, and records observed client use. Keep that natural baseline
+strong rather than forcing repeated script generation to manufacture a win.

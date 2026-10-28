@@ -172,3 +172,11 @@ records a parent-session checkpoint, including design, coding, research and eval
 work. Its scope excludes architecture subagents and separate model trials. Cached
 input and reasoning are already included in their respective totals. This is not
 an estimate of dollars or tokens attributable solely to writing source code.
+
+The lifecycle harness also accepts `--loop-mode runner` to measure the existing
+manifest runner without a standalone build, and `--sdk PATH` to select the kit
+checkout independently of the harness. New runs rotate the grading token and
+mutate each required state field separately. Observed requests report the Loop
+client marker; a tool-availability condition does not prove that an agent kept
+using the tool. The first lightweight pilot eventually replaced its Loop call
+with direct HTTP, so its later timings must not be presented as a Loop-use win.

@@ -52,7 +52,7 @@ func TestDiscoveryDoesNotReadCredentials(t *testing.T) {
 
 func TestRequestEncodingAndOutput(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/admin/v1/users" || r.URL.Query().Get("search") != "Ada & Grace" || r.Header.Get("Authorization") != "Bearer secret-fixture" {
+		if r.URL.Path != "/admin/v1/users" || r.URL.Query().Get("search") != "Ada & Grace" || r.Header.Get("Authorization") != "Bearer secret-fixture" || r.Header.Get("User-Agent") != "loop-cli-adk" {
 			t.Errorf("unexpected request: path=%q query=%q", r.URL.Path, r.URL.RawQuery)
 		}
 		fmt.Fprint(w, "{\n\"users\": [\"Ada\"]\n}")

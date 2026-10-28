@@ -1,0 +1,30 @@
+---
+name: [[.Name]]-inspect
+description: Inspect and verify the [[.Name]] API through its Loop manifest. Use for local API checks and command bindings, alongside the host project's existing tests.
+---
+
+# Inspect [[.Name]]
+
+Read `project.json` and the actual API contract. The starter `/health` binding is
+an example; replace it with a real JSON endpoint. The installed Loop runs this
+manifest directly, with no Go module or standalone build:
+
+```sh
+loop check --manifest project.json
+loop run --manifest project.json -- describe
+loop run --manifest project.json -- status get
+```
+
+Bindings support GET, string inputs and complete JSON results. `http.query` maps
+input names to API query names. Supply input with `--input '{"name":"value"}'`.
+Credentials come from `[[.BaseURLEnv]]` and `[[.TokenEnv]]`; never copy their values
+into source or diagnostics. Base URL path prefixes are preserved.
+
+Reuse the host project's tests and fixtures for business assertions. Keep useful
+verification code between tasks; a new script is not required for each check.
+Discovery needs no credentials. Validate a changed binding with `loop check`, then
+exercise the relevant operation against the authorised local fixture.
+
+A named executable can be built later with `loop build`; use `loop build --help`
+and select a pinned SDK or explicit development checkout. Publication is separate
+from these local checks.

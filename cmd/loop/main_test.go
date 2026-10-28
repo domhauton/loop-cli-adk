@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -67,5 +68,36 @@ func TestInitCommand(t *testing.T) {
 	status = execute(context.Background(), []string{"init", "--name", "reefctl", "--dir", dir}, &out, &errout)
 	if status != 2 || out.Len() != 0 || !json.Valid(errout.Bytes()) {
 		t.Fatalf("repeat init: status=%d stdout=%s stderr=%s", status, &out, &errout)
+	}
+}
+
+func TestAuthoringHelpNeedsNoManifest(t *testing.T) {
+	for _, command := range []string{"check", "run", "build"} {
+		t.Run(command, func(t *testing.T) {
+			var out, diagnostic bytes.Buffer
+			status := execute(t.Context(), []string{command, "--manifest", filepath.Join(t.TempDir(), "missing"), "--help"}, &out, &diagnostic)
+			if status != 0 || diagnostic.Len() != 0 || !strings.Contains(out.String(), "loop "+command) {
+				t.Fatalf("status=%d stdout=%s stderr=%s", status, &out, &diagnostic)
+			}
+		})
+	}
+}
+
+func TestManifestInitCommand(t *testing.T) {
+	dir := t.TempDir()
+	var out, diagnostic bytes.Buffer
+	status := execute(t.Context(), []string{"init", "--mode", "manifest", "--name", "energy", "--dir", dir}, &out, &diagnostic)
+	if status != 0 || diagnostic.Len() != 0 {
+		t.Fatalf("status=%d stderr=%s", status, &diagnostic)
+	}
+	var result struct {
+		Mode  string   `json:"mode"`
+		Files []string `json:"files"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
+	if result.Mode != "manifest" || len(result.Files) != 3 {
+		t.Fatalf("unexpected result: %s", &out)
 	}
 }

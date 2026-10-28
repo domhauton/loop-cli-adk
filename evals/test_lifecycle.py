@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-from lifecycle import Fixture, TOKEN, grade
+from lifecycle import Fixture, TOKEN, grade, stage_passed
 
 
 class LifecycleTests(unittest.TestCase):
@@ -26,6 +26,10 @@ assert data['car_soc'] == 50 and data['battery_soc'] == 80
                 self.assertFalse(grade(work, env, fixture)["normal"])
         finally:
             fixture.close()
+
+    def test_failed_setup_is_not_rescued_by_existing_scaffold(self):
+        self.assertFalse(stage_passed(1, {"cli_scaffolded": True}))
+        self.assertFalse(stage_passed(None, {"cli_scaffolded": True}))
 
     def test_missing_command_is_not_success(self):
         fixture = Fixture()

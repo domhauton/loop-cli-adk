@@ -11,6 +11,7 @@ import subprocess
 import tempfile
 import threading
 import time
+import uuid
 
 from agent import ROOT, checked, run
 from usage import summarise, MAX_EVENT_BYTES
@@ -45,7 +46,8 @@ regressions. Run it before finishing. Do not hardcode the URL or token in code.
 
 
 class Fixture:
-    def __init__(self):
+    def __init__(self, token=TOKEN):
+        self.token = token
         self.stage = 0
         self.variant = "normal"
         self.calls = []
@@ -56,7 +58,7 @@ class Fixture:
                 pass
 
             def do_GET(self):
-                outer.calls.append(self.path)
+                outer.calls.append({"path": self.path, "client": self.headers.get("User-Agent", "")})
                 status, body = outer.response(self.path, self.headers.get("Authorization"))
                 self.send_response(status)
                 self.send_header("Content-Type", "application/json")
@@ -74,10 +76,10 @@ class Fixture:
     def response(self, path, auth):
         if path != "/admin" + self.route:
             return 404, {"private": PRIVATE}
-        if auth != "Bearer " + TOKEN and self.variant != "auth_bypass":
+        if auth != "Bearer " + self.token and self.variant != "auth_bypass":
             return 401, {"private": PRIVATE}
         car, battery = (75, 40) if self.stage == 3 else (50, 80)
-        return 200, {"car_soc": car + (1 if self.variant == "wrong_state" else 0), "battery_soc": battery}
+        return 200, {"car_soc": car + (1 if self.variant == "wrong_state" else 0), "battery_soc": battery + (1 if self.variant == "wrong_battery" else 0)}
 
     def close(self):
         self.server.shutdown()
@@ -93,7 +95,11 @@ def grade(work, env, fixture):
     except (OSError, ValueError, KeyError, TypeError):
         return {"verification_command": False}
     checks = {"verification_command": True}
-    variants = ["normal", "wrong_state"] + (["auth_bypass"] if fixture.stage >= 1 else [])
+    fixture.verification_calls = None
+    original_token = fixture.token
+    fixture.token = "rotated-fixture-" + uuid.uuid4().hex
+    env = dict(env, ENERGY_API_TOKEN=fixture.token)
+    variants = ["normal", "wrong_state", "wrong_battery"] + (["auth_bypass"] if fixture.stage >= 1 else [])
     try:
         for variant in variants:
             fixture.variant, fixture.calls = variant, []
@@ -102,12 +108,15 @@ def grade(work, env, fixture):
             except (OSError, subprocess.SubprocessError):
                 checks[variant] = False
                 continue
+            if variant == "normal":
+                fixture.verification_calls = {"total": len(fixture.calls), "loop_client": sum(c["client"] == "loop-cli-adk" for c in fixture.calls)}
             output = result.stdout + result.stderr
             checks[variant] = (bool(fixture.calls) and
                 ((result.returncode == 0) if variant == "normal" else (result.returncode != 0)) and
-                TOKEN not in output and PRIVATE not in output)
+                TOKEN not in output and fixture.token not in output and PRIVATE not in output)
     finally:
         fixture.variant = "normal"
+        fixture.token = original_token
     return checks
 
 
@@ -131,13 +140,20 @@ def measure(work, output, prompt, env, model, timeout):
     return {"exit_code": code, "duration_seconds": round(time.monotonic() - started, 3), "usage": usage}
 
 
+def stage_passed(exit_code, checks):
+    return exit_code == 0 and bool(checks) and all(checks.values())
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--condition", choices=("natural", "loop"), required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model", default="gpt-6.1-sol")
     parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument("--loop-mode", choices=("scaffold", "runner"), default="scaffold")
+    parser.add_argument("--sdk", type=Path, default=ROOT)
     args = parser.parse_args()
+    sdk = args.sdk.resolve()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     with tempfile.TemporaryDirectory(prefix="loop-lifecycle-") as temp:
@@ -152,13 +168,20 @@ def main():
             tools = Path(temp) / "tools"
             tools.mkdir()
             loop = tools / ("loop.exe" if os.name == "nt" else "loop")
-            checked(["go", "build", "-o", str(loop), "./cmd/loop"], ROOT, env)
+            checked(["go", "build", "-o", str(loop), "./cmd/loop"], sdk, env)
             env["PATH"] = str(tools) + os.pathsep + env["PATH"]
             setup = """For this condition, first use `loop init --name energyctl --dir cli`
 to create a reusable project CLI for the documented API. Adapt its example binding
 and tests, and build the CLI. Use the generated skills where useful. Count this
 as setup work, not a reason to skip the verification deliverable. After setup,
 choose how to use the CLI alongside other testing tools as you see fit.
+"""
+            if args.loop_mode == "runner":
+                setup = """For this condition, use the installed Loop manifest runner for the documented
+API. Create a small project.json and invoke `loop run --manifest project.json --
+status get`. Use `loop --help` for available commands. A named standalone CLI is
+not required for this development workflow. Choose how to combine Loop with other
+testing tools, retaining useful work between tasks.
 """
             setup += "Available Loop executable: " + str(loop) + "\n"
         fixture = Fixture()
@@ -173,9 +196,9 @@ choose how to use the CLI alongside other testing tools as you see fit.
                 prompt = GUIDANCE + "\nRead API.md. " + task + "\n" + (setup if index == 0 else "")
                 result = measure(work, stage, prompt, env, args.model, args.timeout)
                 checks = grade(work, env, fixture) if result["exit_code"] == 0 else {}
-                if args.condition == "loop" and index == 0:
+                if args.condition == "loop" and index == 0 and args.loop_mode == "scaffold":
                     checks["cli_scaffolded"] = (work / "cli/project.json").is_file()
-                result.update(stage=index, task=task, checks=checks, passed=bool(checks) and all(checks.values()))
+                result.update(stage=index, task=task, checks=checks, verification_calls=getattr(fixture, "verification_calls", None), passed=stage_passed(result["exit_code"], checks))
                 results.append(result)
                 (stage / "result.json").write_text(json.dumps(result, indent=2) + "\n")
                 print(json.dumps({"condition": args.condition, **result}), flush=True)
@@ -183,9 +206,9 @@ choose how to use the CLI alongside other testing tools as you see fit.
         finally:
             fixture.close()
         report = {"schema_version": 1, "experiment": "natural_workflow_amortisation_pilot",
-            "condition": args.condition, "model": args.model, "reasoning_effort": "low",
+            "condition": args.condition, "loop_mode": args.loop_mode if args.condition == "loop" else None, "model": args.model, "reasoning_effort": "low",
             "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-            "loop_revision": checked(["git", "rev-parse", "HEAD"], ROOT, env).stdout.strip(),
+            "loop_revision": checked(["git", "rev-parse", "HEAD"], sdk, env).stdout.strip(),
             "codex_version": checked(["codex", "--version"], ROOT, env).stdout.strip(),
             "fixture": "synthetic Energy-style read API; not actual Energy handlers",
             "stages": results, "passed": all(r["passed"] for r in results)}

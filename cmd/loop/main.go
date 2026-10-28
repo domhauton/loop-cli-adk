@@ -28,7 +28,7 @@ func run() int {
 
 func execute(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 || args[0] == "--help" || args[0] == "help" {
-		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop init --name myproject --dir ./myproject-cli\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
+		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop init --name myproject --dir ./myproject-cli\n  loop init --mode manifest --name myproject --dir .\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
 		return 0
 	}
 	if args[0] == "version" || args[0] == "--version" {
@@ -53,6 +53,20 @@ func execute(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 		flags.StringVar(&opts.GOARCH, "goarch", "", "target architecture")
 	}
 	if err := flags.Parse(args[1:]); err != nil {
+		if err == flag.ErrHelp {
+			usage := map[string]string{
+				"check": "loop check --manifest FILE",
+				"run":   "loop run --manifest FILE -- COMMAND [--input JSON]",
+				"build": "loop build --manifest FILE --output EXECUTABLE (--sdk-dir CHECKOUT | --sdk-version VERSION)",
+			}
+			fmt.Fprintln(stdout, usage[args[0]])
+			if args[0] == "build" {
+				fmt.Fprintln(stdout, "Default scaffold SDK:", authoring.DefaultSDKVersion)
+			}
+			flags.SetOutput(stdout)
+			flags.PrintDefaults()
+			return 0
+		}
 		return cli.WriteError(stderr, operation.NewError("usage", err.Error(), err))
 	}
 	if args[0] != "run" && flags.NArg() != 0 {
@@ -86,12 +100,13 @@ func initialise(args []string, stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("init", flag.ContinueOnError)
 	flags.SetOutput(io.Discard)
 	var opts authoring.InitOptions
+	flags.StringVar(&opts.Mode, "mode", authoring.ModeProject, "project or manifest")
 	flags.StringVar(&opts.Directory, "dir", ".", "destination directory")
 	flags.StringVar(&opts.Name, "name", "", "project executable name")
-	flags.StringVar(&opts.SDKVersion, "sdk-version", authoring.DefaultSDKVersion, "pinned SDK semantic version")
+	flags.StringVar(&opts.SDKVersion, "sdk-version", "", "pinned SDK semantic version (project mode)")
 	if err := flags.Parse(args); err != nil {
 		if err == flag.ErrHelp {
-			fmt.Fprintln(stdout, "loop init --name NAME [--dir DIRECTORY] [--sdk-version VERSION]\nCreates a manifest, project entry point, skills, tests and release workflow. Existing files are never overwritten.")
+			fmt.Fprintln(stdout, "loop init --name NAME [--dir DIRECTORY] [--mode project|manifest] [--sdk-version VERSION]\nProject mode creates a standalone CLI, skills, tests and release workflow. Manifest mode creates project.json and an inspection skill for the installed Loop. Existing files are never overwritten.")
 			return 0
 		}
 		return cli.WriteError(stderr, operation.NewError("usage", err.Error(), err))

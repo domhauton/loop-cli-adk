@@ -191,3 +191,51 @@ func snapshot(t *testing.T, directory string) map[string]string {
 	}
 	return files
 }
+
+func TestManifestModeFitsAnExistingProject(t *testing.T) {
+	dir := t.TempDir()
+	for _, name := range []string{"README.md", "AGENTS.md", "go.mod"} {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte("existing project"), 0644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	result, err := Init(InitOptions{Directory: dir, Name: "reefctl", Mode: ModeManifest})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.Mode != ModeManifest || result.SDKVersion != "" || len(result.Files) != 3 {
+		t.Fatalf("unexpected manifest scaffold: %+v", result)
+	}
+	for _, name := range []string{"README.md", "AGENTS.md", "go.mod"} {
+		data, err := os.ReadFile(filepath.Join(dir, name))
+		if err != nil || string(data) != "existing project" {
+			t.Fatalf("changed %s: %v", name, err)
+		}
+	}
+	data, err := os.ReadFile(filepath.Join(dir, "project.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := definition.Parse(data); err != nil {
+		t.Fatal(err)
+	}
+	metadata, err := os.ReadFile(filepath.Join(dir, ".loop/scaffold.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(string(metadata), "sdk_version") {
+		t.Fatalf("manifest mode recorded an unused SDK: %s", metadata)
+	}
+}
+
+func TestInitRejectsAmbiguousModesBeforeWriting(t *testing.T) {
+	for _, opts := range []InitOptions{{Name: "reefctl", Mode: "unknown"}, {Name: "reefctl", Mode: ModeManifest, SDKVersion: DefaultSDKVersion}} {
+		opts.Directory = filepath.Join(t.TempDir(), "new")
+		if _, err := Init(opts); err == nil {
+			t.Fatalf("accepted %+v", opts)
+		}
+		if _, err := os.Stat(opts.Directory); !os.IsNotExist(err) {
+			t.Fatalf("invalid options touched destination: %v", err)
+		}
+	}
+}

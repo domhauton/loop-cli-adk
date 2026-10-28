@@ -24,14 +24,21 @@ import (
 const DefaultSDKVersion = "v0.0.0-20261028215504-59d6475117d9"
 
 // TemplateVersion identifies the scaffold recipe without implying automatic upgrades.
-const TemplateVersion = 2
+const TemplateVersion = 3
 
 //go:embed templates/*
 var scaffoldTemplates embed.FS
 
-// InitOptions selects a local destination, executable name and pinned SDK version.
+// ModeProject scaffolds a standalone CLI, tests, skills and release workflows.
+const ModeProject = "project"
+
+// ModeManifest scaffolds a manifest and inspection skill for an installed Loop.
+const ModeManifest = "manifest"
+
+// InitOptions selects a local destination, mode, name and optional SDK version.
 // Initialisation does not invoke Go, inspect credentials or access the network.
 type InitOptions struct {
+	Mode       string
 	Directory  string
 	Name       string
 	SDKVersion string
@@ -39,9 +46,10 @@ type InitOptions struct {
 
 // InitResult lists the created files relative to Directory, in stable order.
 type InitResult struct {
+	Mode            string   `json:"mode"`
 	Directory       string   `json:"directory"`
 	Name            string   `json:"name"`
-	SDKVersion      string   `json:"sdk_version"`
+	SDKVersion      string   `json:"sdk_version,omitempty"`
 	TemplateVersion int      `json:"template_version"`
 	Files           []string `json:"files"`
 }
@@ -52,8 +60,20 @@ type scaffoldData struct{ Name, SDKVersion, BaseURLEnv, TokenEnv string }
 // Existing files, including identical files from a previous run, are never replaced.
 func Init(opts InitOptions) (InitResult, error) {
 	var result InitResult
-	if opts.SDKVersion == "" {
-		opts.SDKVersion = DefaultSDKVersion
+	if opts.Mode == "" {
+		opts.Mode = ModeProject
+	}
+	switch opts.Mode {
+	case ModeProject:
+		if opts.SDKVersion == "" {
+			opts.SDKVersion = DefaultSDKVersion
+		}
+	case ModeManifest:
+		if opts.SDKVersion != "" {
+			return result, fmt.Errorf("manifest mode uses the installed Loop and cannot select an SDK version")
+		}
+	default:
+		return result, fmt.Errorf("mode must be project or manifest")
 	}
 	files, err := renderScaffold(opts)
 	if err != nil {
@@ -129,7 +149,7 @@ func Init(opts InitOptions) (InitResult, error) {
 		}
 	}
 	complete = true
-	return InitResult{Directory: directory, Name: opts.Name, SDKVersion: opts.SDKVersion, TemplateVersion: TemplateVersion, Files: names}, nil
+	return InitResult{Mode: opts.Mode, Directory: directory, Name: opts.Name, SDKVersion: opts.SDKVersion, TemplateVersion: TemplateVersion, Files: names}, nil
 }
 
 func renderScaffold(opts InitOptions) (map[string][]byte, error) {
@@ -139,7 +159,7 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 	if regexp.MustCompile(`^(con|prn|aux|nul|com[1-9]|lpt[1-9])$`).MatchString(opts.Name) {
 		return nil, fmt.Errorf("name %q is reserved on Windows", opts.Name)
 	}
-	if !regexp.MustCompile(`^v0\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?$`).MatchString(opts.SDKVersion) {
+	if opts.Mode == ModeProject && !regexp.MustCompile(`^v0\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?$`).MatchString(opts.SDKVersion) {
 		return nil, fmt.Errorf("sdk-version must be an explicit v0 semantic version, not a branch or latest")
 	}
 	prefix := strings.ToUpper(strings.ReplaceAll(opts.Name, "-", "_"))
@@ -153,19 +173,20 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 		return nil, fmt.Errorf("validate generated manifest: %w", err)
 	}
 	metadata, err := json.MarshalIndent(struct {
+		Mode            string `json:"mode"`
 		TemplateVersion int    `json:"template_version"`
-		SDKVersion      string `json:"sdk_version"`
-	}{TemplateVersion, opts.SDKVersion}, "", "  ")
+		SDKVersion      string `json:"sdk_version,omitempty"`
+	}{opts.Mode, TemplateVersion, opts.SDKVersion}, "", "  ")
 	if err != nil {
 		return nil, fmt.Errorf("encode scaffold metadata: %w", err)
 	}
-	files := map[string][]byte{"project.json": append(manifest, '\n'), "main.go": []byte(projectMain), ".loop/scaffold.json": append(metadata, '\n')}
+	files := map[string][]byte{"project.json": append(manifest, '\n'), ".loop/scaffold.json": append(metadata, '\n')}
 	if opts.SDKVersion == DefaultSDKVersion {
 		// Verified against the public Go checksum database for the bootstrap revision.
 		// Other pins resolve their own checksums with go mod tidy before committing.
 		files["go.sum"] = []byte(modulePath + " " + DefaultSDKVersion + " h1:iJfZndgPs4aJPYkQpd6Pno3fh7GurTYwk08IrOZNGlY=\n" + modulePath + " " + DefaultSDKVersion + "/go.mod h1:u7e1313Ner7uIpYl6LoGo2Rn3JV1PtFKekpq7kSFGl8=\n")
 	}
-	for destination, source := range map[string]string{
+	templates := map[string]string{
 		"go.mod": "go.mod.tmpl", "main_test.go": "main_test.go.tmpl",
 		"contracts_test.go": "contracts_test.go.tmpl",
 		"README.md":         "README.md.tmpl", "AGENTS.md": "AGENTS.md.tmpl", ".gitignore": "gitignore.tmpl",
@@ -173,7 +194,13 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 		".agents/skills/" + opts.Name + "-develop/SKILL.md": "develop-skill.md.tmpl",
 		".agents/skills/" + opts.Name + "-release/SKILL.md": "release-skill.md.tmpl",
 		".agents/skills/" + opts.Name + "-test/SKILL.md":    "test-skill.md.tmpl",
-	} {
+	}
+	if opts.Mode == ModeManifest {
+		templates = map[string]string{".agents/skills/" + opts.Name + "-inspect/SKILL.md": "manifest-skill.md.tmpl"}
+	} else {
+		files["main.go"] = []byte(projectMain)
+	}
+	for destination, source := range templates {
 		content, err := scaffoldTemplates.ReadFile("templates/" + source)
 		if err != nil {
 			return nil, fmt.Errorf("read template %s: %w", source, err)
