@@ -35,6 +35,19 @@ class CITests(unittest.TestCase):
         records[-1]["usage"]["tokens"]["output_tokens"] = 200
         self.assertFalse(compare(records, 1.1)["passed"])
 
+    def test_changed_source_and_mixed_executors_cannot_be_pooled(self):
+        records = trials()
+        records[-1]["source_sha256"] = "changed"
+        with self.assertRaises(ValueError):
+            compare(records, 1.1)
+        records = trials()
+        records[-1]["executor"] = "local_codex_exec"
+        with self.assertRaises(ValueError):
+            compare(records, 1.1)
+        for ratio in (float('nan'), float('inf'), 0, -1):
+            with self.assertRaises(ValueError):
+                compare(trials(), ratio)
+
     def test_requires_distinct_pairs_and_matching_setup(self):
         records = trials()
         self.assertTrue(compare(records, 1.1)["passed"])

@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -10,6 +11,7 @@ import subprocess
 
 from agent import TASK, checked, grade
 from usage import summarise, MAX_EVENT_BYTES, MAX_STREAM_BYTES
+from provenance import snapshot
 
 
 def log_events(stream):
@@ -28,6 +30,7 @@ def log_events(stream):
 def prepare(args):
     sdk, work = args.sdk.resolve(), args.workspace.resolve()
     env = dict(os.environ, CGO_ENABLED="0", GOWORK="off")
+    source = snapshot(sdk)
     checked(["go", "run", "./cmd/loop", "init", "--name", "energyctl", "--dir", str(work)], sdk, env)
     checked(["go", "mod", "edit", "-replace", "github.com/domhauton/loop-cli-adk=" + str(sdk)], work, env)
     with (work / ".gitignore").open("a") as ignore:
@@ -40,8 +43,8 @@ def prepare(args):
         "schema_version": 1, "experiment": "revision_comparison", "condition": args.condition,
         "trial": args.trial, "model": args.model, "reasoning_effort": "low",
         "task": "add_billing_day", "task_sha256": hashlib.sha256(args.prompt.read_bytes()).hexdigest(),
-        "harness_sha256": hashlib.sha256(Path(__file__).read_bytes() + Path(__file__).with_name("agent.py").read_bytes()).hexdigest(),
-        "source_revision": checked(["git", "rev-parse", "HEAD"], sdk, env).stdout.strip(),
+        "harness_sha256": hashlib.sha256(Path(__file__).read_bytes() + Path(__file__).with_name("agent.py").read_bytes() + Path(__file__).with_name("provenance.py").read_bytes()).hexdigest(),
+        "source_revision": source["revision"], "source_sha256": source["sha256"],
     }, indent=2) + "\n")
 
 
@@ -55,6 +58,8 @@ def assess(args):
     checks, harness_error = {}, None
     try:
         checks = grade(args.workspace.resolve(), env)
+        source = snapshot(args.sdk)
+        checks["sdk_source_unchanged"] = source == {"revision": metadata["source_revision"], "sha256": metadata["source_sha256"]}
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         harness_error = type(error).__name__ + ": " + str(error)
     result = {**metadata, "usage": usage, "checks": checks, "harness_error": harness_error,
@@ -65,17 +70,17 @@ def assess(args):
 
 
 def compare(results, max_ratio):
-    if max_ratio <= 0:
+    if not math.isfinite(max_ratio) or max_ratio <= 0:
         raise ValueError("token ratio must be positive")
     if len(results) != 6 or {(r["condition"], r["trial"]) for r in results} != {(c, n) for c in ("baseline", "candidate") for n in (1, 2, 3)}:
         raise ValueError("exactly three distinct trials per revision are required")
-    for key in ("model", "reasoning_effort", "task_sha256", "harness_sha256"):
-        if len({r[key] for r in results}) != 1:
+    for key in ("model", "reasoning_effort", "task_sha256", "harness_sha256", "executor", "codex_version"):
+        if len({r.get(key) for r in results}) != 1:
             raise ValueError("incomparable experiment field: " + key)
     groups = {}
     for condition in ("baseline", "candidate"):
         trials = [r for r in results if r["condition"] == condition]
-        if len({r["source_revision"] for r in trials}) != 1:
+        if len({(r["source_revision"], r.get("source_sha256")) for r in trials}) != 1:
             raise ValueError("mixed revisions within condition")
         complete = all(r["usage"]["usage_complete"] for r in trials)
         tokens = [r["usage"]["tokens"] for r in trials] if complete else []

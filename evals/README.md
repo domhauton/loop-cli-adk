@@ -228,3 +228,16 @@ Keep both interfaces experimental. The result does not justify a new production
 verification language, nor does one small read API establish that reusable tools
 are generally inefficient. A next corpus should cover larger existing workflows
 and maintenance that exercises shared capabilities before choosing a default.
+
+## Local revision comparisons
+
+`revision.py` runs the same preparation and independent grading used by paid CI,
+using the locally authenticated Codex CLI. Supply `--sdk` with an isolated Git
+checkout, `--condition baseline|candidate`, `--trial 1|2|3`, and a new `--output`
+directory. It consumes allowance. Use `ci.py compare RESULT... --output report.json`
+for exactly three trials per revision. Local and action executions cannot be pooled.
+
+SDK fingerprints include tracked and unignored untracked files, deletions and
+symlink targets; ignored caches are excluded. Grading fails if the source changes
+after preparation. A shared commit SHA alone cannot conceal local source changes.
+Raw prompts, transcripts and candidate files remain local; publish sanitised reports.
