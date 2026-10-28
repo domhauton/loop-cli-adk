@@ -1,0 +1,1190 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "landing-counters": {
+      "identity": {
+        "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+        "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1"
+      },
+      "conditions": {
+        "natural": {
+          "trials": 3,
+          "passed": 3,
+          "unknown_usage": 0,
+          "median_tokens": {
+            "input_tokens": 91775,
+            "cached_input_tokens": 81408,
+            "output_tokens": 462,
+            "uncached_input_tokens": 11706,
+            "total_tokens": 92222
+          },
+          "total_tokens": 284251,
+          "median_commands": 4
+        },
+        "skill": {
+          "trials": 3,
+          "passed": 3,
+          "unknown_usage": 0,
+          "median_tokens": {
+            "input_tokens": 96262,
+            "cached_input_tokens": 83712,
+            "output_tokens": 450,
+            "uncached_input_tokens": 8582,
+            "total_tokens": 96701
+          },
+          "total_tokens": 271591,
+          "median_commands": 7
+        }
+      },
+      "comparison_valid": true,
+      "skill_to_natural_total_token_ratio": 0.9554618981111764
+    },
+    "loop-definition": {
+      "identity": {
+        "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+        "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1"
+      },
+      "conditions": {
+        "natural": {
+          "trials": 3,
+          "passed": 3,
+          "unknown_usage": 0,
+          "median_tokens": {
+            "input_tokens": 132700,
+            "cached_input_tokens": 116224,
+            "output_tokens": 622,
+            "uncached_input_tokens": 20840,
+            "total_tokens": 133322
+          },
+          "total_tokens": 433287,
+          "median_commands": 7
+        },
+        "skill": {
+          "trials": 3,
+          "passed": 3,
+          "unknown_usage": 0,
+          "median_tokens": {
+            "input_tokens": 140792,
+            "cached_input_tokens": 122368,
+            "output_tokens": 594,
+            "uncached_input_tokens": 17166,
+            "total_tokens": 141408
+          },
+          "total_tokens": 399429,
+          "median_commands": 6
+        }
+      },
+      "comparison_valid": true,
+      "skill_to_natural_total_token_ratio": 0.921857798641547
+    },
+    "porsche-timestamp": {
+      "identity": {
+        "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+        "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1"
+      },
+      "conditions": {
+        "natural": {
+          "trials": 3,
+          "passed": 3,
+          "unknown_usage": 0,
+          "median_tokens": {
+            "input_tokens": 203462,
+            "cached_input_tokens": 189056,
+            "output_tokens": 986,
+            "uncached_input_tokens": 14406,
+            "total_tokens": 204448
+          },
+          "total_tokens": 575319,
+          "median_commands": 7
+        },
+        "skill": {
+          "trials": 3,
+          "passed": 3,
+          "unknown_usage": 0,
+          "median_tokens": {
+            "input_tokens": 161992,
+            "cached_input_tokens": 147072,
+            "output_tokens": 822,
+            "uncached_input_tokens": 21726,
+            "total_tokens": 162814
+          },
+          "total_tokens": 494564,
+          "median_commands": 7
+        }
+      },
+      "comparison_valid": true,
+      "skill_to_natural_total_token_ratio": 0.8596343941361227
+    }
+  },
+  "limitations": [
+    "One injected regression per repository, three repetitions per condition; not broad task coverage.",
+    "Prepared skill includes command discovery and compact output. Effects are not isolated.",
+    "Helper installation and dependency preparation are outside model timing; kit engineering is reported separately.",
+    "Repository streams ran concurrently; order alternated within each stream. Cache effects remain possible.",
+    "Total input includes cached input once; this is not a monetary-cost comparison."
+  ],
+  "records": [
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 17.209,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 91775,
+          "cached_input_tokens": 71424,
+          "output_tokens": 447
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 4,
+        "failed_command_count": 1,
+        "event_bytes": 27045
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.695,
+            "output_bytes": 408,
+            "output_within_limit": true
+          },
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.142,
+            "output_bytes": 281,
+            "output_within_limit": true
+          }
+        ],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.133,
+          "output_bytes": 297,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.128,
+          "output_bytes": 1283,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "e2a4ce0e442bcf4a91b04a115d1ee90ae90c539fd83282dc41a083d39421c5d8"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 15.764,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 100282,
+          "cached_input_tokens": 88576,
+          "output_tokens": 476
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 6,
+        "failed_command_count": 0,
+        "event_bytes": 25491
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.443,
+            "output_bytes": 408,
+            "output_within_limit": true
+          },
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.266,
+            "output_bytes": 281,
+            "output_within_limit": true
+          }
+        ],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.125,
+          "output_bytes": 291,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.128,
+          "output_bytes": 1283,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "d1bfd48c326fd48b311d77be469e773f9596c88a49edbfab20dbff1f2a0cb974"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 21.393,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 90809,
+          "cached_input_tokens": 81408,
+          "output_tokens": 462
+        },
+        "reasoning_output_tokens": 6,
+        "command_count": 3,
+        "failed_command_count": 0,
+        "event_bytes": 22588
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.628,
+            "output_bytes": 408,
+            "output_within_limit": true
+          },
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.329,
+            "output_bytes": 281,
+            "output_within_limit": true
+          }
+        ],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.133,
+          "output_bytes": 297,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.13,
+          "output_bytes": 1283,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "a88e0b799019e7f0d63968432a272822578b402b78dbaa2a81eb7e4d48759b13"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "landing-counters",
+      "condition": "skill",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 16.76,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 96262,
+          "cached_input_tokens": 87680,
+          "output_tokens": 439
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 7,
+        "failed_command_count": 0,
+        "event_bytes": 13876
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.035,
+            "output_bytes": 408,
+            "output_within_limit": true
+          },
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.005,
+            "output_bytes": 281,
+            "output_within_limit": true
+          }
+        ],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.125,
+          "output_bytes": 297,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.183,
+          "output_bytes": 1283,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "2fef346683781ab1622bb8ebb5a87850df697a30fac81c2c77f1c4754013fe6f"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "landing-counters",
+      "condition": "skill",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 15.354,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 76459,
+          "cached_input_tokens": 68352,
+          "output_tokens": 450
+        },
+        "reasoning_output_tokens": 10,
+        "command_count": 4,
+        "failed_command_count": 0,
+        "event_bytes": 12908
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.421,
+            "output_bytes": 408,
+            "output_within_limit": true
+          },
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.868,
+            "output_bytes": 281,
+            "output_within_limit": true
+          }
+        ],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.172,
+          "output_bytes": 297,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.127,
+          "output_bytes": 1283,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "f2b3f6e401aeb692564747d9149d654cabd498d6f897348da782fe1f74178b00"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "landing-counters",
+      "condition": "skill",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 16.246,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 97487,
+          "cached_input_tokens": 83712,
+          "output_tokens": 494
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 8,
+        "failed_command_count": 1,
+        "event_bytes": 16082
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.453,
+            "output_bytes": 408,
+            "output_within_limit": true
+          },
+          {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.023,
+            "output_bytes": 281,
+            "output_within_limit": true
+          }
+        ],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.122,
+          "output_bytes": 297,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.13,
+          "output_bytes": 1282,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "d56efa8bfe1355229b713ddc11c8c468a3cf9c8ba2855f4ed2f5f1a285db455a"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 32.209,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 132700,
+          "cached_input_tokens": 116224,
+          "output_tokens": 622
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 7,
+        "failed_command_count": 1,
+        "event_bytes": 21439
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 4.083,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.554,
+          "output_bytes": 505,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "d023714d4095d0884539c83527b15547a687f71e5154b0674f01dc0f202bcd5f"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 36.247,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 167144,
+          "cached_input_tokens": 146304,
+          "output_tokens": 693
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 6,
+        "failed_command_count": 1,
+        "event_bytes": 20633
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.638,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.391,
+          "output_bytes": 505,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "76f89ed56096693e3036bd8cc3f87f7965f86ad9ee2a9a74a7e1292e677f8e33"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 43.277,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 131518,
+          "cached_input_tokens": 101888,
+          "output_tokens": 610
+        },
+        "reasoning_output_tokens": 0,
+        "command_count": 8,
+        "failed_command_count": 1,
+        "event_bytes": 21660
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.437,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.348,
+          "output_bytes": 505,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "7404c1a47731df8e40af2692dfaf7081658320c0cf4453baddfc468af5d57b04"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "loop-definition",
+      "condition": "skill",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 26.945,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 140814,
+          "cached_input_tokens": 123648,
+          "output_tokens": 594
+        },
+        "reasoning_output_tokens": 6,
+        "command_count": 6,
+        "failed_command_count": 0,
+        "event_bytes": 15941
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.291,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.395,
+          "output_bytes": 505,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "c5e38c0caba8d1aae05bf252483c4b16a2d6ebe86e7b5fbcfd4fd8c41e3bf847"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "loop-definition",
+      "condition": "skill",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 29.785,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 140792,
+          "cached_input_tokens": 122368,
+          "output_tokens": 635
+        },
+        "reasoning_output_tokens": 7,
+        "command_count": 7,
+        "failed_command_count": 1,
+        "event_bytes": 15607
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 4.682,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.555,
+          "output_bytes": 505,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "ca5a494f46de5e86b7e6827d031228feb91ddfd94a660fe494b00c8ee4508371"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "loop-definition",
+      "condition": "skill",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 23.541,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 116071,
+          "cached_input_tokens": 100096,
+          "output_tokens": 523
+        },
+        "reasoning_output_tokens": 11,
+        "command_count": 6,
+        "failed_command_count": 0,
+        "event_bytes": 11344
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.241,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.341,
+          "output_bytes": 505,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "00797aa32005598ef5aa906e20d65dc8e9a3d1c69502411030c7408dda0a499e"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 31.613,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 203462,
+          "cached_input_tokens": 189056,
+          "output_tokens": 986
+        },
+        "reasoning_output_tokens": 25,
+        "command_count": 7,
+        "failed_command_count": 1,
+        "event_bytes": 37972
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 2.739,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.988,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "2fb182723783b7aba4808e0f4efda26e657a52e757352e26fa73307ca693b17d"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 38.894,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 203904,
+          "cached_input_tokens": 189184,
+          "output_tokens": 1008
+        },
+        "reasoning_output_tokens": 108,
+        "command_count": 7,
+        "failed_command_count": 2,
+        "event_bytes": 77106
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.535,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.863,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "8a986616a11318eda06de8980516faec9abd525fbd297520353b3226611d2847"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 33.183,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 165113,
+          "cached_input_tokens": 152320,
+          "output_tokens": 846
+        },
+        "reasoning_output_tokens": 42,
+        "command_count": 7,
+        "failed_command_count": 1,
+        "event_bytes": 38101
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.58,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.761,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "8886e66b2e7054a48e1c506fa7036a8b839a4b4bbd608b12195ecda1565bcbc6"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "porsche-timestamp",
+      "condition": "skill",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 28.502,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 161992,
+          "cached_input_tokens": 139264,
+          "output_tokens": 822
+        },
+        "reasoning_output_tokens": 136,
+        "command_count": 6,
+        "failed_command_count": 0,
+        "event_bytes": 28895
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.525,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.542,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "ee77655fd225e777fd78070abdbe12595c64b2ea1b6ced196af7485d91a2edd6"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "porsche-timestamp",
+      "condition": "skill",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 28.824,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 170206,
+          "cached_input_tokens": 148480,
+          "output_tokens": 779
+        },
+        "reasoning_output_tokens": 77,
+        "command_count": 7,
+        "failed_command_count": 0,
+        "event_bytes": 26763
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.65,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 2.653,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "0eebcd9409d8d0e8561feb7a706ffc2040fd2d515c81d42f3ecb65359bb790e3"
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_component_repair_v1",
+      "profile": "porsche-timestamp",
+      "condition": "skill",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "35ee1f3d502f7a7002052a77a5871a92c4b855b7b06c2f15c7b3fd29646df4a7",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "duration_seconds": 34.523,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 159805,
+          "cached_input_tokens": 147072,
+          "output_tokens": 960
+        },
+        "reasoning_output_tokens": 147,
+        "command_count": 7,
+        "failed_command_count": 0,
+        "event_bytes": 28231
+      },
+      "checks": {
+        "model_completed": true,
+        "protected_files_unchanged": true,
+        "focused_tests": true,
+        "native_suite": true,
+        "helper_unchanged": true
+      },
+      "passed": true,
+      "preflight": {
+        "setup": [],
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 2.741,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.679,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        }
+      },
+      "evidence_sha256": "3498c20d134ef73cfc59e8ba16e4361c5bf057e3a0b7d484eaf4fe7793d60930"
+    }
+  ]
+}

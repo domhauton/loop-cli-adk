@@ -277,3 +277,11 @@ input/query names and an optional input. The local and manual CI runners share
 that case and independently grade omission, wrong types and mutations of each
 mapping/required flag. Earlier billing reports belong to their frozen harness;
 do not pool them with the expanded grader.
+
+Native component-repair model trials are now recorded in
+`results/native-repair-v1.json`: all 18 passed with existing tests/configuration
+preserved. Median total tokens improved on the PorscheConnect case and increased
+on Loop/Landing. See the [native harness report](repositories/README.md) for
+separate cached/uncached interpretation, task scope and installation exclusions.
+There is no universal efficiency claim and the native feedback frontend remains
+an evaluation prototype.

@@ -43,3 +43,41 @@ No sensor naming, visibility, translations or PR comments are changed by this ev
 These checks establish harness portability and test sensitivity. Measuring whether
 agents spend fewer tokens on repairs needs a separate model experiment on these
 snapshots, with the same task and independent acceptance criteria in both arms.
+
+## Measured repair trials
+
+`agent.py` applies the same regression in a disposable snapshot and compares
+`--condition natural` with `--condition skill`. Supply the same `--profile`,
+`--source`, `--python` and a fresh `--output` as above. It makes real model calls
+using the locally authenticated Codex CLI and consumes allowance. The skill arm
+gets a prepared `.loop/feedback.json`, the shared bounded command runner and a
+short skill. Test assertions remain in the repository's existing framework.
+
+Both arms may repair only the affected production file. Grading reruns the native
+checks independently and verifies that original tests/configuration stayed intact.
+The helper implementation must remain unchanged. Raw transcripts and repaired
+source stay local. Run `report.py RESULT... --output report.json` with three trials
+per arm per repository; it refuses duplicate transcript evidence or mixed setups.
+
+`../results/native-repair-v1.json` records 18 successful repairs: three per arm on
+each of the three repositories. Trial order was natural/skill, skill/natural,
+natural/skill. Separate repository streams ran concurrently.
+
+| Repository | Natural median total tokens | Skill median total tokens |
+| --- | ---: | ---: |
+| Loop | 133,322 | 141,408 |
+| Landing | 92,222 | 96,701 |
+| PorscheConnect | 204,448 | 162,814 |
+
+The skill was used in all nine skill trials. PorscheConnect showed about 20% fewer
+median total tokens, while Loop and Landing increased by about 6% and 5%. Sums
+across runs fell for all three, illustrating the influence of outliers. Uncached
+input moves differently: PorscheConnect's median increased from 14,406 to 21,726.
+These are token measurements, not monetary savings. Prepared command discovery,
+log compression and skill guidance are bundled; their effects are not isolated.
+
+This is one injected defect per repository, repeated three times. It does not
+establish broad transfer, installation pay-off, or full production readiness.
+The installed helper and dependency preparation are excluded from model timing;
+preflight durations and parent engineering usage are recorded separately. Keep
+this frontend experimental pending broader evidence.
