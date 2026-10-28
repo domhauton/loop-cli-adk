@@ -21,7 +21,7 @@ import (
 
 // DefaultSDKVersion is an immutable, published Go module revision. Until the first
 // release tag exists, this pins the six-platform-tested runtime from 28 October 2026.
-const DefaultSDKVersion = "v0.0.0-20261028215504-59d6475117d9"
+const DefaultSDKVersion = "v0.0.0-20261028225343-2b0eb32ab06c"
 
 // TemplateVersion identifies the scaffold recipe without implying automatic upgrades.
 const TemplateVersion = 3
@@ -184,7 +184,7 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 	if opts.SDKVersion == DefaultSDKVersion {
 		// Verified against the public Go checksum database for the bootstrap revision.
 		// Other pins resolve their own checksums with go mod tidy before committing.
-		files["go.sum"] = []byte(modulePath + " " + DefaultSDKVersion + " h1:iJfZndgPs4aJPYkQpd6Pno3fh7GurTYwk08IrOZNGlY=\n" + modulePath + " " + DefaultSDKVersion + "/go.mod h1:u7e1313Ner7uIpYl6LoGo2Rn3JV1PtFKekpq7kSFGl8=\n")
+		files["go.sum"] = []byte(modulePath + " " + DefaultSDKVersion + " h1:nqHx9l9j+iahNbrV7LB2xIwQqwrUMcfpnqvcdeaR3iM=\n" + modulePath + " " + DefaultSDKVersion + "/go.mod h1:u7e1313Ner7uIpYl6LoGo2Rn3JV1PtFKekpq7kSFGl8=\n")
 	}
 	templates := map[string]string{
 		"go.mod": "go.mod.tmpl", "main_test.go": "main_test.go.tmpl",

@@ -27,7 +27,7 @@ locally without credentials, network access or a Go toolchain. Names are portabl
 across the supported operating systems. Existing files and symlink parents cause a
 conflict before any generated files are written. Unrelated files are preserved.
 
-The bootstrap SDK pin is the immutable public Go revision of `59d6475`, which passed
+The bootstrap SDK pin is the immutable public Go revision of `2b0eb32`, which passed
 all six native targets. This avoids a fictional release tag or a dependency on a
 moving branch. `go.sum` is included for the default pin; custom pins resolve their
 checksums with `go mod tidy`. `.loop/scaffold.json` records template and SDK versions.

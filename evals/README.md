@@ -180,3 +180,24 @@ mutate each required state field separately. Observed requests report the Loop
 client marker; a tool-availability condition does not prove that an agent kept
 using the tool. The first lightweight pilot eventually replaced its Loop call
 with direct HTTP, so its later timings must not be presented as a Loop-use win.
+
+## Verification boundary prototypes
+
+`prototypes/loop_verify.py` supplies two experimental interfaces over the same
+Loop invocation code: a native Python helper and a declarative check file. Neither
+is a supported runtime API or a decision to require Python in shipped projects.
+Both have identical JSON-subset and safe HTTP-error assertion semantics. Real
+fixture mutation tests independently check these before model trials.
+
+Use `lifecycle.py --condition loop --loop-mode runner --verification-mode native`
+or `--verification-mode declarative`, plus `--output`. The model receives the
+same helper and reference, adapts its own manifest/checks and may maintain them
+across tasks. It must not modify supplied helper code. The natural baseline remains
+unrestricted. Helper installation is assumed; prototype engineering cost is not
+included in per-project setup cost. Compare a fresh natural arm from the same
+harness revision; earlier reports are not interchangeable.
+
+`results/manifest-runner-v2.json` preserves two diagnostic pairs before these
+prototypes. Both Loop arms passed but eventually switched to direct HTTP. Their
+later task cost cannot be attributed to continued use of Loop. The arms ran
+concurrently, so elapsed times are descriptive rather than an isolated speed test.

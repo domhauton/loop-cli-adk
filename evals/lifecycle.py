@@ -130,6 +130,7 @@ def measure(work, output, prompt, env, model, timeout):
                 "-c", "sandbox_workspace_write.network_access=true",
                 "-c", "shell_environment_policy.set.ENERGY_API_URL=" + json.dumps(env["ENERGY_API_URL"]),
                 "-c", "shell_environment_policy.set.ENERGY_API_TOKEN=" + json.dumps(env["ENERGY_API_TOKEN"]),
+                *(["-c", "shell_environment_policy.set.LOOP_EXECUTABLE=" + json.dumps(env["LOOP_EXECUTABLE"])] if "LOOP_EXECUTABLE" in env else []),
                 "-C", str(work), "-"],
                 input=prompt.encode(), stdout=events, stderr=stderr, env=env, timeout=timeout)
             code = result.returncode
@@ -152,7 +153,10 @@ def main():
     parser.add_argument("--timeout", type=int, default=300)
     parser.add_argument("--loop-mode", choices=("scaffold", "runner"), default="scaffold")
     parser.add_argument("--sdk", type=Path, default=ROOT)
+    parser.add_argument("--verification-mode", choices=("free", "native", "declarative"), default="free")
     args = parser.parse_args()
+    if args.verification_mode != "free" and (args.condition != "loop" or args.loop_mode != "runner"):
+        parser.error("verification prototypes require --condition loop --loop-mode runner")
     sdk = args.sdk.resolve()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
@@ -169,6 +173,7 @@ def main():
             tools.mkdir()
             loop = tools / ("loop.exe" if os.name == "nt" else "loop")
             checked(["go", "build", "-o", str(loop), "./cmd/loop"], sdk, env)
+            env["LOOP_EXECUTABLE"] = str(loop)
             env["PATH"] = str(tools) + os.pathsep + env["PATH"]
             setup = """For this condition, first use `loop init --name energyctl --dir cli`
 to create a reusable project CLI for the documented API. Adapt its example binding
@@ -184,18 +189,28 @@ not required for this development workflow. Choose how to combine Loop with othe
 testing tools, retaining useful work between tasks.
 """
             setup += "Available Loop executable: " + str(loop) + "\n"
+        if args.verification_mode != "free":
+            prototype = ROOT / "evals/prototypes"
+            shutil.copyfile(prototype / "loop_verify.py", work / "loop_verify.py")
+            shutil.copyfile(prototype / "README.md", work / "VERIFICATION.md")
+            (work / "AGENTS.md").write_text(GUIDANCE + "\nFor this experiment, use the " + args.verification_mode + " interface described in VERIFICATION.md. Do not modify supplied loop_verify.py.\n")
+            setup += "Read VERIFICATION.md. Use its " + args.verification_mode + " interface for this experiment. The supplied helper is reusable kit code; do not modify it. Create and maintain your own checks.\n"
         fixture = Fixture()
         env.update(ENERGY_API_URL=f"http://127.0.0.1:{fixture.server.server_port}/admin", ENERGY_API_TOKEN=TOKEN)
         results = []
         try:
             for index, task in enumerate(STAGES):
                 fixture.stage = index
+                fixture.verification_calls = None
                 (work / "API.md").write_text(CONTRACT.format(route=fixture.route))
                 stage = output / str(index)
                 stage.mkdir()
                 prompt = GUIDANCE + "\nRead API.md. " + task + "\n" + (setup if index == 0 else "")
                 result = measure(work, stage, prompt, env, args.model, args.timeout)
                 checks = grade(work, env, fixture) if result["exit_code"] == 0 else {}
+                if args.verification_mode != "free":
+                    helper = work / "loop_verify.py"
+                    checks["supplied_helper_unchanged"] = helper.is_file() and helper.read_bytes() == (ROOT / "evals/prototypes/loop_verify.py").read_bytes()
                 if args.condition == "loop" and index == 0 and args.loop_mode == "scaffold":
                     checks["cli_scaffolded"] = (work / "cli/project.json").is_file()
                 result.update(stage=index, task=task, checks=checks, verification_calls=getattr(fixture, "verification_calls", None), passed=stage_passed(result["exit_code"], checks))
@@ -206,8 +221,8 @@ testing tools, retaining useful work between tasks.
         finally:
             fixture.close()
         report = {"schema_version": 1, "experiment": "natural_workflow_amortisation_pilot",
-            "condition": args.condition, "loop_mode": args.loop_mode if args.condition == "loop" else None, "model": args.model, "reasoning_effort": "low",
-            "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "condition": args.condition, "verification_mode": args.verification_mode, "loop_mode": args.loop_mode if args.condition == "loop" else None, "model": args.model, "reasoning_effort": "low",
+            "harness_sha256": hashlib.sha256(Path(__file__).read_bytes() + (ROOT / "evals/prototypes/loop_verify.py").read_bytes() + (ROOT / "evals/prototypes/README.md").read_bytes()).hexdigest(),
             "loop_revision": checked(["git", "rev-parse", "HEAD"], sdk, env).stdout.strip(),
             "codex_version": checked(["codex", "--version"], ROOT, env).stdout.strip(),
             "fixture": "synthetic Energy-style read API; not actual Energy handlers",
