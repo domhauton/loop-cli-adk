@@ -32,7 +32,7 @@ class RepositoryHarnessTests(unittest.TestCase):
     def test_output_is_bounded_and_cannot_count_as_success(self):
         with tempfile.TemporaryDirectory() as temp:
             work = Path(temp)
-            with patch('repositories.run.MAX_LOG_BYTES', 2048):
+            with patch('repositories.native_command.MAX_LOG_BYTES', 2048):
                 result, text = command([sys.executable, '-c', "print('x'*10000)"], work, os.environ, work, 'overflow')
             self.assertFalse(result['output_within_limit'])
             self.assertFalse(command_passed(result))
