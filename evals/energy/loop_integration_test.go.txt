@@ -1,0 +1,95 @@
+package electricity
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"os/exec"
+	"strings"
+	"sync/atomic"
+	"testing"
+	"time"
+)
+
+// This overlay runs in a disposable snapshot of automations, using its actual
+// handlers and synthetic state. No scheduler or Home Assistant client is started.
+func TestLoopEnergy(t *testing.T) {
+	h, calls := newTestHandler(map[string]string{
+		"sensor.car_soc": "50", "sensor.battery_soc": "80",
+		"device_tracker.car": "home", "binary_sensor.off_peak": "off",
+	})
+	fixClock(h, time.Date(2026, 10, 28, 12, 0, 0, 0, time.UTC))
+	web := NewWebHandler(h, nil)
+	var requests atomic.Int64
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /admin/api/status", web.handleAPIStatus)
+	mux.HandleFunc("GET /admin/api/dashboard", web.handleDashboard)
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests.Add(1)
+		if r.Header.Get("Authorization") != "Bearer fixture-token" {
+			http.Error(w, "denied", 401)
+			return
+		}
+		mux.ServeHTTP(w, r)
+	}))
+	defer server.Close()
+	invoke := func(args ...string) (int, []byte, []byte) {
+		t.Helper()
+		ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+		defer cancel()
+		cmd := exec.CommandContext(ctx, os.Getenv("LOOP_ENERGY_BINARY"), args...)
+		// No inherited application credentials or endpoint settings.
+		cmd.Env = []string{"ENERGY_API_URL=" + server.URL + "/admin", "ENERGY_API_TOKEN=fixture-token"}
+		var out, diagnostic bytes.Buffer
+		cmd.Stdout, cmd.Stderr = &out, &diagnostic
+		code := 0
+		if err := cmd.Run(); err != nil {
+			if e, ok := err.(*exec.ExitError); ok {
+				code = e.ExitCode()
+			} else {
+				t.Fatal(err)
+			}
+		}
+		return code, out.Bytes(), diagnostic.Bytes()
+	}
+	t.Run("discovery_has_no_requests", func(t *testing.T) {
+		before := requests.Load()
+		code, out, diagnostic := invoke("describe")
+		if code != 0 || !json.Valid(out) || len(diagnostic) != 0 || requests.Load() != before {
+			t.Fatalf("discovery: exit=%d out=%s diagnostic=%s", code, out, diagnostic)
+		}
+	})
+	t.Run("actual_status", func(t *testing.T) {
+		code, out, diagnostic := invoke("status", "get")
+		var status struct {
+			CarSOC     int `json:"car_soc"`
+			BatterySOC int `json:"battery_soc"`
+		}
+		if code != 0 || json.Unmarshal(out, &status) != nil || status.CarSOC != 50 || status.BatterySOC != 80 || len(diagnostic) != 0 {
+			t.Fatalf("status: exit=%d out=%s diagnostic=%s", code, out, diagnostic)
+		}
+	})
+	t.Run("actual_dashboard", func(t *testing.T) {
+		code, out, diagnostic := invoke("dashboard", "get")
+		var dashboard map[string]json.RawMessage
+		if code != 0 || json.Unmarshal(out, &dashboard) != nil || len(dashboard) == 0 || len(diagnostic) != 0 {
+			t.Fatalf("dashboard: exit=%d out=%s diagnostic=%s", code, out, diagnostic)
+		}
+	})
+	t.Run("invalid_input_never_reaches_handler", func(t *testing.T) {
+		before := requests.Load()
+		code, out, diagnostic := invoke("status", "get", "--input", `{"unknown":true}`)
+		if code != 2 || len(out) != 0 || !json.Valid(diagnostic) || requests.Load() != before {
+			t.Fatalf("validation: exit=%d out=%s diagnostic=%s", code, out, diagnostic)
+		}
+		if strings.Contains(string(diagnostic), "fixture-token") {
+			t.Fatal("diagnostic leaked token")
+		}
+	})
+	if got := len(calls.getCalls()); got != 0 {
+		t.Fatalf("read commands made %d service calls", got)
+	}
+}

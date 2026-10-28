@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "name": "energy",
+  "description": "Inspect Energy through its read-only JSON admin API",
+  "api": {"base_url_env": "ENERGY_API_URL", "token_env": "ENERGY_API_TOKEN"},
+  "commands": [
+    {"name": "status get", "description": "Read current energy state", "http": {"method": "GET", "path": "/api/status"}},
+    {"name": "dashboard get", "description": "Read energy dashboard and forecast", "http": {"method": "GET", "path": "/api/dashboard"}}
+  ]
+}

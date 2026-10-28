@@ -139,3 +139,10 @@ iteration without compiling the project executable.
 ## Licence
 
 [Apache License 2.0](LICENSE).
+
+## Evaluate agent development
+
+[Evaluation tooling](evals/README.md) checks a native CLI against Energy's actual
+handlers in an offline fixture and runs opt-in agent trials for command development.
+It records observed model tokens, task success and whether the agent's tests catch
+broken API mappings. Model trials consume allowance and are not part of normal CI.

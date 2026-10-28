@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "comparison_valid": false,
+  "trials": [
+    {
+      "condition": "baseline",
+      "trial": "setup-pilot-1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 250082,
+          "cached_input_tokens": 228992,
+          "output_tokens": 2984
+        },
+        "reasoning_output_tokens": 164,
+        "command_count": 10,
+        "failed_command_count": 3,
+        "event_bytes": 30046
+      },
+      "passed": null,
+      "harness_error": "HTTP server cleanup raised AttributeError before grading completed; artefact unavailable",
+      "limitations": [
+        "Local listeners were blocked in candidate sandbox",
+        "CLI default model not fixed",
+        "No writable Go build cache configured"
+      ]
+    },
+    {
+      "schema_version": 1,
+      "task": "add_billing_day",
+      "condition": "skill",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "CLI default with user config ignored",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 66.132,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 209575,
+          "cached_input_tokens": 192000,
+          "output_tokens": 2845
+        },
+        "reasoning_output_tokens": 157,
+        "command_count": 11,
+        "failed_command_count": 2,
+        "event_bytes": 28286
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "setup-pilot-2",
+      "limitations": [
+        "CLI default model not fixed",
+        "No writable Go build cache configured",
+        "Cannot compare with baseline pilot because sandbox configuration differed"
+      ]
+    },
+    {
+      "schema_version": 1,
+      "task": "add_billing_day",
+      "condition": "baseline",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 69.632,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 286906,
+          "cached_input_tokens": 268288,
+          "output_tokens": 2792
+        },
+        "reasoning_output_tokens": 92,
+        "command_count": 10,
+        "failed_command_count": 1,
+        "event_bytes": 187654
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "setup-pilot-3",
+      "limitations": [
+        "Go build cache was not ignored and appeared in candidate file discovery; excluded from controlled comparisons"
+      ]
+    }
+  ]
+}

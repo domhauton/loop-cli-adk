@@ -19,6 +19,7 @@ func TestPackageBoundaries(t *testing.T) {
 		"internal/httpapi":      {"pkg/operation"},
 		"pkg/project":           {"internal/definition", "internal/execution", "internal/httpapi", "pkg/operation"},
 		"pkg/cli":               {"pkg/project", "pkg/operation"},
+		"pkg/clitest":           {"pkg/cli", "pkg/project"},
 		"internal/authoring":    {"internal/definition"},
 		"cmd/loop":              {"internal/authoring", "pkg/cli", "pkg/project", "pkg/operation"},
 		"examples/demo/server":  {},

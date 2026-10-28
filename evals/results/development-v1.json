@@ -1,0 +1,350 @@
+{
+  "report": {
+    "schema_version": 1,
+    "identity": {
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "task": "add_billing_day"
+    },
+    "minimum_three_pairs": true,
+    "conditions": {
+      "baseline": {
+        "trials": 3,
+        "passed": 3,
+        "harness_failures": 0,
+        "unknown_usage_trials": 0,
+        "median_tokens": {
+          "input_tokens": 201373,
+          "cached_input_tokens": 188416,
+          "output_tokens": 2311,
+          "uncached_input_tokens": 10849
+        },
+        "total_observed_tokens": {
+          "input_tokens": 585601,
+          "cached_input_tokens": 554368,
+          "output_tokens": 7214,
+          "uncached_input_tokens": 31233
+        },
+        "median_duration_seconds": 56.73,
+        "failed_commands": 1
+      },
+      "skill": {
+        "trials": 3,
+        "passed": 3,
+        "harness_failures": 0,
+        "unknown_usage_trials": 0,
+        "median_tokens": {
+          "input_tokens": 153301,
+          "cached_input_tokens": 134400,
+          "output_tokens": 2650,
+          "uncached_input_tokens": 14761
+        },
+        "total_observed_tokens": {
+          "input_tokens": 444739,
+          "cached_input_tokens": 400256,
+          "output_tokens": 8012,
+          "uncached_input_tokens": 44483
+        },
+        "median_duration_seconds": 59.619,
+        "failed_commands": 3
+      }
+    },
+    "claim": "Descriptive measurements only; inspect task success before token differences."
+  },
+  "trials": [
+    {
+      "schema_version": 1,
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "task": "add_billing_day",
+      "condition": "baseline",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 52.163,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 181379,
+          "cached_input_tokens": 173952,
+          "output_tokens": 2301
+        },
+        "reasoning_output_tokens": 88,
+        "command_count": 7,
+        "failed_command_count": 0,
+        "event_bytes": 24901
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "b1"
+    },
+    {
+      "schema_version": 1,
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "task": "add_billing_day",
+      "condition": "skill",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 67.238,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 164137,
+          "cached_input_tokens": 149376,
+          "output_tokens": 3020
+        },
+        "reasoning_output_tokens": 308,
+        "command_count": 13,
+        "failed_command_count": 2,
+        "event_bytes": 29266
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "s1"
+    },
+    {
+      "schema_version": 1,
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "task": "add_billing_day",
+      "condition": "skill",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 59.619,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 153301,
+          "cached_input_tokens": 134400,
+          "output_tokens": 2650
+        },
+        "reasoning_output_tokens": 274,
+        "command_count": 9,
+        "failed_command_count": 1,
+        "event_bytes": 28595
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "s2"
+    },
+    {
+      "schema_version": 1,
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "task": "add_billing_day",
+      "condition": "baseline",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 59.011,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 202849,
+          "cached_input_tokens": 192000,
+          "output_tokens": 2602
+        },
+        "reasoning_output_tokens": 120,
+        "command_count": 10,
+        "failed_command_count": 0,
+        "event_bytes": 17551
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "b2"
+    },
+    {
+      "schema_version": 1,
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "task": "add_billing_day",
+      "condition": "baseline",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 56.73,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 201373,
+          "cached_input_tokens": 188416,
+          "output_tokens": 2311
+        },
+        "reasoning_output_tokens": 186,
+        "command_count": 10,
+        "failed_command_count": 1,
+        "event_bytes": 25794
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "b3"
+    },
+    {
+      "schema_version": 1,
+      "experiment_version": 1,
+      "harness_sha256": "403d0ff2bbd090581fc5fa4ecfac8c67de85e46a456d1b68cde8cfaae9ec7b24",
+      "task_sha256": "80bf9cad2e97619c8b2c6db49731f6c70db6610ae0efa4fd127daaff66151e2a",
+      "skill_sha256": "694489a31d6ce0b62f62da80bb42c5d7e3304dae6b7ac0fbe8f66be965f57d3f",
+      "loop_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "task": "add_billing_day",
+      "condition": "skill",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "exit_code": 0,
+      "timed_out": false,
+      "harness_error": null,
+      "duration_seconds": 51.943,
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 127301,
+          "cached_input_tokens": 116480,
+          "output_tokens": 2342
+        },
+        "reasoning_output_tokens": 88,
+        "command_count": 8,
+        "failed_command_count": 0,
+        "event_bytes": 26146
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true
+      },
+      "passed": true,
+      "trial": "s3"
+    }
+  ]
+}

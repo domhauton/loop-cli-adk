@@ -38,6 +38,11 @@ jobs:
         with:
           go-version-file: go.mod
           cache: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Evaluation accounting tests
+        run: python -m unittest discover -s evals -p "test_*.py"
       - name: Vet
         run: go vet ./...
       - name: Test and compile a real project CLI

@@ -14,6 +14,7 @@ operations. The same execution path powers local use and embedded project CLIs.
 | `internal/httpapi` | URL/query encoding, auth, HTTP lifecycle, response bounds | operation |
 | `pkg/project` | Composition facade, definition-to-runtime translation | definition, execution, httpapi, operation |
 | `pkg/cli` | Arguments, discovery, help, output and exit codes | project, operation |
+| `pkg/clitest` | Optional offline contract-test fixtures | cli, project |
 | `internal/authoring` | Scaffolding/templates, bounded file loading and standalone builds | definition |
 | `cmd/loop` | Authoring command entry point and process lifecycle | authoring, cli, project, operation |
 
@@ -123,3 +124,22 @@ Acceptance examples:
 
 Do not build empty packages or interfaces for those future components. Introduce
 them with the first working implementation and a dependency budget.
+
+## Evaluation boundary
+
+`evals/` owns opt-in model experiments, token accounting and integration against a
+pinned external project snapshot. It is development tooling, never imported by the
+Go runtime or generated project. Python's standard library handles experiment
+orchestration; installed project CLIs still need neither Python nor Go.
+
+The Energy overlay executes actual handlers in a disposable checkout with synthetic
+state. The agent grader inspects compiled artefacts and mutates command mappings to
+check test sensitivity. Model transcripts are private local artefacts; committed
+reports contain aggregate evidence and explicit limitations. No model calls or
+private-project checkout is required by ordinary CI. See `evals/README.md`.
+
+`pkg/clitest` is optional Go test support depending only on `pkg/cli` and
+`pkg/project`. Its local HTTP fixture validates independently specified requests,
+pass-through JSON, structured errors and absence of requests for invalid input.
+Runtime packages and executable entry points cannot import it. This keeps reusable
+test mechanics out of each project's handwritten tests without adding a test DSL.
