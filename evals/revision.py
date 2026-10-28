@@ -10,6 +10,7 @@ from types import SimpleNamespace
 
 from agent import checked
 from ci import prepare, assess
+from cases import CASES
 
 
 def main():
@@ -20,6 +21,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--model', default='gpt-6.1-sol')
     parser.add_argument('--timeout', type=int, default=300)
+    parser.add_argument("--task", choices=tuple(CASES), default="add_billing_day")
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
@@ -28,7 +30,7 @@ def main():
         work = Path(temp) / 'project'
         metadata, prompt = output / 'metadata.json', output / 'prompt.txt'
         prepare(SimpleNamespace(sdk=sdk, workspace=work, prompt=prompt, metadata=metadata,
-            condition=args.condition, trial=args.trial, model=args.model))
+            condition=args.condition, trial=args.trial, model=args.model, task=args.task))
         env = dict(os.environ, CGO_ENABLED='0', GOWORK='off', GOCACHE=str(work / '.eval-cache'))
         with (output / 'events.jsonl').open('wb') as events, (output / 'stderr.txt').open('wb') as stderr:
             try:

@@ -14,17 +14,10 @@ import time
 from urllib.parse import parse_qs, urlsplit
 
 from usage import summarise, MAX_EVENT_BYTES
+from cases import CASES
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK = """Extend this project CLI with `billing day`. The admin API contract is GET
-/api/billing with required string query parameter `day`, returning a JSON object.
-Keep `status get` working. Use the shared runtime and add meaningful offline tests
-for the new command, including path/query encoding, an API base path prefix,
-bearer auth, invalid input and an upstream error. Run the relevant checks.
-Do not change dependencies or the runtime. Do not publish, browse, access live
-services or use tools outside this workspace. Stop when implementation and tests
-are complete. The local SDK replacement is intentional evaluation setup.
-"""
+TASK = CASES["add_billing_day"].prompt
 
 
 def run(argv, cwd, env, timeout=180):
@@ -46,8 +39,9 @@ def error_code(text):
         return None
 
 
-def grade(work, env):
+def grade(work, env, case=None):
     """Exercise the artifact independently; the candidate never sees this oracle."""
+    case = case or CASES["add_billing_day"]
     binary = work / ("candidate.exe" if os.name == "nt" else "candidate")
     build = run(["go", "build", "-o", str(binary), "."], work, env)
     checks = {"build": build.returncode == 0}
@@ -75,16 +69,32 @@ def grade(work, env):
         try:
             def invoke(args):
                 return run([str(binary), *args], work, api_env, timeout=15)
-            day = "2026-10-28 &extra=true+雪"
-            result = invoke(["billing", "day", "--input", json.dumps({"day": day})])
-            checks["request_contract"] = requests == [("/admin/api/billing", {"day": [day]}, "Bearer eval-fixture-token")]
-            checks["json_result"] = result.returncode == 0 and result.stderr == "" and json.loads(result.stdout or "null") == {"day": "fixture", "total": 12.5}
-            for label, data in (("missing_required", {}), ("unknown_input", {"day": "x", "extra": "y"}), ("wrong_type", {"day": 1})):
+            values = {p.name: "2026-10-28 &extra=true+雪" for p in case.inputs}
+            def success(data, expected_query):
                 before = len(requests)
-                result = invoke(["billing", "day", "--input", json.dumps(data)])
+                result = invoke([*case.command, "--input", json.dumps(data)])
+                request_ok = requests[before:] == [("/admin" + case.path, expected_query, "Bearer eval-fixture-token")]
+                try:
+                    json_ok = json.loads(result.stdout or "null") == {"day": "fixture", "total": 12.5}
+                except ValueError:
+                    json_ok = False
+                return request_ok, result.returncode == 0 and result.stderr == "" and json_ok
+            checks["request_contract"], checks["json_result"] = success(values, {p.query: [values[p.name]] for p in case.inputs})
+            for param in case.inputs:
+                if not param.required:
+                    omitted = {k: v for k, v in values.items() if k != param.name}
+                    checks["optional_omitted_" + param.name] = all(success(omitted, {p.query: [omitted[p.name]] for p in case.inputs if p.name in omitted}))
+            invalid = [("unknown_input", dict(values, extra="y"))]
+            for param in case.inputs:
+                if param.required:
+                    invalid.append(("missing_required_" + param.name, {k: v for k, v in values.items() if k != param.name}))
+                invalid.append(("wrong_type_" + param.name, {**values, param.name: 1}))
+            for label, data in invalid:
+                before = len(requests)
+                result = invoke([*case.command, "--input", json.dumps(data)])
                 checks[label] = result.returncode == 2 and not result.stdout and len(requests) == before and error_code(result.stderr) == "invalid_input"
             upstream[0] = 503
-            result = invoke(["billing", "day", "--input", '{"day":"2026-10-28"}'])
+            result = invoke([*case.command, "--input", json.dumps(values)])
             checks["safe_upstream_error"] = (result.returncode == 1 and not result.stdout and error_code(result.stderr) == "http_status" and
                 "private-provider-diagnostic" not in result.stderr and "eval-fixture-token" not in result.stderr)
         finally:
@@ -94,18 +104,21 @@ def grade(work, env):
     # Mutation checks distinguish useful tests from tests that simply repeat success.
     manifest = work / "project.json"
     original = manifest.read_bytes()
-    for label in ("path", "query", "required"):
+    mutations = [("path", None)]
+    for param in case.inputs:
+        mutations.extend([("query_" + param.name, param), ("required_" + param.name, param)])
+    for label, param in mutations:
         data = json.loads(original)
-        command = next((c for c in data["commands"] if c["name"] == "billing day"), None)
+        command = next((c for c in data["commands"] if c["name"] == " ".join(case.command)), None)
         if command is None:
             checks["tests_detect_" + label] = False
             continue
         if label == "path":
             command["http"]["path"] = "/wrong-endpoint"
-        elif label == "query":
-            command["http"]["query"] = {"day": "wrong_parameter"}
+        elif label.startswith("query_"):
+            command["http"].setdefault("query", {})[param.name] = "wrong_parameter"
         else:
-            command["input"]["day"]["required"] = False
+            command.setdefault("input", {}).setdefault(param.name, {})["required"] = not param.required
         try:
             manifest.write_text(json.dumps(data))
             checks["tests_detect_" + label] = checks["candidate_tests_pass"] and run(["go", "test", "-short", "./..."], work, env).returncode != 0
@@ -120,7 +133,9 @@ def main():
     parser.add_argument("--output", type=Path, required=True, help="new directory for local transcripts and result")
     parser.add_argument("--timeout", type=int, default=300)
     parser.add_argument("--model", default="gpt-6.1-sol")
+    parser.add_argument("--task", choices=tuple(CASES), default="add_billing_day")
     args = parser.parse_args()
+    case = CASES[args.task]
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     env = dict(os.environ, CGO_ENABLED="0", GOWORK="off", GOPROXY="off", GOSUMDB="off")
@@ -147,7 +162,7 @@ def main():
             ignore.write("\n/.eval-cache/\n")
         env["GOCACHE"] = str(work / ".eval-cache")
         checked(["go", "test", "-short", "./..."], work, env)
-        prompt = TASK + ("\nUse .agents/skills/energyctl-develop/SKILL.md.\n" if args.condition == "skill" else "")
+        prompt = case.prompt + ("\nUse .agents/skills/energyctl-develop/SKILL.md.\n" if args.condition == "skill" else "")
         checked(["git", "init", "-q"], work, env)
         started = time.monotonic()
         command = ["codex", "--no-daemon", "exec", "--ignore-user-config", "--ephemeral", "--json",
@@ -168,14 +183,14 @@ def main():
         shutil.copytree(work, output / "artifact", ignore=shutil.ignore_patterns(".git", ".eval-cache", ".tmp", "candidate", "candidate.exe"))
         harness_error = None
         try:
-            checks = grade(work, env) if exit_code == 0 else {}
-        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            checks = grade(work, env, case) if exit_code == 0 else {}
+        except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
             checks, harness_error = {}, type(error).__name__ + ": " + str(error)
-        result = {"schema_version": 1, "experiment_version": 2,
-                  "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-                  "task_sha256": hashlib.sha256(TASK.encode()).hexdigest(),
+        result = {"schema_version": 1, "experiment_version": 3,
+                  "harness_sha256": hashlib.sha256(Path(__file__).read_bytes() + Path(__file__).with_name("cases.py").read_bytes()).hexdigest(),
+                  "task_sha256": hashlib.sha256(case.prompt.encode()).hexdigest(),
                   "skill_sha256": hashlib.sha256((ROOT / "internal/authoring/templates/develop-skill.md.tmpl").read_bytes() + (ROOT / "internal/authoring/templates/test-skill.md.tmpl").read_bytes()).hexdigest(),
-                  "loop_revision": checked(["git", "rev-parse", "HEAD"], ROOT, env).stdout.strip(), "task": "add_billing_day", "condition": args.condition,
+                  "loop_revision": checked(["git", "rev-parse", "HEAD"], ROOT, env).stdout.strip(), "task": case.name, "condition": args.condition,
                   "codex_version": checked(["codex", "--version"], ROOT, env).stdout.strip(),
                   "model": args.model, "reasoning_effort": "low", "exit_code": exit_code,
                   "timed_out": timed_out, "harness_error": harness_error, "duration_seconds": round(elapsed, 3),

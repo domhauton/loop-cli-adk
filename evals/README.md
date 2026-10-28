@@ -260,3 +260,20 @@ An observed repair involved guessing the manifest's input declaration shape.
 Template version 4 adds a compact generic query-input example to the development
 and manifest skills. That improvement is outside the frozen comparison above;
 its efficiency impact still needs a fresh or held-out task.
+
+## Other repository types
+
+The [native repository harness](repositories/README.md) tests Loop itself (Go),
+Landing (TypeScript/Node with its WASM build), and the pinned PorscheConnect PR
+(Python/Home Assistant). Each adapter uses existing native tests, proves a clean
+baseline, checks that a behavioural mutation fails, restores the source and runs
+the native suite. `results/native-repositories-v1.json` records all three passing
+cycles and retains initial setup failures. The runs do not make model calls or
+establish cross-stack token savings. Landing's full browser/database/deployment
+gates are outside this native frontend profile.
+
+CLI-development trials also accept `--task add_audit_events`, including distinct
+input/query names and an optional input. The local and manual CI runners share
+that case and independently grade omission, wrong types and mutations of each
+mapping/required flag. Earlier billing reports belong to their frozen harness;
+do not pool them with the expanded grader.

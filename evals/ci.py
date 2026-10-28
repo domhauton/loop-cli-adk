@@ -9,7 +9,8 @@ from pathlib import Path
 import re
 import subprocess
 
-from agent import TASK, checked, grade
+from agent import checked, grade
+from cases import CASES
 from usage import summarise, MAX_EVENT_BYTES, MAX_STREAM_BYTES
 from provenance import snapshot
 
@@ -31,6 +32,7 @@ def prepare(args):
     sdk, work = args.sdk.resolve(), args.workspace.resolve()
     env = dict(os.environ, CGO_ENABLED="0", GOWORK="off")
     source = snapshot(sdk)
+    case = CASES[getattr(args, "task", "add_billing_day")]
     checked(["go", "run", "./cmd/loop", "init", "--name", "energyctl", "--dir", str(work)], sdk, env)
     checked(["go", "mod", "edit", "-replace", "github.com/domhauton/loop-cli-adk=" + str(sdk)], work, env)
     with (work / ".gitignore").open("a") as ignore:
@@ -38,12 +40,12 @@ def prepare(args):
     env["GOCACHE"] = str(work / ".eval-cache")
     checked(["go", "test", "-short", "./..."], work, env)
     checked(["git", "init", "-q"], work, env)
-    args.prompt.write_text(TASK + "\nUse the generated development and testing guidance relevant to this task.\n")
+    args.prompt.write_text(case.prompt + "\nUse the generated development and testing guidance relevant to this task.\n")
     args.metadata.write_text(json.dumps({
         "schema_version": 1, "experiment": "revision_comparison", "condition": args.condition,
         "trial": args.trial, "model": args.model, "reasoning_effort": "low",
-        "task": "add_billing_day", "task_sha256": hashlib.sha256(args.prompt.read_bytes()).hexdigest(),
-        "harness_sha256": hashlib.sha256(Path(__file__).read_bytes() + Path(__file__).with_name("agent.py").read_bytes() + Path(__file__).with_name("provenance.py").read_bytes()).hexdigest(),
+        "task": case.name, "task_sha256": hashlib.sha256(args.prompt.read_bytes()).hexdigest(),
+        "harness_sha256": hashlib.sha256(Path(__file__).read_bytes() + Path(__file__).with_name("agent.py").read_bytes() + Path(__file__).with_name("provenance.py").read_bytes() + Path(__file__).with_name("cases.py").read_bytes()).hexdigest(),
         "source_revision": source["revision"], "source_sha256": source["sha256"],
     }, indent=2) + "\n")
 
@@ -57,10 +59,10 @@ def assess(args):
         usage = summarise(log_events(stream))
     checks, harness_error = {}, None
     try:
-        checks = grade(args.workspace.resolve(), env)
+        checks = grade(args.workspace.resolve(), env, CASES[metadata["task"]])
         source = snapshot(args.sdk)
         checks["sdk_source_unchanged"] = source == {"revision": metadata["source_revision"], "sha256": metadata["source_sha256"]}
-    except (OSError, ValueError, subprocess.SubprocessError) as error:
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
         harness_error = type(error).__name__ + ": " + str(error)
     result = {**metadata, "usage": usage, "checks": checks, "harness_error": harness_error,
               "action_outcome": args.outcome.read_text().strip(),
@@ -106,6 +108,7 @@ def main():
     p.add_argument("--condition", choices=("baseline", "candidate"), required=True)
     p.add_argument("--trial", type=int, choices=(1, 2, 3), required=True)
     p.add_argument("--model", required=True)
+    p.add_argument("--task", choices=tuple(CASES), default="add_billing_day")
     p = sub.add_parser("grade")
     for name in ("sdk", "workspace", "metadata", "log", "outcome", "output"):
         p.add_argument("--" + name, type=Path, required=True)

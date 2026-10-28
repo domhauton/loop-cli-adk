@@ -14,6 +14,13 @@ on:
         description: API model available to the configured OpenAI project
         required: true
         type: string
+      task:
+        description: Development task
+        type: choice
+        default: add_billing_day
+        options:
+          - add_billing_day
+          - add_audit_events
       max_token_ratio:
         description: Maximum candidate/baseline total-token ratio
         default: "1.10"
@@ -84,10 +91,11 @@ jobs:
           CONDITION: ${{ matrix.revision }}
           TRIAL: ${{ matrix.trial }}
           MODEL: ${{ inputs.model }}
+          TASK_CASE: ${{ inputs.task }}
         run: |
           python3 harness/evals/ci.py prepare --sdk sdk --workspace "$RUNNER_TEMP/trial" \
             --prompt "$RUNNER_TEMP/prompt.txt" --metadata "$RUNNER_TEMP/metadata.json" \
-            --condition "$CONDITION" --trial "$TRIAL" --model "$MODEL"
+            --condition "$CONDITION" --trial "$TRIAL" --model "$MODEL" --task "$TASK_CASE"
       - name: Keep Go compilation inside the candidate workspace
         run: |
           echo "GOCACHE=$RUNNER_TEMP/trial/.eval-cache" >> "$GITHUB_ENV"

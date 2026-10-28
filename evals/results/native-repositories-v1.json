@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "reports": {
+    "loop": {
+      "schema_version": 1,
+      "profile": "loop-definition",
+      "language": "Go",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "cf407662fde48e047e84fc87703a3deadf4d2e315e8551a0d92473d2c2d5f988",
+      "kind": "native_repository_feedback",
+      "model_tokens": null,
+      "scope": "Existing focused tests and native language suite; not production, browser, database or full repository deployment validation.",
+      "passed": true,
+      "mutation_detected": true,
+      "source_restored": true,
+      "stages": {
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.818,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.388,
+          "output_bytes": 505,
+          "output_within_limit": true
+        },
+        "restored": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.334,
+          "output_bytes": 66,
+          "output_within_limit": true
+        },
+        "native_suite": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 3.893,
+          "output_bytes": 697,
+          "output_within_limit": true
+        }
+      },
+      "failure_phase": null
+    },
+    "landing": {
+      "schema_version": 1,
+      "profile": "landing-counters",
+      "language": "TypeScript / Node",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "d002297ebbf6ed2401f3ec94452c28570fa0383aae8da60b6fd7db8730c7b6b8",
+      "kind": "native_repository_feedback",
+      "model_tokens": null,
+      "scope": "Existing focused tests and native language suite; not production, browser, database or full repository deployment validation.",
+      "passed": true,
+      "mutation_detected": true,
+      "source_restored": true,
+      "stages": {
+        "setup_0": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.682,
+          "output_bytes": 408,
+          "output_within_limit": true
+        },
+        "setup_1": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 2.188,
+          "output_bytes": 280,
+          "output_within_limit": true
+        },
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.13,
+          "output_bytes": 297,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.13,
+          "output_bytes": 1282,
+          "output_within_limit": true
+        },
+        "restored": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.129,
+          "output_bytes": 294,
+          "output_within_limit": true
+        },
+        "native_suite": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.498,
+          "output_bytes": 9548,
+          "output_within_limit": true
+        }
+      },
+      "failure_phase": null
+    },
+    "porscheconnect": {
+      "schema_version": 1,
+      "profile": "porsche-timestamp",
+      "language": "Python / Home Assistant",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "d002297ebbf6ed2401f3ec94452c28570fa0383aae8da60b6fd7db8730c7b6b8",
+      "kind": "native_repository_feedback",
+      "model_tokens": null,
+      "scope": "Existing focused tests and native language suite; not production, browser, database or full repository deployment validation.",
+      "passed": true,
+      "mutation_detected": true,
+      "source_restored": true,
+      "stages": {
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 2.629,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.898,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        },
+        "restored": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.625,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "native_suite": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 2.464,
+          "output_bytes": 1736,
+          "output_within_limit": true
+        }
+      },
+      "failure_phase": null
+    }
+  },
+  "retained_setup_failures": [
+    {
+      "schema_version": 1,
+      "profile": "landing-counters",
+      "language": "TypeScript / Node",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "ae0cc4f4166eb3feea03572cba9afab9f111c536f6e08c095a5aa4575e7ebc58",
+      "kind": "native_repository_feedback",
+      "model_tokens": null,
+      "scope": "Existing focused tests and native language suite; not production, browser, database or full repository deployment validation.",
+      "passed": false,
+      "mutation_detected": true,
+      "source_restored": true,
+      "stages": {
+        "setup": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.708,
+          "output_bytes": 408,
+          "output_within_limit": true
+        },
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.183,
+          "output_bytes": 296,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.129,
+          "output_bytes": 1282,
+          "output_within_limit": true
+        },
+        "restored": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.13,
+          "output_bytes": 295,
+          "output_within_limit": true
+        },
+        "native_suite": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 0.454,
+          "output_bytes": 14535,
+          "output_within_limit": true
+        }
+      },
+      "failure_phase": "verification"
+    },
+    {
+      "schema_version": 1,
+      "profile": "porsche-timestamp",
+      "language": "Python / Home Assistant",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "ae0cc4f4166eb3feea03572cba9afab9f111c536f6e08c095a5aa4575e7ebc58",
+      "kind": "native_repository_feedback",
+      "model_tokens": null,
+      "scope": "Existing focused tests and native language suite; not production, browser, database or full repository deployment validation.",
+      "passed": false,
+      "failure_phase": "baseline",
+      "stages": {
+        "baseline": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 3.727,
+          "output_bytes": 1822,
+          "output_within_limit": true
+        }
+      }
+    }
+  ],
+  "observations": [
+    "Landing requires its WASM build before the complete Node suite; npm ci alone is insufficient.",
+    "PorscheConnect focused tests pass with --no-cov; full pytest retains the 80 percent coverage gate and achieved 85.24 percent.",
+    "All three focused suites detected their behavioural mutation and passed after source restoration.",
+    "These are deterministic native-suite checks, not model trials or evidence of token savings.",
+    "External source checkouts and the referenced PorscheConnect PR were not modified."
+  ],
+  "porsche_environment": {
+    "python": "3.14.6",
+    "pytest": "9.0.3",
+    "pytest-homeassistant-custom-component": "0.13.365",
+    "homeassistant": "2026.9.2",
+    "pyporscheconnectapi": "0.2.9"
+  }
+}
