@@ -80,18 +80,23 @@ func WriteError(w io.Writer, err error) int {
 	if errors.As(err, &known) {
 		public = known
 	}
-	_ = json.NewEncoder(w).Encode(struct {
-		Error struct {
-			Code    string `json:"code"`
-			Message string `json:"message"`
-		} `json:"error"`
-	}{Error: struct {
-		Code    string `json:"code"`
-		Message string `json:"message"`
-	}{public.Code, public.Message}})
+	_ = json.NewEncoder(w).Encode(errorEnvelope{Error: publicError{
+		Code: public.Code, Message: public.Message, Details: public.Details,
+	}})
+
 	switch public.Code {
 	case "invalid_manifest", "configuration", "invalid_input", "unknown_command", "usage":
 		return 2
 	}
 	return 1
+}
+
+type publicError struct {
+	Code    string            `json:"code"`
+	Message string            `json:"message"`
+	Details map[string]string `json:"details,omitempty"`
+}
+
+type errorEnvelope struct {
+	Error publicError `json:"error"`
 }

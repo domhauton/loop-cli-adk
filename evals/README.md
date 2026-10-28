@@ -129,3 +129,46 @@ This workflow currently measures command-development tasks. It does not yet answ
 CLI-versus-natural-workflow amortisation. That experiment must permit existing
 tests, shell commands, temporary scripts and reusable helpers in the baseline,
 preserve both workspaces across tasks, and count CLI setup and maintenance.
+
+## CLI pay-off versus natural testing
+
+```sh
+python3 evals/lifecycle.py --condition natural --output evals/results/local/natural-1
+python3 evals/lifecycle.py --condition loop --output evals/results/local/loop-1
+python3 evals/lifecycle_report.py evals/results/local/natural-1/result.json evals/results/local/loop-1/result.json
+```
+
+This separate experiment preserves each workspace across four fresh agent sessions:
+initial state verification, authentication checks, a breaking route change and
+another state check. The baseline can choose any testing approach, retain scripts,
+reuse tests or create helpers. The Loop arm additionally scaffolds and builds a
+CLI in the first stage, then chooses how to use it. Installation of the Loop kit
+is assumed; per-project setup is measured. Neither arm is forced to rewrite work.
+
+Both leave a repeatable verification command. Independent replay requires it to
+pass the normal local API and fail wrong-state and authentication-bypass variants.
+The fixture is a synthetic Energy-style read API; the separate pinned Energy
+integration tests actual handlers. This corpus measures API integration checking,
+not all backend implementation or all possible CLI workflows.
+
+`results/lifecycle-v1.json` records three paired sequences (24 successful stages).
+The baseline naturally retained a Python verifier. Median cumulative input plus
+output was 286,187 tokens for the natural workflow and 460,433 for Loop. No observed
+break-even occurred within four tasks. Cached input is included once; uncached input
+and output are reported separately. No future pay-off or monetary cost is inferred.
+This is evidence against assuming that reuse alone makes a CLI cheaper: a capable
+agent can also reuse a script. More complex workflows need their own evaluations.
+
+One observed gap was a separate HTTP client in the Loop verifier to inspect a 401.
+The runtime now exposes safe HTTP status details for machine consumers. That change
+must be evaluated rather than assumed to improve the full workflow.
+
+## Engineering cost accounting
+
+`session_usage.py SESSION.jsonl --since TIMESTAMP` extracts only cumulative usage
+counters from one explicitly selected Codex session. It rejects resets and missing
+boundaries and never returns conversation text. `results/engineering-checkpoint.json`
+records a parent-session checkpoint, including design, coding, research and eval
+work. Its scope excludes architecture subagents and separate model trials. Cached
+input and reasoning are already included in their respective totals. This is not
+an estimate of dollars or tokens attributable solely to writing source code.

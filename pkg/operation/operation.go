@@ -31,6 +31,9 @@ type Handler func(context.Context, map[string]string) (json.RawMessage, error)
 type Error struct {
 	Code    string
 	Message string
+	// Details contains safe, protocol-specific values for machine consumers.
+	// Adapters must never include credentials, URLs or response bodies here.
+	Details map[string]string
 	cause   error
 }
 

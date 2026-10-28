@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -157,12 +158,16 @@ func check(ctx context.Context, manifest []byte, env Environment, c Case) error 
 	if c.WantError != "" {
 		var envelope struct {
 			Error struct {
-				Code    string `json:"code"`
-				Message string `json:"message"`
+				Code    string            `json:"code"`
+				Message string            `json:"message"`
+				Details map[string]string `json:"details"`
 			} `json:"error"`
 		}
 		if out.Len() != 0 || json.Unmarshal(diagnostic.Bytes(), &envelope) != nil || envelope.Error.Code != c.WantError || envelope.Error.Message == "" {
 			failures = append(failures, fmt.Errorf("error contract: stdout %s; stderr %s; want %s", preview(out.Bytes()), preview(diagnostic.Bytes()), c.WantError))
+		}
+		if c.WantError == "http_status" && envelope.Error.Details["http_status"] != strconv.Itoa(status) {
+			failures = append(failures, fmt.Errorf("HTTP error details: got %q, want %d", envelope.Error.Details["http_status"], status))
 		}
 	} else {
 		var expected, actual bytes.Buffer

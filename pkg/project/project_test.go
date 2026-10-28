@@ -111,6 +111,22 @@ func TestHTTPFailuresAreStructuredAndDoNotExposeBody(t *testing.T) {
 			if status != 1 || out.Len() != 0 || !strings.Contains(errout.String(), `"code":"`+tc.code+`"`) || strings.Contains(errout.String(), "secret-fixture") || requests.Load() != 1 {
 				t.Fatalf("status=%d stdout=%s stderr=%s requests=%d", status, &out, &errout, requests.Load())
 			}
+			var envelope struct {
+				Error struct {
+					Details map[string]string `json:"details"`
+				} `json:"error"`
+			}
+			if err := json.Unmarshal(errout.Bytes(), &envelope); err != nil {
+				t.Fatal(err)
+			}
+			if tc.code == "http_status" {
+				if envelope.Error.Details["http_status"] != fmt.Sprint(tc.status) {
+					t.Fatalf("missing HTTP status details: %s", &errout)
+				}
+			} else if len(envelope.Error.Details) != 0 {
+				t.Fatalf("unexpected HTTP details: %s", &errout)
+			}
+
 		})
 	}
 }

@@ -143,3 +143,10 @@ private-project checkout is required by ordinary CI. See `evals/README.md`.
 pass-through JSON, structured errors and absence of requests for invalid input.
 Runtime packages and executable entry points cannot import it. This keeps reusable
 test mechanics out of each project's handwritten tests without adding a test DSL.
+
+Public errors may include optional string-valued `details` supplied by the owning
+adapter. The HTTP adapter sets `http_status` for non-2xx responses. The CLI forwards
+these values without understanding HTTP; a future protocol can expose its own
+safe keys. Existing error codes, messages and exit codes are unchanged. Causes,
+credentials, URLs and response bodies remain excluded. Consumers should tolerate
+additional details rather than parsing human-readable messages for protocol data.

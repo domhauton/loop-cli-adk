@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "usage_source": "parent Codex session token_count cumulative counters",
+  "through": "2026-10-28T22:15:17.447Z",
+  "scope": "Whole parent conversation, including design, implementation, research and evaluation work. Excludes architecture subagents and separate codex exec trials.",
+  "parent_totals": {
+    "input_tokens": 27803041,
+    "cached_input_tokens": 27392768,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 146904,
+    "reasoning_output_tokens": 55463,
+    "total_tokens": 27949945
+  },
+  "evaluation_goal_started_at": "2026-10-28T21:30:18+00:00",
+  "last_counter_before_goal": "2026-10-28T21:29:51.935Z",
+  "since_goal_counter_delta": {
+    "input_tokens": 10162842,
+    "cached_input_tokens": 10048640,
+    "output_tokens": 68354,
+    "reasoning_output_tokens": 33197,
+    "total_tokens": 10231196
+  },
+  "limitations": [
+    "Cached input is already included in input; reasoning output is already included in output.",
+    "This is observed parent-session usage, not API pricing or an allocation solely to code changes.",
+    "The goal budget counter uses a different accounting basis and is not mixed with these provider counters."
+  ]
+}

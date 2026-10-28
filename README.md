@@ -147,3 +147,8 @@ iteration without compiling the project executable.
 handlers in an offline fixture and runs opt-in agent trials for command development.
 It records observed model tokens, task success and whether the agent's tests catch
 broken API mappings. Model trials consume allowance and are not part of normal CI.
+
+Non-2xx HTTP errors expose a machine-readable status, for example
+`{"error":{"code":"http_status","message":"API returned HTTP 401","details":{"http_status":"401"}}}`.
+The optional details map contains safe string values. Existing error codes and
+exit codes are unchanged; consumers need not parse the message to identify 401.

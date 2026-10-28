@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
@@ -70,7 +71,9 @@ func Bind(cfg Config) operation.Handler {
 		}
 		defer res.Body.Close()
 		if res.StatusCode < 200 || res.StatusCode >= 300 {
-			return nil, operation.NewError("http_status", fmt.Sprintf("API returned HTTP %d", res.StatusCode), nil)
+			failure := operation.NewError("http_status", fmt.Sprintf("API returned HTTP %d", res.StatusCode), nil)
+			failure.Details = map[string]string{"http_status": strconv.Itoa(res.StatusCode)}
+			return nil, failure
 		}
 		body, err := io.ReadAll(io.LimitReader(res.Body, operation.MaxResultBytes+1))
 		if err != nil {
