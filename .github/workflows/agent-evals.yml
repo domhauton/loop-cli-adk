@@ -1,0 +1,208 @@
+name: Agent development evals
+on:
+  workflow_dispatch:
+    inputs:
+      baseline:
+        description: Baseline commit SHA (40 hex characters)
+        required: true
+        type: string
+      candidate:
+        description: Candidate commit SHA (blank uses workflow commit)
+        required: false
+        type: string
+      model:
+        description: API model available to the configured OpenAI project
+        required: true
+        type: string
+      max_token_ratio:
+        description: Maximum candidate/baseline total-token ratio
+        default: "1.10"
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: agent-evals
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    outputs:
+      baseline: ${{ steps.refs.outputs.baseline }}
+      candidate: ${{ steps.refs.outputs.candidate }}
+    steps:
+      - id: refs
+        env:
+          BASELINE: ${{ inputs.baseline }}
+          CANDIDATE: ${{ inputs.candidate || github.sha }}
+          API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MAX_TOKEN_RATIO: ${{ inputs.max_token_ratio }}
+        run: |
+          python3 - <<'PY'
+          import math, os, re
+          if not os.environ['API_KEY']:
+              raise SystemExit('Configure OPENAI_API_KEY before running paid evals.')
+          ratio = float(os.environ['MAX_TOKEN_RATIO'])
+          if not math.isfinite(ratio) or ratio <= 0:
+              raise SystemExit('Token ratio must be a positive finite number.')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              for key in ('baseline', 'candidate'):
+                  value = os.environ[key.upper()]
+                  if not re.fullmatch(r'[0-9a-f]{40}', value):
+                      raise SystemExit(key + ' must be a complete commit SHA')
+                  output.write(key + '=' + value + '\n')
+          PY
+  agent:
+    name: Agent ${{ matrix.revision }} / ${{ matrix.trial }}
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        revision: [baseline, candidate]
+        trial: [1, 2, 3]
+    env:
+      CGO_ENABLED: "0"
+      GOWORK: "off"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.revision == 'baseline' && needs.validate.outputs.baseline || needs.validate.outputs.candidate }}
+          path: sdk
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: harness/go.mod
+          cache: false
+      - name: Prepare identical task and warm build cache
+        env:
+          CONDITION: ${{ matrix.revision }}
+          TRIAL: ${{ matrix.trial }}
+          MODEL: ${{ inputs.model }}
+        run: |
+          python3 harness/evals/ci.py prepare --sdk sdk --workspace "$RUNNER_TEMP/trial" \
+            --prompt "$RUNNER_TEMP/prompt.txt" --metadata "$RUNNER_TEMP/metadata.json" \
+            --condition "$CONDITION" --trial "$TRIAL" --model "$MODEL"
+      - name: Keep Go compilation inside the candidate workspace
+        run: |
+          echo "GOCACHE=$RUNNER_TEMP/trial/.eval-cache" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/eval-codex-home"
+          printf '[sandbox_workspace_write]\nnetwork_access = true\n' > "$RUNNER_TEMP/eval-codex-home/config.toml"
+      - name: Execute development task
+        id: codex
+        continue-on-error: true
+        timeout-minutes: 5
+        uses: openai/codex-action@c05cfd74ad95c626cdf05c6685e62becc3bf7813
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          codex-version: "0.165.0"
+          codex-home: ${{ runner.temp }}/eval-codex-home
+          model: ${{ inputs.model }}
+          effort: low
+          safety-strategy: drop-sudo
+          sandbox: workspace-write
+          working-directory: ${{ runner.temp }}/trial
+          prompt-file: ${{ runner.temp }}/prompt.txt
+          codex-args: '["--json"]'
+      - name: Record action outcome
+        if: always()
+        env:
+          OUTCOME: ${{ steps.codex.outcome }}
+        run: printf '%s\n' "$OUTCOME" > "$RUNNER_TEMP/outcome.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: candidate-${{ matrix.revision }}-${{ matrix.trial }}
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/metadata.json
+            ${{ runner.temp }}/outcome.txt
+            ${{ runner.temp }}/trial/**
+            !${{ runner.temp }}/trial/.eval-cache/**
+            !${{ runner.temp }}/trial/.git/**
+  grade:
+    name: Grade ${{ matrix.revision }} / ${{ matrix.trial }}
+    needs: [validate, agent]
+    if: always() && needs.validate.result == 'success'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        revision: [baseline, candidate]
+        trial: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.revision == 'baseline' && needs.validate.outputs.baseline || needs.validate.outputs.candidate }}
+          path: sdk
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: harness/go.mod
+          cache: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: candidate-${{ matrix.revision }}-${{ matrix.trial }}
+          path: trial-data
+      - name: Read measured usage from the completed action job
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JOB_NAME: Agent ${{ matrix.revision }} / ${{ matrix.trial }}
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          repo, run_id = os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_RUN_ID']
+          query = '.jobs[] | select(.name == ' + json.dumps(os.environ['JOB_NAME']) + ') | .id'
+          ids = subprocess.check_output(['gh', 'api', f'repos/{repo}/actions/runs/{run_id}/jobs', '--paginate', '--jq', query], text=True).split()
+          if len(ids) != 1:
+              raise SystemExit('Expected exactly one matching agent job')
+          with open('trial-data/action.log', 'wb') as output:
+              subprocess.run(['gh', 'api', f'repos/{repo}/actions/jobs/{ids[0]}/logs'], stdout=output, check=True)
+          PY
+      - name: Grade on a fresh runner without model credentials
+        run: |
+          python3 harness/evals/ci.py grade --sdk sdk --workspace trial-data/trial \
+            --metadata trial-data/metadata.json --outcome trial-data/outcome.txt \
+            --log trial-data/action.log --output result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.revision }}-${{ matrix.trial }}
+          path: result.json
+  compare:
+    needs: grade
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: result-*
+          path: results
+      - name: Check correctness and token regression
+        env:
+          MAX_TOKEN_RATIO: ${{ inputs.max_token_ratio }}
+        run: python3 evals/ci.py compare results/*/result.json --max-token-ratio "$MAX_TOKEN_RATIO" --output comparison.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: comparison
+          path: comparison.json
+      - name: Add comparison to workflow summary
+        if: always()
+        run: |
+          if [ -f comparison.json ]; then
+            cat comparison.json >> "$GITHUB_STEP_SUMMARY"
+          fi

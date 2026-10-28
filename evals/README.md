@@ -98,3 +98,34 @@ Use `python3 evals/report.py path/to/result.json ...` to aggregate compatible ru
 It refuses differing models, prompts, harnesses or source revisions, keeps failures
 in the totals and marks unknown usage. Existing reports describe their recorded
 revision, not whatever happens to be checked out today.
+
+## CI during development
+
+Every ordinary CI run executes the deterministic evaluation tests on all six native
+targets. The separate `Agent development evals` workflow is manually dispatched
+with complete baseline/candidate commit SHAs and an API model available to the
+publisher's OpenAI project. It runs three tasks per revision, using the same prompt
+and grader from the workflow revision. The candidate SHA defaults to the workflow
+commit. Both arms get their generated project and guidance, so this compares kit
+revisions rather than skill presence alone.
+
+Configure the repository's `OPENAI_API_KEY` secret before dispatching. No key is
+currently configured in this repository; paid CI execution is not yet verified.
+The workflow uses a commit-pinned official Codex action, CLI 0.165.0 and low effort.
+The action's proxy keeps the raw key out of the model process. No model key is
+passed to the grading job, which builds and tests downloaded candidate artefacts
+on a fresh runner. Only trusted maintainers can dispatch this workflow.
+
+Actual usage comes from JSON events in the completed action job's log, not from
+the model's self-reported answer. The comparison requires all six tasks to pass
+and complete usage to be present, then checks the configured total-token ratio
+(default 1.10). Input includes cached input once; uncached input and output are
+also reported. Missing jobs, unknown usage and failed tasks cannot pass by appearing
+cheap. The result is a small-sample regression signal, not a dollar-cost guarantee.
+CI logs and candidate artefacts may contain generated source; retention for
+candidate artefacts is seven days. No Energy source or production data is uploaded.
+
+This workflow currently measures command-development tasks. It does not yet answer
+CLI-versus-natural-workflow amortisation. That experiment must permit existing
+tests, shell commands, temporary scripts and reusable helpers in the baseline,
+preserve both workspaces across tasks, and count CLI setup and maintenance.

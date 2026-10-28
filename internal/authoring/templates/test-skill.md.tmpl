@@ -1,0 +1,25 @@
+---
+name: [[.Name]]-test
+description: Test and debug [[.Name]] command bindings against local API fixtures. Use for CLI contract regressions; retain the host project's tests for business behaviour.
+---
+
+# Test [[.Name]]
+
+Read `project.json` and `contracts_test.go`. Extend the existing `clitest.Case`
+table rather than rebuilding HTTP servers and CLI output assertions for each
+binding. Expected paths and query values come from the API contract, independently
+of the manifest being tested. `Request: nil` asserts that no request occurs.
+
+A successful case needs arguments, expected request and JSON response. Use
+`Request.Query` (`url.Values`) for decoded query values, including spaces, `+`
+and `&` when encoding matters. The helper supplies synthetic bearer auth, checks
+the complete JSON result and preserves the configured `/admin` prefix. An error
+case names both `WantExit` and `WantError`; a 503 fixture defaults to a private
+body which must not leak into diagnostics.
+
+For quick feedback run `go test -run '^TestCommandContracts$' -count=1 .`.
+Verify a binding regression fails before the fix and passes afterwards. Keep
+business assertions in the backend's existing tests: these fixtures prove client
+mapping, not live server correctness. Use `go run . describe` for discovery.
+Run `go vet ./...` and `go test ./...` before shipping; the latter also checks the
+native executable. No real endpoint or credentials are needed.

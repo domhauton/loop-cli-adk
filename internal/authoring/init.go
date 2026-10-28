@@ -21,10 +21,10 @@ import (
 
 // DefaultSDKVersion is an immutable, published Go module revision. Until the first
 // release tag exists, this pins the six-platform-tested runtime from 28 October 2026.
-const DefaultSDKVersion = "v0.0.0-20261028205018-09c9d70f7fc0"
+const DefaultSDKVersion = "v0.0.0-20261028215504-59d6475117d9"
 
 // TemplateVersion identifies the scaffold recipe without implying automatic upgrades.
-const TemplateVersion = 1
+const TemplateVersion = 2
 
 //go:embed templates/*
 var scaffoldTemplates embed.FS
@@ -163,14 +163,16 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 	if opts.SDKVersion == DefaultSDKVersion {
 		// Verified against the public Go checksum database for the bootstrap revision.
 		// Other pins resolve their own checksums with go mod tidy before committing.
-		files["go.sum"] = []byte(modulePath + " " + DefaultSDKVersion + " h1:lITLJuROKK4CII/maCCF715VcPRWIAlezdOJfqqh+Rk=\n" + modulePath + " " + DefaultSDKVersion + "/go.mod h1:u7e1313Ner7uIpYl6LoGo2Rn3JV1PtFKekpq7kSFGl8=\n")
+		files["go.sum"] = []byte(modulePath + " " + DefaultSDKVersion + " h1:iJfZndgPs4aJPYkQpd6Pno3fh7GurTYwk08IrOZNGlY=\n" + modulePath + " " + DefaultSDKVersion + "/go.mod h1:u7e1313Ner7uIpYl6LoGo2Rn3JV1PtFKekpq7kSFGl8=\n")
 	}
 	for destination, source := range map[string]string{
 		"go.mod": "go.mod.tmpl", "main_test.go": "main_test.go.tmpl",
-		"README.md": "README.md.tmpl", "AGENTS.md": "AGENTS.md.tmpl", ".gitignore": "gitignore.tmpl",
+		"contracts_test.go": "contracts_test.go.tmpl",
+		"README.md":         "README.md.tmpl", "AGENTS.md": "AGENTS.md.tmpl", ".gitignore": "gitignore.tmpl",
 		".goreleaser.yaml": "goreleaser.yml.tmpl", ".github/workflows/ci.yml": "ci.yml.tmpl", ".github/workflows/release.yml": "release.yml.tmpl",
 		".agents/skills/" + opts.Name + "-develop/SKILL.md": "develop-skill.md.tmpl",
 		".agents/skills/" + opts.Name + "-release/SKILL.md": "release-skill.md.tmpl",
+		".agents/skills/" + opts.Name + "-test/SKILL.md":    "test-skill.md.tmpl",
 	} {
 		content, err := scaffoldTemplates.ReadFile("templates/" + source)
 		if err != nil {

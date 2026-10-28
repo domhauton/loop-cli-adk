@@ -139,6 +139,10 @@ def main():
             for name, value in (("Name", "energyctl"), ("BaseURLEnv", "ENERGYCTL_API_URL"), ("TokenEnv", "ENERGYCTL_API_TOKEN")):
                 text = text.replace("[[." + name + "]]", value)
             (skill / "SKILL.md").write_text(text)
+            testing = work / ".agents/skills/energyctl-test"
+            testing.mkdir(parents=True)
+            text = (ROOT / "internal/authoring/templates/test-skill.md.tmpl").read_text().replace("[[.Name]]", "energyctl")
+            (testing / "SKILL.md").write_text(text)
         with (work / ".gitignore").open("a") as ignore:
             ignore.write("\n/.eval-cache/\n")
         env["GOCACHE"] = str(work / ".eval-cache")
@@ -167,10 +171,10 @@ def main():
             checks = grade(work, env) if exit_code == 0 else {}
         except (OSError, ValueError, subprocess.SubprocessError) as error:
             checks, harness_error = {}, type(error).__name__ + ": " + str(error)
-        result = {"schema_version": 1, "experiment_version": 1,
+        result = {"schema_version": 1, "experiment_version": 2,
                   "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   "task_sha256": hashlib.sha256(TASK.encode()).hexdigest(),
-                  "skill_sha256": hashlib.sha256((ROOT / "internal/authoring/templates/develop-skill.md.tmpl").read_bytes()).hexdigest(),
+                  "skill_sha256": hashlib.sha256((ROOT / "internal/authoring/templates/develop-skill.md.tmpl").read_bytes() + (ROOT / "internal/authoring/templates/test-skill.md.tmpl").read_bytes()).hexdigest(),
                   "loop_revision": checked(["git", "rev-parse", "HEAD"], ROOT, env).stdout.strip(), "task": "add_billing_day", "condition": args.condition,
                   "codex_version": checked(["codex", "--version"], ROOT, env).stdout.strip(),
                   "model": args.model, "reasoning_effort": "low", "exit_code": exit_code,

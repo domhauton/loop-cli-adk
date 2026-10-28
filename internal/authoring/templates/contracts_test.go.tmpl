@@ -1,0 +1,22 @@
+package main
+
+import (
+ "testing"
+
+ "github.com/domhauton/loop-cli-adk/pkg/clitest"
+)
+
+func TestCommandContracts(t *testing.T) {
+ env := clitest.Environment{BaseURL: "[[.BaseURLEnv]]", Token: "[[.TokenEnv]]", Prefix: "/admin"}
+ cases := []clitest.Case{
+  {Name: "status", Args: []string{"status", "get"},
+   Request: &clitest.Request{Path: "/admin/health"},
+   Response: clitest.Response{Body: `{"status":"ok"}`}},
+  {Name: "unknown input stays local", Args: []string{"status", "get", "--input", `{"unknown":"field"}`},
+   WantExit: 2, WantError: "invalid_input"},
+  {Name: "upstream error is safe", Args: []string{"status", "get"},
+   Request: &clitest.Request{Path: "/admin/health"}, Response: clitest.Response{Status: 503},
+   WantExit: 1, WantError: "http_status"},
+ }
+ if err := clitest.Check(t.Context(), manifest, env, cases...); err != nil { t.Fatal(err) }
+}

@@ -27,7 +27,7 @@ locally without credentials, network access or a Go toolchain. Names are portabl
 across the supported operating systems. Existing files and symlink parents cause a
 conflict before any generated files are written. Unrelated files are preserved.
 
-The bootstrap SDK pin is the immutable public Go revision of `09c9d70`, which passed
+The bootstrap SDK pin is the immutable public Go revision of `59d6475`, which passed
 all six native targets. This avoids a fictional release tag or a dependency on a
 moving branch. `go.sum` is included for the default pin; custom pins resolve their
 checksums with `go mod tidy`. `.loop/scaffold.json` records template and SDK versions.
@@ -79,3 +79,18 @@ for basic archive distribution. Never bypass OS security checks in an installer.
 Do not automatically overwrite user-edited templates during an upgrade. Record
 versions and review regenerated differences first. Build migrations only when real
 compatibility needs appear.
+
+## Evaluation-driven test support
+
+Template version 2 pins the six-target-tested `59d6475` SDK, which includes
+`pkg/clitest`. Generated contract cases replace repeated HTTP/output boilerplate;
+discovery and native-executable checks remain separate. A focused testing skill
+explains this helper without replacing the backend's business tests.
+
+The first three-pair skill ablation did not establish a cost saving. Skill effects
+and CLI amortisation are different experiments. The amortisation baseline must
+allow whatever testing approach the model naturally chooses, including existing
+tests and reusable scripts; never force it to rewrite scripts. Count CLI setup and
+maintenance, preserve workspace artefacts between tasks in both arms, and grade
+the same outcomes. Paid CI evals are opt-in; deterministic grader checks run in
+the ordinary six-target matrix.

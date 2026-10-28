@@ -7,6 +7,7 @@ Do not duplicate request handling or copy runtime internals into this repository
 Load only the relevant skill:
 
 - [Develop this CLI](.agents/skills/[[.Name]]-develop/SKILL.md): extend operations or their supporting API and verify behaviour.
+- [Test this CLI](.agents/skills/[[.Name]]-test/SKILL.md): verify command contracts and debug integration failures.
 - [Prepare a release](.agents/skills/[[.Name]]-release/SKILL.md): discover existing distribution infrastructure and configure publishing.
 
 Use `go mod tidy`, then `go vet ./...` and `go test ./...` before shipping.

@@ -43,7 +43,7 @@ func TestInitCreatesUsableDefinition(t *testing.T) {
 	if _, err := definition.Parse(roundTrip); err != nil {
 		t.Fatal(err)
 	}
-	for _, name := range []string{"main.go", "main_test.go", "go.mod", "go.sum", "AGENTS.md", "README.md", ".loop/scaffold.json", ".goreleaser.yaml", ".github/workflows/ci.yml", ".github/workflows/release.yml", ".agents/skills/reefctl-develop/SKILL.md", ".agents/skills/reefctl-release/SKILL.md"} {
+	for _, name := range []string{"main.go", "main_test.go", "contracts_test.go", "go.mod", "go.sum", "AGENTS.md", "README.md", ".loop/scaffold.json", ".goreleaser.yaml", ".github/workflows/ci.yml", ".github/workflows/release.yml", ".agents/skills/reefctl-develop/SKILL.md", ".agents/skills/reefctl-test/SKILL.md", ".agents/skills/reefctl-release/SKILL.md"} {
 		if _, err := os.Stat(filepath.Join(dir, filepath.FromSlash(name))); err != nil {
 			t.Errorf("missing %s: %v", name, err)
 		}

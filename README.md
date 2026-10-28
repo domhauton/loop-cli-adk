@@ -73,8 +73,9 @@ The scaffold includes:
 
 - `project.json`: an example `status get` command for GET `/health`.
 - `main.go`, `go.mod` and `go.sum`: a thin executable with a pinned runtime.
-- `main_test.go`: HTTP fixture, discovery, input failure and native executable tests.
-- `AGENTS.md` and two `.agents/skills/` skills for development and publishing setup.
+- `contracts_test.go`: compact HTTP contract cases using the shared fixture helper.
+- `main_test.go`: discovery and native executable tests.
+- `AGENTS.md` and three `.agents/skills/` skills for development, testing and publishing setup.
 - Native CI for all six targets, a tag-triggered release workflow and GoReleaser config.
 - README, ignore rules and `.loop/scaffold.json` recording the template/SDK versions.
 

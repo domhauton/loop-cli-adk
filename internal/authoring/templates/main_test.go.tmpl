@@ -27,29 +27,6 @@ func TestDiscoveryWithoutCredentials(t *testing.T) {
 	}
 }
 
-func TestHealthCommand(t *testing.T) {
-	server := fixtureAPI(t)
-	defer server.Close()
-	p, err := project.New(manifest, func(key string) string {
-		switch key {
-		case "[[.BaseURLEnv]]": return server.URL
-		case "[[.TokenEnv]]": return "fixture-only"
-		default: t.Fatalf("unexpected environment key %s", key); return ""
-		}
-	})
-	if err != nil { t.Fatal(err) }
-	for _, tc := range []struct{ args []string; status int }{
-		{[]string{"status", "get"}, 0},
-		{[]string{"status", "get", "--input", `{"unknown":"field"}`}, 2},
-	} {
-		var out, errout bytes.Buffer
-		status := cli.Run(context.Background(), p, tc.args, &out, &errout)
-		if status != tc.status { t.Fatalf("args=%v status=%d stderr=%s", tc.args, status, &errout) }
-		if status == 0 && (out.String() != "{\"status\":\"ok\"}\n" || errout.Len() != 0) { t.Fatalf("stdout=%s stderr=%s", &out, &errout) }
-		if status != 0 && (out.Len() != 0 || !json.Valid(errout.Bytes())) { t.Fatalf("stdout=%s stderr=%s", &out, &errout) }
-	}
-}
-
 func TestNativeExecutable(t *testing.T) {
 	if testing.Short() { t.Skip("compiles and executes the native CLI") }
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
