@@ -1,0 +1,2044 @@
+{
+  "schema_version": 1,
+  "experiment": "verification_boundary_prototypes_v1",
+  "reports": {
+    "natural": [
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "natural",
+        "verification_mode": "free",
+        "loop_mode": null,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 17.011,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 69472,
+                "cached_input_tokens": 63744,
+                "output_tokens": 598
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 4147
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 22.2,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80203,
+                "cached_input_tokens": 71296,
+                "output_tokens": 716
+              },
+              "reasoning_output_tokens": 68,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 6585
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 18.731,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 63840,
+                "cached_input_tokens": 56448,
+                "output_tokens": 662
+              },
+              "reasoning_output_tokens": 29,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 6661
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 3,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 12.835,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 70801,
+                "cached_input_tokens": 59776,
+                "output_tokens": 611
+              },
+              "reasoning_output_tokens": 24,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 6887
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "natural",
+        "verification_mode": "free",
+        "loop_mode": null,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 21.697,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 69630,
+                "cached_input_tokens": 59264,
+                "output_tokens": 724
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 4203
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 20.666,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80951,
+                "cached_input_tokens": 71552,
+                "output_tokens": 874
+              },
+              "reasoning_output_tokens": 46,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7017
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 17.298,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 63888,
+                "cached_input_tokens": 55936,
+                "output_tokens": 367
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 7207
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 22.333,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 89257,
+                "cached_input_tokens": 82688,
+                "output_tokens": 451
+              },
+              "reasoning_output_tokens": 15,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7690
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "natural",
+        "verification_mode": "free",
+        "loop_mode": null,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 17.124,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 69591,
+                "cached_input_tokens": 64000,
+                "output_tokens": 662
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 4124
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 20.496,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80542,
+                "cached_input_tokens": 75776,
+                "output_tokens": 741
+              },
+              "reasoning_output_tokens": 85,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 6808
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 14.616,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80789,
+                "cached_input_tokens": 75904,
+                "output_tokens": 580
+              },
+              "reasoning_output_tokens": 67,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7824
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 17.985,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80657,
+                "cached_input_tokens": 71680,
+                "output_tokens": 483
+              },
+              "reasoning_output_tokens": 30,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7216
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 0
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "native": [
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "loop",
+        "verification_mode": "native",
+        "loop_mode": "runner",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 24.165,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 121405,
+                "cached_input_tokens": 104704,
+                "output_tokens": 833
+              },
+              "reasoning_output_tokens": 10,
+              "command_count": 7,
+              "failed_command_count": 1,
+              "event_bytes": 15746
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 1
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 15.657,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 99825,
+                "cached_input_tokens": 93952,
+                "output_tokens": 582
+              },
+              "reasoning_output_tokens": 15,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 11186
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 16.197,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 89638,
+                "cached_input_tokens": 82816,
+                "output_tokens": 471
+              },
+              "reasoning_output_tokens": 40,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 8204
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 15.941,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 89292,
+                "cached_input_tokens": 76416,
+                "output_tokens": 443
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7880
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "loop",
+        "verification_mode": "native",
+        "loop_mode": "runner",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 23.461,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 104512,
+                "cached_input_tokens": 94848,
+                "output_tokens": 918
+              },
+              "reasoning_output_tokens": 8,
+              "command_count": 8,
+              "failed_command_count": 1,
+              "event_bytes": 15583
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 1
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 13.372,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 83797,
+                "cached_input_tokens": 75008,
+                "output_tokens": 540
+              },
+              "reasoning_output_tokens": 21,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 12024
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 17.804,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 64230,
+                "cached_input_tokens": 53504,
+                "output_tokens": 463
+              },
+              "reasoning_output_tokens": 24,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 7795
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 18.451,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 109977,
+                "cached_input_tokens": 97664,
+                "output_tokens": 531
+              },
+              "reasoning_output_tokens": 22,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 11169
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "loop",
+        "verification_mode": "native",
+        "loop_mode": "runner",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 21.573,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 114099,
+                "cached_input_tokens": 98176,
+                "output_tokens": 874
+              },
+              "reasoning_output_tokens": 25,
+              "command_count": 8,
+              "failed_command_count": 1,
+              "event_bytes": 15082
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 1
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 16.215,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 92398,
+                "cached_input_tokens": 77952,
+                "output_tokens": 552
+              },
+              "reasoning_output_tokens": 18,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 12148
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 13.22,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 89063,
+                "cached_input_tokens": 82176,
+                "output_tokens": 432
+              },
+              "reasoning_output_tokens": 25,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7431
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 18.829,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80790,
+                "cached_input_tokens": 71296,
+                "output_tokens": 446
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7863
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      }
+    ],
+    "declarative": [
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "loop",
+        "verification_mode": "declarative",
+        "loop_mode": "runner",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 19.48,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 113016,
+                "cached_input_tokens": 97920,
+                "output_tokens": 765
+              },
+              "reasoning_output_tokens": 11,
+              "command_count": 8,
+              "failed_command_count": 1,
+              "event_bytes": 13444
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 1
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 16.018,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 82201,
+                "cached_input_tokens": 73344,
+                "output_tokens": 391
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 11120
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 10.466,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 63924,
+                "cached_input_tokens": 56064,
+                "output_tokens": 283
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 3,
+              "failed_command_count": 0,
+              "event_bytes": 6837
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 12.511,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 88909,
+                "cached_input_tokens": 81920,
+                "output_tokens": 378
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7487
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "loop",
+        "verification_mode": "declarative",
+        "loop_mode": "runner",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 22.332,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 102672,
+                "cached_input_tokens": 96384,
+                "output_tokens": 714
+              },
+              "reasoning_output_tokens": 10,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 12497
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 1
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 20.734,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 82309,
+                "cached_input_tokens": 71296,
+                "output_tokens": 414
+              },
+              "reasoning_output_tokens": 35,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 10943
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 18.554,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80878,
+                "cached_input_tokens": 68736,
+                "output_tokens": 389
+              },
+              "reasoning_output_tokens": 21,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7591
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 14.97,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80640,
+                "cached_input_tokens": 68352,
+                "output_tokens": 382
+              },
+              "reasoning_output_tokens": 0,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7590
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      },
+      {
+        "schema_version": 1,
+        "experiment": "natural_workflow_amortisation_pilot",
+        "condition": "loop",
+        "verification_mode": "declarative",
+        "loop_mode": "runner",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+        "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1",
+        "fixture": "synthetic Energy-style read API; not actual Energy handlers",
+        "stages": [
+          {
+            "exit_code": 0,
+            "duration_seconds": 22.083,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 121377,
+                "cached_input_tokens": 107904,
+                "output_tokens": 792
+              },
+              "reasoning_output_tokens": 38,
+              "command_count": 6,
+              "failed_command_count": 1,
+              "event_bytes": 10388
+            },
+            "stage": 0,
+            "task": "Verify that the running API reports car_soc=50 and battery_soc=80.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 1,
+              "loop_client": 1
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 19.389,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 101019,
+                "cached_input_tokens": 94720,
+                "output_tokens": 507
+              },
+              "reasoning_output_tokens": 24,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 12501
+            },
+            "stage": 1,
+            "task": "Extend verification: an invalid bearer token must be rejected with HTTP 401. Keep verifying the valid-token status. Ordinary verification output must not expose the token or private HTTP error bodies.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 21.612,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80813,
+                "cached_input_tokens": 75904,
+                "output_tokens": 399
+              },
+              "reasoning_output_tokens": 24,
+              "command_count": 4,
+              "failed_command_count": 0,
+              "event_bytes": 7672
+            },
+            "stage": 2,
+            "task": "The API route changed from /api/status to /api/state; the old route now returns 404. Update your tooling and verification, retaining status and invalid-token checks.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          },
+          {
+            "exit_code": 0,
+            "duration_seconds": 15.484,
+            "usage": {
+              "schema_version": 1,
+              "usage_source": "codex_exec_turn_completed",
+              "usage_complete": true,
+              "completed_turns": 1,
+              "failure_events": 0,
+              "tokens": {
+                "input_tokens": 80594,
+                "cached_input_tokens": 78336,
+                "output_tokens": 423
+              },
+              "reasoning_output_tokens": 20,
+              "command_count": 5,
+              "failed_command_count": 0,
+              "event_bytes": 7957
+            },
+            "stage": 3,
+            "task": "Verify the latest state: car_soc=75 and battery_soc=40. Retain the invalid-token check. Reuse or adapt existing work as you see fit.",
+            "checks": {
+              "verification_command": true,
+              "normal": true,
+              "wrong_state": true,
+              "wrong_battery": true,
+              "auth_bypass": true,
+              "supplied_helper_unchanged": true
+            },
+            "verification_calls": {
+              "total": 2,
+              "loop_client": 2
+            },
+            "passed": true
+          }
+        ],
+        "passed": true
+      }
+    ]
+  },
+  "comparisons": {
+    "native": [
+      {
+        "schema_version": 1,
+        "loop_mode": "runner",
+        "verification_mode": "native",
+        "identity": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low",
+          "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+          "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+          "codex_version": "codex-cli 0.164.0-alpha.11.1",
+          "fixture": "synthetic Energy-style read API; not actual Energy handlers"
+        },
+        "first_observed_total_token_break_even_after_tasks": null,
+        "all_checks_passed": true,
+        "cumulative": [
+          {
+            "tasks_completed": 1,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 69472,
+              "cached_input_tokens": 63744,
+              "output_tokens": 598,
+              "uncached_input_tokens": 5728,
+              "total_tokens": 70070
+            },
+            "loop": {
+              "input_tokens": 121405,
+              "cached_input_tokens": 104704,
+              "output_tokens": 833,
+              "uncached_input_tokens": 16701,
+              "total_tokens": 122238
+            },
+            "loop_minus_natural_total_tokens": 52168
+          },
+          {
+            "tasks_completed": 2,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 149675,
+              "cached_input_tokens": 135040,
+              "output_tokens": 1314,
+              "uncached_input_tokens": 14635,
+              "total_tokens": 150989
+            },
+            "loop": {
+              "input_tokens": 221230,
+              "cached_input_tokens": 198656,
+              "output_tokens": 1415,
+              "uncached_input_tokens": 22574,
+              "total_tokens": 222645
+            },
+            "loop_minus_natural_total_tokens": 71656
+          },
+          {
+            "tasks_completed": 3,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 213515,
+              "cached_input_tokens": 191488,
+              "output_tokens": 1976,
+              "uncached_input_tokens": 22027,
+              "total_tokens": 215491
+            },
+            "loop": {
+              "input_tokens": 310868,
+              "cached_input_tokens": 281472,
+              "output_tokens": 1886,
+              "uncached_input_tokens": 29396,
+              "total_tokens": 312754
+            },
+            "loop_minus_natural_total_tokens": 97263
+          },
+          {
+            "tasks_completed": 4,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 284316,
+              "cached_input_tokens": 251264,
+              "output_tokens": 2587,
+              "uncached_input_tokens": 33052,
+              "total_tokens": 286903
+            },
+            "loop": {
+              "input_tokens": 400160,
+              "cached_input_tokens": 357888,
+              "output_tokens": 2329,
+              "uncached_input_tokens": 42272,
+              "total_tokens": 402489
+            },
+            "loop_minus_natural_total_tokens": 115586
+          }
+        ],
+        "limitations": [
+          "Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",
+          "No future break-even is extrapolated from a short, changing task sequence.",
+          "Both workflows retain and may reuse their own artefacts; no fresh-script behaviour is forced."
+        ]
+      },
+      {
+        "schema_version": 1,
+        "loop_mode": "runner",
+        "verification_mode": "native",
+        "identity": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low",
+          "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+          "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+          "codex_version": "codex-cli 0.164.0-alpha.11.1",
+          "fixture": "synthetic Energy-style read API; not actual Energy handlers"
+        },
+        "first_observed_total_token_break_even_after_tasks": null,
+        "all_checks_passed": true,
+        "cumulative": [
+          {
+            "tasks_completed": 1,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 69630,
+              "cached_input_tokens": 59264,
+              "output_tokens": 724,
+              "uncached_input_tokens": 10366,
+              "total_tokens": 70354
+            },
+            "loop": {
+              "input_tokens": 104512,
+              "cached_input_tokens": 94848,
+              "output_tokens": 918,
+              "uncached_input_tokens": 9664,
+              "total_tokens": 105430
+            },
+            "loop_minus_natural_total_tokens": 35076
+          },
+          {
+            "tasks_completed": 2,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 150581,
+              "cached_input_tokens": 130816,
+              "output_tokens": 1598,
+              "uncached_input_tokens": 19765,
+              "total_tokens": 152179
+            },
+            "loop": {
+              "input_tokens": 188309,
+              "cached_input_tokens": 169856,
+              "output_tokens": 1458,
+              "uncached_input_tokens": 18453,
+              "total_tokens": 189767
+            },
+            "loop_minus_natural_total_tokens": 37588
+          },
+          {
+            "tasks_completed": 3,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 214469,
+              "cached_input_tokens": 186752,
+              "output_tokens": 1965,
+              "uncached_input_tokens": 27717,
+              "total_tokens": 216434
+            },
+            "loop": {
+              "input_tokens": 252539,
+              "cached_input_tokens": 223360,
+              "output_tokens": 1921,
+              "uncached_input_tokens": 29179,
+              "total_tokens": 254460
+            },
+            "loop_minus_natural_total_tokens": 38026
+          },
+          {
+            "tasks_completed": 4,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 303726,
+              "cached_input_tokens": 269440,
+              "output_tokens": 2416,
+              "uncached_input_tokens": 34286,
+              "total_tokens": 306142
+            },
+            "loop": {
+              "input_tokens": 362516,
+              "cached_input_tokens": 321024,
+              "output_tokens": 2452,
+              "uncached_input_tokens": 41492,
+              "total_tokens": 364968
+            },
+            "loop_minus_natural_total_tokens": 58826
+          }
+        ],
+        "limitations": [
+          "Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",
+          "No future break-even is extrapolated from a short, changing task sequence.",
+          "Both workflows retain and may reuse their own artefacts; no fresh-script behaviour is forced."
+        ]
+      },
+      {
+        "schema_version": 1,
+        "loop_mode": "runner",
+        "verification_mode": "native",
+        "identity": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low",
+          "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+          "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+          "codex_version": "codex-cli 0.164.0-alpha.11.1",
+          "fixture": "synthetic Energy-style read API; not actual Energy handlers"
+        },
+        "first_observed_total_token_break_even_after_tasks": null,
+        "all_checks_passed": true,
+        "cumulative": [
+          {
+            "tasks_completed": 1,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 69591,
+              "cached_input_tokens": 64000,
+              "output_tokens": 662,
+              "uncached_input_tokens": 5591,
+              "total_tokens": 70253
+            },
+            "loop": {
+              "input_tokens": 114099,
+              "cached_input_tokens": 98176,
+              "output_tokens": 874,
+              "uncached_input_tokens": 15923,
+              "total_tokens": 114973
+            },
+            "loop_minus_natural_total_tokens": 44720
+          },
+          {
+            "tasks_completed": 2,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 150133,
+              "cached_input_tokens": 139776,
+              "output_tokens": 1403,
+              "uncached_input_tokens": 10357,
+              "total_tokens": 151536
+            },
+            "loop": {
+              "input_tokens": 206497,
+              "cached_input_tokens": 176128,
+              "output_tokens": 1426,
+              "uncached_input_tokens": 30369,
+              "total_tokens": 207923
+            },
+            "loop_minus_natural_total_tokens": 56387
+          },
+          {
+            "tasks_completed": 3,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 230922,
+              "cached_input_tokens": 215680,
+              "output_tokens": 1983,
+              "uncached_input_tokens": 15242,
+              "total_tokens": 232905
+            },
+            "loop": {
+              "input_tokens": 295560,
+              "cached_input_tokens": 258304,
+              "output_tokens": 1858,
+              "uncached_input_tokens": 37256,
+              "total_tokens": 297418
+            },
+            "loop_minus_natural_total_tokens": 64513
+          },
+          {
+            "tasks_completed": 4,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 311579,
+              "cached_input_tokens": 287360,
+              "output_tokens": 2466,
+              "uncached_input_tokens": 24219,
+              "total_tokens": 314045
+            },
+            "loop": {
+              "input_tokens": 376350,
+              "cached_input_tokens": 329600,
+              "output_tokens": 2304,
+              "uncached_input_tokens": 46750,
+              "total_tokens": 378654
+            },
+            "loop_minus_natural_total_tokens": 64609
+          }
+        ],
+        "limitations": [
+          "Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",
+          "No future break-even is extrapolated from a short, changing task sequence.",
+          "Both workflows retain and may reuse their own artefacts; no fresh-script behaviour is forced."
+        ]
+      }
+    ],
+    "declarative": [
+      {
+        "schema_version": 1,
+        "loop_mode": "runner",
+        "verification_mode": "declarative",
+        "identity": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low",
+          "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+          "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+          "codex_version": "codex-cli 0.164.0-alpha.11.1",
+          "fixture": "synthetic Energy-style read API; not actual Energy handlers"
+        },
+        "first_observed_total_token_break_even_after_tasks": null,
+        "all_checks_passed": true,
+        "cumulative": [
+          {
+            "tasks_completed": 1,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 69472,
+              "cached_input_tokens": 63744,
+              "output_tokens": 598,
+              "uncached_input_tokens": 5728,
+              "total_tokens": 70070
+            },
+            "loop": {
+              "input_tokens": 113016,
+              "cached_input_tokens": 97920,
+              "output_tokens": 765,
+              "uncached_input_tokens": 15096,
+              "total_tokens": 113781
+            },
+            "loop_minus_natural_total_tokens": 43711
+          },
+          {
+            "tasks_completed": 2,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 149675,
+              "cached_input_tokens": 135040,
+              "output_tokens": 1314,
+              "uncached_input_tokens": 14635,
+              "total_tokens": 150989
+            },
+            "loop": {
+              "input_tokens": 195217,
+              "cached_input_tokens": 171264,
+              "output_tokens": 1156,
+              "uncached_input_tokens": 23953,
+              "total_tokens": 196373
+            },
+            "loop_minus_natural_total_tokens": 45384
+          },
+          {
+            "tasks_completed": 3,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 213515,
+              "cached_input_tokens": 191488,
+              "output_tokens": 1976,
+              "uncached_input_tokens": 22027,
+              "total_tokens": 215491
+            },
+            "loop": {
+              "input_tokens": 259141,
+              "cached_input_tokens": 227328,
+              "output_tokens": 1439,
+              "uncached_input_tokens": 31813,
+              "total_tokens": 260580
+            },
+            "loop_minus_natural_total_tokens": 45089
+          },
+          {
+            "tasks_completed": 4,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 284316,
+              "cached_input_tokens": 251264,
+              "output_tokens": 2587,
+              "uncached_input_tokens": 33052,
+              "total_tokens": 286903
+            },
+            "loop": {
+              "input_tokens": 348050,
+              "cached_input_tokens": 309248,
+              "output_tokens": 1817,
+              "uncached_input_tokens": 38802,
+              "total_tokens": 349867
+            },
+            "loop_minus_natural_total_tokens": 62964
+          }
+        ],
+        "limitations": [
+          "Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",
+          "No future break-even is extrapolated from a short, changing task sequence.",
+          "Both workflows retain and may reuse their own artefacts; no fresh-script behaviour is forced."
+        ]
+      },
+      {
+        "schema_version": 1,
+        "loop_mode": "runner",
+        "verification_mode": "declarative",
+        "identity": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low",
+          "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+          "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+          "codex_version": "codex-cli 0.164.0-alpha.11.1",
+          "fixture": "synthetic Energy-style read API; not actual Energy handlers"
+        },
+        "first_observed_total_token_break_even_after_tasks": null,
+        "all_checks_passed": true,
+        "cumulative": [
+          {
+            "tasks_completed": 1,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 69630,
+              "cached_input_tokens": 59264,
+              "output_tokens": 724,
+              "uncached_input_tokens": 10366,
+              "total_tokens": 70354
+            },
+            "loop": {
+              "input_tokens": 102672,
+              "cached_input_tokens": 96384,
+              "output_tokens": 714,
+              "uncached_input_tokens": 6288,
+              "total_tokens": 103386
+            },
+            "loop_minus_natural_total_tokens": 33032
+          },
+          {
+            "tasks_completed": 2,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 150581,
+              "cached_input_tokens": 130816,
+              "output_tokens": 1598,
+              "uncached_input_tokens": 19765,
+              "total_tokens": 152179
+            },
+            "loop": {
+              "input_tokens": 184981,
+              "cached_input_tokens": 167680,
+              "output_tokens": 1128,
+              "uncached_input_tokens": 17301,
+              "total_tokens": 186109
+            },
+            "loop_minus_natural_total_tokens": 33930
+          },
+          {
+            "tasks_completed": 3,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 214469,
+              "cached_input_tokens": 186752,
+              "output_tokens": 1965,
+              "uncached_input_tokens": 27717,
+              "total_tokens": 216434
+            },
+            "loop": {
+              "input_tokens": 265859,
+              "cached_input_tokens": 236416,
+              "output_tokens": 1517,
+              "uncached_input_tokens": 29443,
+              "total_tokens": 267376
+            },
+            "loop_minus_natural_total_tokens": 50942
+          },
+          {
+            "tasks_completed": 4,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 303726,
+              "cached_input_tokens": 269440,
+              "output_tokens": 2416,
+              "uncached_input_tokens": 34286,
+              "total_tokens": 306142
+            },
+            "loop": {
+              "input_tokens": 346499,
+              "cached_input_tokens": 304768,
+              "output_tokens": 1899,
+              "uncached_input_tokens": 41731,
+              "total_tokens": 348398
+            },
+            "loop_minus_natural_total_tokens": 42256
+          }
+        ],
+        "limitations": [
+          "Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",
+          "No future break-even is extrapolated from a short, changing task sequence.",
+          "Both workflows retain and may reuse their own artefacts; no fresh-script behaviour is forced."
+        ]
+      },
+      {
+        "schema_version": 1,
+        "loop_mode": "runner",
+        "verification_mode": "declarative",
+        "identity": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low",
+          "harness_sha256": "0c3cca28a1289d21c26e3896ac5960af9df9ae1d422918e56c6b9cb4d4042934",
+          "loop_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+          "codex_version": "codex-cli 0.164.0-alpha.11.1",
+          "fixture": "synthetic Energy-style read API; not actual Energy handlers"
+        },
+        "first_observed_total_token_break_even_after_tasks": null,
+        "all_checks_passed": true,
+        "cumulative": [
+          {
+            "tasks_completed": 1,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 69591,
+              "cached_input_tokens": 64000,
+              "output_tokens": 662,
+              "uncached_input_tokens": 5591,
+              "total_tokens": 70253
+            },
+            "loop": {
+              "input_tokens": 121377,
+              "cached_input_tokens": 107904,
+              "output_tokens": 792,
+              "uncached_input_tokens": 13473,
+              "total_tokens": 122169
+            },
+            "loop_minus_natural_total_tokens": 51916
+          },
+          {
+            "tasks_completed": 2,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 150133,
+              "cached_input_tokens": 139776,
+              "output_tokens": 1403,
+              "uncached_input_tokens": 10357,
+              "total_tokens": 151536
+            },
+            "loop": {
+              "input_tokens": 222396,
+              "cached_input_tokens": 202624,
+              "output_tokens": 1299,
+              "uncached_input_tokens": 19772,
+              "total_tokens": 223695
+            },
+            "loop_minus_natural_total_tokens": 72159
+          },
+          {
+            "tasks_completed": 3,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 230922,
+              "cached_input_tokens": 215680,
+              "output_tokens": 1983,
+              "uncached_input_tokens": 15242,
+              "total_tokens": 232905
+            },
+            "loop": {
+              "input_tokens": 303209,
+              "cached_input_tokens": 278528,
+              "output_tokens": 1698,
+              "uncached_input_tokens": 24681,
+              "total_tokens": 304907
+            },
+            "loop_minus_natural_total_tokens": 72002
+          },
+          {
+            "tasks_completed": 4,
+            "all_checks_passed_so_far": true,
+            "natural": {
+              "input_tokens": 311579,
+              "cached_input_tokens": 287360,
+              "output_tokens": 2466,
+              "uncached_input_tokens": 24219,
+              "total_tokens": 314045
+            },
+            "loop": {
+              "input_tokens": 383803,
+              "cached_input_tokens": 356864,
+              "output_tokens": 2121,
+              "uncached_input_tokens": 26939,
+              "total_tokens": 385924
+            },
+            "loop_minus_natural_total_tokens": 71879
+          }
+        ],
+        "limitations": [
+          "Total tokens count input plus output, including cached input once; this is not a dollar-cost calculation.",
+          "No future break-even is extrapolated from a short, changing task sequence.",
+          "Both workflows retain and may reuse their own artefacts; no fresh-script behaviour is forced."
+        ]
+      }
+    ]
+  },
+  "summary": {
+    "natural": {
+      "sequences_passed": 3,
+      "stages_passed": 12,
+      "median_cumulative": {
+        "input_tokens": 303726,
+        "cached_input_tokens": 269440,
+        "output_tokens": 2466,
+        "total_tokens": 306142,
+        "uncached_input_tokens": 33052,
+        "commands": 14,
+        "failed_commands": 0,
+        "duration_seconds": 70.777
+      },
+      "all_requests_through_loop": false
+    },
+    "native": {
+      "sequences_passed": 3,
+      "stages_passed": 12,
+      "median_cumulative": {
+        "input_tokens": 376350,
+        "cached_input_tokens": 329600,
+        "output_tokens": 2329,
+        "total_tokens": 378654,
+        "uncached_input_tokens": 42272,
+        "commands": 21,
+        "failed_commands": 1,
+        "duration_seconds": 71.96
+      },
+      "all_requests_through_loop": true
+    },
+    "declarative": {
+      "sequences_passed": 3,
+      "stages_passed": 12,
+      "median_cumulative": {
+        "input_tokens": 348050,
+        "cached_input_tokens": 309248,
+        "output_tokens": 1899,
+        "total_tokens": 349867,
+        "uncached_input_tokens": 38802,
+        "commands": 19,
+        "failed_commands": 1,
+        "duration_seconds": 76.59
+      },
+      "all_requests_through_loop": true
+    }
+  },
+  "limitations": [
+    "Three sequences per arm on one small synthetic API, not universal development efficiency.",
+    "Arms ran concurrently, so timings are not isolated performance benchmarks and cache effects may differ.",
+    "All arms retain artefacts across four fresh agent sessions. Natural tooling is unrestricted.",
+    "Prototype arms receive an explicit instruction to retain their selected interface; this measures usability under adoption, not spontaneous tool preference.",
+    "Installed Loop and helper are assumed; per-project setup is counted, but implementation and installation of the reusable kit are not.",
+    "Input includes cached input once; output includes reasoning where supplied. No dollar-cost inference."
+  ]
+}

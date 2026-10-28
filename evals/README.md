@@ -201,3 +201,30 @@ harness revision; earlier reports are not interchangeable.
 prototypes. Both Loop arms passed but eventually switched to direct HTTP. Their
 later task cost cannot be attributed to continued use of Loop. The arms ran
 concurrently, so elapsed times are descriptive rather than an isolated speed test.
+
+### Prototype results
+
+`results/verification-prototypes-v1.json` records three sequences per approach,
+four stages each. All 36 stages passed independent grading. Both prototype arms
+retained the unmodified shared helper and every replay request went through Loop.
+They were explicitly instructed to retain their assigned interface; this does not
+measure spontaneous adoption. The natural arm remained unrestricted.
+
+| Median cumulative metric | Natural tooling | Native helper | Declarative checks |
+| --- | ---: | ---: | ---: |
+| Input + output tokens | 306,142 | 378,654 | 349,867 |
+| Uncached input tokens | 33,052 | 42,272 | 38,802 |
+| Output tokens | 2,466 | 2,329 | 1,899 |
+| Shell commands | 14 | 21 | 19 |
+
+Medians are computed separately, so component medians need not sum to the median
+total. Reusable assertions reduced output tokens, especially declarative checks,
+but extra discovery/integration turns outweighed that reduction in total tokens.
+Neither approach demonstrated cumulative break-even within the four tasks. Total
+tokens are not monetary cost; cached input remains separately reported. Concurrent
+arms also limit interpretation of elapsed time and caching differences.
+
+Keep both interfaces experimental. The result does not justify a new production
+verification language, nor does one small read API establish that reusable tools
+are generally inefficient. A next corpus should cover larger existing workflows
+and maintenance that exercises shared capabilities before choosing a default.

@@ -108,3 +108,19 @@ A full CLI is not assumed to repay its setup cost for a small API. The lifecycle
 evaluation lets agents retain their own verification scripts, measures cumulative
 setup/maintenance cost, and records observed client use. Keep that natural baseline
 strong rather than forcing repeated script generation to manufacture a win.
+
+## Verification interface remains experimental
+
+The user requested measured prototypes of native-test composition and declarative
+API checks before selecting a boundary. Both live under `evals/prototypes`, share
+one Loop invocation adapter, and are excluded from production packages/scaffolds.
+Three four-task sequences per approach passed, as did the natural-tooling baseline.
+Declarative checks reduced median output tokens by about 23% but increased total
+input-plus-output tokens by about 14%; the native helper reduced output by about
+6% but increased total by about 24%. Neither repaid setup within these tasks.
+
+This is a distinction between reducing generated code and reducing whole-agent
+work, not evidence against reuse in general. Do not promote either prototype or
+advertise token savings on this evidence. Keep native tests supported, evaluate
+broader workflows, and preserve the unconstrained baseline. See
+`evals/results/verification-prototypes-v1.json` for complete usage and limitations.
