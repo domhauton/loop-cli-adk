@@ -124,3 +124,9 @@ work, not evidence against reuse in general. Do not promote either prototype or
 advertise token savings on this evidence. Keep native tests supported, evaluate
 broader workflows, and preserve the unconstrained baseline. See
 `evals/results/verification-prototypes-v1.json` for complete usage and limitations.
+
+Template version 4 documents the exact per-input declaration shape in both
+project-development and manifest-only guidance. A measured trial guessed a JSON
+Schema-style object and needed a repair. A short generic example supplies the
+missing contract; it does not introduce another manifest language or prescribe
+an application's API. Both generated examples are validated by `loop check`.

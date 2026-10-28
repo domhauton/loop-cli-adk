@@ -17,6 +17,18 @@ loop run --manifest project.json -- status get
 
 Bindings support GET, string inputs and complete JSON results. `http.query` maps
 input names to API query names. Supply input with `--input '{"name":"value"}'`.
+
+Within a command, declare each input by name. For example:
+
+```json
+{
+  "input": {"search": {"type": "string", "required": true}},
+  "http": {"method": "GET", "path": "/users", "query": {"search": "q"}}
+}
+```
+
+Adapt the path and names to the actual API contract.
+
 Credentials come from `[[.BaseURLEnv]]` and `[[.TokenEnv]]`; never copy their values
 into source or diagnostics. Base URL path prefixes are preserved.
 

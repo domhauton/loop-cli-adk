@@ -15,6 +15,17 @@ Map input names to API query names in `http.query`. Do not silently represent a
 write as GET or invent manifest fields. A capability outside this contract needs
 an SDK extension or upgrade before the project can use it.
 
+Within a command, declare each input by name. For example:
+
+```json
+{
+  "input": {"search": {"type": "string", "required": true}},
+  "http": {"method": "GET", "path": "/users", "query": {"search": "q"}}
+}
+```
+
+Adapt the path and names to the actual API contract.
+
 Extend the cases in `contracts_test.go` alongside each command. The shared
 `clitest` helper supplies isolated HTTP fixtures and checks output and auth. Read
 [testing guidance](../[[.Name]]-test/SKILL.md) when adding cases or debugging a failure.

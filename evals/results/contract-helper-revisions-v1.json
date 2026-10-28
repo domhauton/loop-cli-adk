@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "schema_version": 1,
+      "experiment": "revision_comparison",
+      "condition": "baseline",
+      "trial": 1,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "task": "add_billing_day",
+      "task_sha256": "7a3bb619583d80a9cbbeac841521a535c3ef55e8aef8b3c5950cae08bf0465c6",
+      "harness_sha256": "88b2c2ae0f7c8146777a3568283d3614b0c4fbfe7d5b9ed1d19ee7bf0e483b9a",
+      "source_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "source_sha256": "fccafb14a16bf40ba380179ef0b9aef9dc61de5746791ab8d51622b29a6d4b83",
+      "executor": "local_codex_exec",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 147518,
+          "cached_input_tokens": 136320,
+          "output_tokens": 2434
+        },
+        "reasoning_output_tokens": 185,
+        "command_count": 8,
+        "failed_command_count": 1,
+        "event_bytes": 26049
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true,
+        "sdk_source_unchanged": true
+      },
+      "harness_error": null,
+      "action_outcome": "success",
+      "passed": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "revision_comparison",
+      "condition": "baseline",
+      "trial": 2,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "task": "add_billing_day",
+      "task_sha256": "7a3bb619583d80a9cbbeac841521a535c3ef55e8aef8b3c5950cae08bf0465c6",
+      "harness_sha256": "88b2c2ae0f7c8146777a3568283d3614b0c4fbfe7d5b9ed1d19ee7bf0e483b9a",
+      "source_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "source_sha256": "fccafb14a16bf40ba380179ef0b9aef9dc61de5746791ab8d51622b29a6d4b83",
+      "executor": "local_codex_exec",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 161447,
+          "cached_input_tokens": 151808,
+          "output_tokens": 2584
+        },
+        "reasoning_output_tokens": 101,
+        "command_count": 8,
+        "failed_command_count": 4,
+        "event_bytes": 27991
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true,
+        "sdk_source_unchanged": true
+      },
+      "harness_error": null,
+      "action_outcome": "success",
+      "passed": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "revision_comparison",
+      "condition": "baseline",
+      "trial": 3,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "task": "add_billing_day",
+      "task_sha256": "7a3bb619583d80a9cbbeac841521a535c3ef55e8aef8b3c5950cae08bf0465c6",
+      "harness_sha256": "88b2c2ae0f7c8146777a3568283d3614b0c4fbfe7d5b9ed1d19ee7bf0e483b9a",
+      "source_revision": "2b848f40002676132c532218bc87561733db3b9c",
+      "source_sha256": "fccafb14a16bf40ba380179ef0b9aef9dc61de5746791ab8d51622b29a6d4b83",
+      "executor": "local_codex_exec",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 212811,
+          "cached_input_tokens": 199296,
+          "output_tokens": 2620
+        },
+        "reasoning_output_tokens": 227,
+        "command_count": 11,
+        "failed_command_count": 2,
+        "event_bytes": 33393
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true,
+        "sdk_source_unchanged": true
+      },
+      "harness_error": null,
+      "action_outcome": "success",
+      "passed": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "revision_comparison",
+      "condition": "candidate",
+      "trial": 1,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "task": "add_billing_day",
+      "task_sha256": "7a3bb619583d80a9cbbeac841521a535c3ef55e8aef8b3c5950cae08bf0465c6",
+      "harness_sha256": "88b2c2ae0f7c8146777a3568283d3614b0c4fbfe7d5b9ed1d19ee7bf0e483b9a",
+      "source_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+      "source_sha256": "0258cc175666001dc95d42bd2973485ad6c94f83e0b3cbd710f1160eb05b835e",
+      "executor": "local_codex_exec",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 176406,
+          "cached_input_tokens": 166272,
+          "output_tokens": 2320
+        },
+        "reasoning_output_tokens": 252,
+        "command_count": 10,
+        "failed_command_count": 2,
+        "event_bytes": 26667
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true,
+        "sdk_source_unchanged": true
+      },
+      "harness_error": null,
+      "action_outcome": "success",
+      "passed": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "revision_comparison",
+      "condition": "candidate",
+      "trial": 2,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "task": "add_billing_day",
+      "task_sha256": "7a3bb619583d80a9cbbeac841521a535c3ef55e8aef8b3c5950cae08bf0465c6",
+      "harness_sha256": "88b2c2ae0f7c8146777a3568283d3614b0c4fbfe7d5b9ed1d19ee7bf0e483b9a",
+      "source_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+      "source_sha256": "0258cc175666001dc95d42bd2973485ad6c94f83e0b3cbd710f1160eb05b835e",
+      "executor": "local_codex_exec",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 165894,
+          "cached_input_tokens": 155520,
+          "output_tokens": 1591
+        },
+        "reasoning_output_tokens": 97,
+        "command_count": 10,
+        "failed_command_count": 2,
+        "event_bytes": 21928
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true,
+        "sdk_source_unchanged": true
+      },
+      "harness_error": null,
+      "action_outcome": "success",
+      "passed": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "revision_comparison",
+      "condition": "candidate",
+      "trial": 3,
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "task": "add_billing_day",
+      "task_sha256": "7a3bb619583d80a9cbbeac841521a535c3ef55e8aef8b3c5950cae08bf0465c6",
+      "harness_sha256": "88b2c2ae0f7c8146777a3568283d3614b0c4fbfe7d5b9ed1d19ee7bf0e483b9a",
+      "source_revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+      "source_sha256": "0258cc175666001dc95d42bd2973485ad6c94f83e0b3cbd710f1160eb05b835e",
+      "executor": "local_codex_exec",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "usage": {
+        "schema_version": 1,
+        "usage_source": "codex_exec_turn_completed",
+        "usage_complete": true,
+        "completed_turns": 1,
+        "failure_events": 0,
+        "tokens": {
+          "input_tokens": 165706,
+          "cached_input_tokens": 149760,
+          "output_tokens": 1429
+        },
+        "reasoning_output_tokens": 65,
+        "command_count": 8,
+        "failed_command_count": 1,
+        "event_bytes": 22981
+      },
+      "checks": {
+        "build": true,
+        "request_contract": true,
+        "json_result": true,
+        "missing_required": true,
+        "unknown_input": true,
+        "wrong_type": true,
+        "safe_upstream_error": true,
+        "candidate_tests_pass": true,
+        "tests_detect_path": true,
+        "tests_detect_query": true,
+        "tests_detect_required": true,
+        "sdk_source_unchanged": true
+      },
+      "harness_error": null,
+      "action_outcome": "success",
+      "passed": true
+    }
+  ],
+  "comparison": {
+    "schema_version": 1,
+    "conditions": {
+      "baseline": {
+        "revision": "2b848f40002676132c532218bc87561733db3b9c",
+        "passed": 3,
+        "usage_complete": true,
+        "total_tokens": 529414,
+        "uncached_input_tokens": 34352,
+        "output_tokens": 7638
+      },
+      "candidate": {
+        "revision": "8cce79319bbadc4d57fc884806f4cddf6e947685",
+        "passed": 3,
+        "usage_complete": true,
+        "total_tokens": 513346,
+        "uncached_input_tokens": 36454,
+        "output_tokens": 5340
+      }
+    },
+    "total_token_ratio": 0.9696494614800515,
+    "max_token_ratio": 1.1,
+    "passed": true,
+    "interpretation": "Small-sample regression signal, not a dollar-cost or general productivity claim."
+  },
+  "median_tokens": {
+    "baseline": {
+      "input_tokens": 161447,
+      "cached_input_tokens": 151808,
+      "output_tokens": 2584,
+      "uncached_input_tokens": 11198,
+      "total_tokens": 164031
+    },
+    "candidate": {
+      "input_tokens": 165894,
+      "cached_input_tokens": 155520,
+      "output_tokens": 1591,
+      "uncached_input_tokens": 10374,
+      "total_tokens": 167485
+    }
+  },
+  "limitations": [
+    "Three trials per revision on one command-development task; not a universal benefit claim.",
+    "This compares kit revisions, including templates, skills and runtime changes, not the helper in isolation.",
+    "Arms ran concurrently; cache and elapsed-time differences are not controlled.",
+    "Executed locally using the CI preparation and grader; paid GitHub model execution remains unverified.",
+    "SDK source fingerprints remained unchanged. Shared kit engineering and initial installation are excluded."
+  ]
+}

@@ -30,19 +30,19 @@ func TestLoopEnergy(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requests.Add(1)
 		if r.Header.Get("Authorization") != "Bearer fixture-token" {
-			http.Error(w, "denied", 401)
+			http.Error(w, "private fixture auth detail", 401)
 			return
 		}
 		mux.ServeHTTP(w, r)
 	}))
 	defer server.Close()
-	invoke := func(args ...string) (int, []byte, []byte) {
+	invokeWithToken := func(token string, args ...string) (int, []byte, []byte) {
 		t.Helper()
 		ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 		defer cancel()
 		cmd := exec.CommandContext(ctx, os.Getenv("LOOP_ENERGY_BINARY"), args...)
 		// No inherited application credentials or endpoint settings.
-		cmd.Env = []string{"ENERGY_API_URL=" + server.URL + "/admin", "ENERGY_API_TOKEN=fixture-token"}
+		cmd.Env = []string{"ENERGY_API_URL=" + server.URL + "/admin", "ENERGY_API_TOKEN=" + token}
 		var out, diagnostic bytes.Buffer
 		cmd.Stdout, cmd.Stderr = &out, &diagnostic
 		code := 0
@@ -55,9 +55,12 @@ func TestLoopEnergy(t *testing.T) {
 		}
 		return code, out.Bytes(), diagnostic.Bytes()
 	}
+	invoke := func(args ...string) (int, []byte, []byte) {
+		return invokeWithToken("fixture-token", args...)
+	}
 	t.Run("discovery_has_no_requests", func(t *testing.T) {
 		before := requests.Load()
-		code, out, diagnostic := invoke("describe")
+		code, out, diagnostic := invokeWithToken("", "describe")
 		if code != 0 || !json.Valid(out) || len(diagnostic) != 0 || requests.Load() != before {
 			t.Fatalf("discovery: exit=%d out=%s diagnostic=%s", code, out, diagnostic)
 		}
@@ -74,9 +77,34 @@ func TestLoopEnergy(t *testing.T) {
 	})
 	t.Run("actual_dashboard", func(t *testing.T) {
 		code, out, diagnostic := invoke("dashboard", "get")
-		var dashboard map[string]json.RawMessage
-		if code != 0 || json.Unmarshal(out, &dashboard) != nil || len(dashboard) == 0 || len(diagnostic) != 0 {
+		var dashboard struct {
+			GeneratedAt time.Time `json:"generated_at"`
+			Status      struct {
+				CarSOC     int `json:"car_soc"`
+				BatterySOC int `json:"battery_soc"`
+			} `json:"status"`
+		}
+		wantTime := time.Date(2026, 10, 28, 12, 0, 0, 0, time.UTC)
+		if code != 0 || json.Unmarshal(out, &dashboard) != nil || dashboard.Status.CarSOC != 50 || dashboard.Status.BatterySOC != 80 || !dashboard.GeneratedAt.Equal(wantTime) || len(diagnostic) != 0 {
 			t.Fatalf("dashboard: exit=%d out=%s diagnostic=%s", code, out, diagnostic)
+		}
+	})
+	t.Run("invalid_token_is_safe_structured_error", func(t *testing.T) {
+		before := requests.Load()
+		code, out, diagnostic := invokeWithToken("invalid-fixture-token", "status", "get")
+		var failure struct {
+			Error struct {
+				Code    string            `json:"code"`
+				Details map[string]string `json:"details"`
+			} `json:"error"`
+		}
+		if code != 1 || len(out) != 0 || json.Unmarshal(diagnostic, &failure) != nil || failure.Error.Code != "http_status" || failure.Error.Details["http_status"] != "401" || requests.Load() != before+1 {
+			t.Fatalf("authentication: exit=%d diagnostic=%s", code, diagnostic)
+		}
+		for _, private := range []string{"fixture-token", "private fixture auth detail", server.URL} {
+			if strings.Contains(string(diagnostic), private) {
+				t.Fatal("diagnostic leaked private data")
+			}
 		}
 	})
 	t.Run("invalid_input_never_reaches_handler", func(t *testing.T) {

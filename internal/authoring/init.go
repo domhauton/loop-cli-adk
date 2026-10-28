@@ -24,7 +24,7 @@ import (
 const DefaultSDKVersion = "v0.0.0-20261028225343-2b0eb32ab06c"
 
 // TemplateVersion identifies the scaffold recipe without implying automatic upgrades.
-const TemplateVersion = 3
+const TemplateVersion = 4
 
 //go:embed templates/*
 var scaffoldTemplates embed.FS

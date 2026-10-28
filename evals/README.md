@@ -241,3 +241,22 @@ SDK fingerprints include tracked and unignored untracked files, deletions and
 symlink targets; ignored caches are excluded. Grading fails if the source changes
 after preparation. A shared commit SHA alone cannot conceal local source changes.
 Raw prompts, transcripts and candidate files remain local; publish sanitised reports.
+
+### Developing a CLI with shared contract fixtures
+
+`results/contract-helper-revisions-v1.json` compares the older inline-test scaffold
+(`2b848f4`) with the shared-helper kit (`8cce793`) through the CI task/independent
+grader, executed locally. All three trials per revision passed, including path,
+query and required-input mutations. Both SDK source fingerprints stayed unchanged.
+
+Median output fell from 2,584 to 1,591 tokens. Total-token evidence was mixed:
+the sum across three runs fell by 3.0%, but median total tokens rose from 164,031
+to 167,485. Median uncached input fell from 11,198 to 10,374, while its sum rose.
+This is evidence of less generated boilerplate, not a robust whole-task cost win.
+The revisions also differ in guidance and runtime behaviour, so this does not
+isolate the helper's causal effect. No paid GitHub action was executed.
+
+An observed repair involved guessing the manifest's input declaration shape.
+Template version 4 adds a compact generic query-input example to the development
+and manifest skills. That improvement is outside the frozen comparison above;
+its efficiency impact still needs a fresh or held-out task.
