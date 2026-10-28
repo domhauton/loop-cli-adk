@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "name": "democtl",
+  "description": "Inspect a demonstration project's users",
+  "api": {
+    "base_url_env": "DEMO_API_URL",
+    "token_env": "DEMO_API_TOKEN"
+  },
+  "commands": [
+    {
+      "name": "users list",
+      "description": "List users, optionally filtered by name",
+      "input": {
+        "name": { "type": "string", "description": "Name to search for" }
+      },
+      "http": {
+        "method": "GET",
+        "path": "/users",
+        "query": { "name": "name" }
+      }
+    }
+  ]
+}

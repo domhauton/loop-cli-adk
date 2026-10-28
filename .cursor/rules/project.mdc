@@ -1,0 +1,9 @@
+---
+description: Loop repository engineering and module boundaries
+alwaysApply: true
+---
+
+Read the repository root AGENTS.md, then the nearest module AGENTS.md for the
+files being changed. The dependency contract is enforced by
+internal/architecture/dependencies_test.go. Keep this rule as a routing pointer
+instead of duplicating those instructions.

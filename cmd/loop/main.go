@@ -1,0 +1,79 @@
+// Command loop runs project manifests and builds standalone project CLIs.
+package main
+
+import (
+	"context"
+	"flag"
+	"fmt"
+	"io"
+	"os"
+	"os/signal"
+
+	"github.com/domhauton/loop-cli-adk/internal/authoring"
+	"github.com/domhauton/loop-cli-adk/pkg/cli"
+	"github.com/domhauton/loop-cli-adk/pkg/operation"
+	"github.com/domhauton/loop-cli-adk/pkg/project"
+)
+
+var version = "dev"
+
+func main() { os.Exit(run()) }
+
+func run() int {
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer stop()
+	return execute(ctx, os.Args[1:], os.Stdout, os.Stderr)
+}
+
+func execute(ctx context.Context, args []string, stdout, stderr io.Writer) int {
+	if len(args) == 0 || args[0] == "--help" || args[0] == "help" {
+		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
+		return 0
+	}
+	if args[0] == "version" || args[0] == "--version" {
+		fmt.Fprintln(stdout, version)
+		return 0
+	}
+	if args[0] != "run" && args[0] != "check" && args[0] != "build" {
+		return cli.WriteError(stderr, operation.NewError("usage", "expected run, check, build or version", nil))
+	}
+	flags := flag.NewFlagSet(args[0], flag.ContinueOnError)
+	flags.SetOutput(io.Discard)
+	manifestPath := flags.String("manifest", "project.json", "project manifest")
+	var opts authoring.BuildOptions
+	if args[0] == "build" {
+		flags.StringVar(&opts.Output, "output", "", "destination executable")
+		flags.StringVar(&opts.SDKDir, "sdk-dir", "", "local SDK checkout for development")
+		flags.StringVar(&opts.SDKVersion, "sdk-version", "", "released SDK semantic version")
+		flags.StringVar(&opts.GOOS, "goos", "", "target OS")
+		flags.StringVar(&opts.GOARCH, "goarch", "", "target architecture")
+	}
+	if err := flags.Parse(args[1:]); err != nil {
+		return cli.WriteError(stderr, operation.NewError("usage", err.Error(), err))
+	}
+	if args[0] != "run" && flags.NArg() != 0 {
+		return cli.WriteError(stderr, operation.NewError("usage", "unexpected positional arguments", nil))
+	}
+	data, err := authoring.ReadManifest(*manifestPath)
+	if err != nil {
+		return cli.WriteError(stderr, operation.NewError("invalid_manifest", err.Error(), err))
+	}
+	p, err := project.New(data, os.Getenv)
+	if err != nil {
+		return cli.WriteError(stderr, err)
+	}
+	switch args[0] {
+	case "check":
+		fmt.Fprintln(stdout, `{"valid":true}`)
+		return 0
+	case "run":
+		return cli.Run(ctx, p, flags.Args(), stdout, stderr)
+	case "build":
+		if err := authoring.Build(ctx, data, opts); err != nil {
+			return cli.WriteError(stderr, operation.NewError("build_failed", err.Error(), err))
+		}
+		fmt.Fprintln(stdout, `{"built":true}`)
+		return 0
+	}
+	return 1
+}

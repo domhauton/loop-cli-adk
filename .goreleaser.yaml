@@ -1,0 +1,27 @@
+version: 2
+project_name: loop
+builds:
+  - id: loop
+    main: ./cmd/loop
+    binary: loop
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    flags: [-trimpath]
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+archives:
+  - id: loop
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: 'loop_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    files:
+      - LICENSE
+      - README.md
+checksum:
+  name_template: checksums.txt
+changelog:
+  use: git
