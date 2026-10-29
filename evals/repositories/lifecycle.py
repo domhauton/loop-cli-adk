@@ -53,7 +53,7 @@ def main():
         'profile': args.profile, 'condition': args.condition, 'source_revision': revision,
         'harness_sha256': hashlib.sha256(b''.join((HERE / p).read_bytes() for p in files)).hexdigest(),
         'model': None if args.preflight_only else args.model, 'reasoning_effort': 'low',
-        'codex_version': subprocess.check_output(['codex', '--version'], text=True).strip(),
+        'codex_version': None if args.preflight_only else subprocess.check_output(['codex', '--version'], text=True).strip(),
         'expected_stages': len(stages), 'stages': [], 'passed': False,
         'preflight_only': args.preflight_only}
     env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'SYSTEMROOT', 'WINDIR') if k in os.environ}

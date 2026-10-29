@@ -14,7 +14,7 @@ from repositories.report import IDENTITY
 
 
 class RetainedWorkspaceTests(unittest.TestCase):
-    def test_repairs_and_natural_helpers_survive_later_tasks(self):
+    def test_retention_and_model_free_preflight(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             source = root / 'source'
@@ -48,6 +48,16 @@ class RetainedWorkspaceTests(unittest.TestCase):
             result = json.loads((root / 'out/result.json').read_text())
             self.assertTrue(result['passed'], result)
             self.assertEqual(calls, [1, 2, 3])
+            preflight_args = args[:-1] + [str(root / 'preflight'), '--preflight-only']
+            def without_codex(argv, **kwargs):
+                if argv == ['codex', '--version']:
+                    raise AssertionError('deterministic preflight must not require Codex')
+                return original_check_output(argv, **kwargs)
+            with patch.object(lifecycle.subprocess, 'check_output', side_effect=without_codex), patch.object(sys, 'argv', preflight_args), patch.object(lifecycle, 'sequence', return_value=stages), patch.object(lifecycle, 'invoke_agent', side_effect=AssertionError('model called')), patch('builtins.print'):
+                lifecycle.main()
+            preflight = json.loads((root / 'preflight/result.json').read_text())
+            self.assertTrue(preflight['passed'], preflight)
+            self.assertIsNone(preflight['codex_version'])
 
 
 def records():
