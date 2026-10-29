@@ -153,3 +153,12 @@ native-check workflow experiment; they do not justify mandatory adoption or a
 universal cost claim. Preserve native assertions and keep process execution apart
 from admin-API operations. Configuration and installation costs still need explicit
 measurement before claiming a pay-off period.
+
+A configuration-inclusive follow-up found no reliable immediate adoption saving.
+All production repairs passed native tests, but one authored PorscheConnect
+focused command incorrectly inherited the aggregate coverage gate and remained
+red. The independent pass/fail/pass grader rejects that configuration. Keep
+command discovery explicit and preserve whole-suite quality gates; a successful
+repair alone does not prove the reusable feedback setup is usable. See
+`evals/results/native-adoption-v1.json`. Longitudinal native-workflow pay-off remains
+unmeasured; do not extrapolate it by subtracting unrelated experiment medians.

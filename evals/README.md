@@ -285,3 +285,9 @@ on Loop/Landing. See the [native harness report](repositories/README.md) for
 separate cached/uncached interpretation, task scope and installation exclusions.
 There is no universal efficiency claim and the native feedback frontend remains
 an evaluation prototype.
+
+The configuration-inclusive follow-up is in `results/native-adoption-v1.json`.
+It counts command discovery and creation in the model task. Loop and Landing
+were near parity in median total tokens; PorscheConnect had one invalid focused
+configuration, caught by pass/fail/pass grading, so no cost ratio is accepted for
+that repository. See the native harness README for the coverage-gate diagnosis.

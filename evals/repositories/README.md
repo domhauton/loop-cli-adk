@@ -124,3 +124,32 @@ invocations are excluded from the agent's helper-adoption audit.
 
 This measures command configuration plus one repair, not helper installation or
 longitudinal maintenance pay-off. Do not pool it with prepared-command trials.
+
+`../results/native-adoption-v1.json` records three fresh trials per arm per repo.
+All 18 production repairs passed independent native tests, but one PorscheConnect
+skill configuration failed its repaired/restored focused checks. The overall
+comparison therefore has 17 passing trials, and PorscheConnect's cost ratio is
+invalid rather than a saving.
+
+| Repository | Natural median total tokens | Skill median total tokens | Skill acceptance |
+| --- | ---: | ---: | ---: |
+| Loop | 124,609 | 127,828 | 3/3 |
+| Landing | 92,440 | 94,298 | 3/3 |
+| PorscheConnect | 171,181 | 242,863 | 2/3 |
+
+Loop and Landing median totals increased about 3% and 2%, respectively. Landing's
+sum decreased about 4%; small samples and different summary statistics must not
+be presented as a robust win. Median uncached input was 20,145/21,860 for Loop,
+12,280/9,034 for Landing, and 20,351/26,267 for PorscheConnect (natural/skill).
+These remain token counts, not monetary costs.
+
+All three Porsche skill agents initially ran focused tests with the project's
+whole-suite coverage threshold. Two repaired their command selection; one left
+an unusable focused command despite a passing full suite. This explains observed
+extra feedback iterations, but is not a causal estimate of their token cost.
+Configuration discovery needs to distinguish component feedback from aggregate
+quality gates, preserve the full-suite gate, and validate the authored command on
+repaired code. The prepared-command comparison excluded precisely this work.
+
+The runner remains experimental. Installation is still excluded, and no retained
+workspace maintenance sequence has yet established native-helper break-even.

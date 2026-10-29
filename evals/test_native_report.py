@@ -35,3 +35,9 @@ class NativeReportTests(unittest.TestCase):
         self.assertTrue(aggregate(rows)['profiles']['fixture']['comparison_valid'])
         rows[-1]['used_prepared_feedback'] = False
         self.assertFalse(aggregate(rows)['profiles']['fixture']['comparison_valid'])
+
+    def test_rejects_prepared_and_adoption_pooling(self):
+        rows = records()
+        rows[-1]['experiment'] = 'other'
+        with self.assertRaisesRegex(ValueError, 'experiment'):
+            aggregate(rows)
