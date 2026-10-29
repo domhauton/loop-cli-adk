@@ -21,3 +21,10 @@ the source of assertions. Fix production code rather than weakening checks.
 A configured suite may cover only part of a larger repository. Honour the task's
 scope and repository guidance; a passing component suite is not evidence that
 browser, database, release or production checks passed.
+
+If configuration is absent, inspect the repository's existing test scripts and
+conventions. Create `.loop/feedback.json` with `{"checks":{"focused":["command",
+"argument"],"suite":["command","argument"]}}`. Each value is an argv array,
+executed from the repository root without a shell. Choose the affected component's
+existing tests for `focused` and the native language suite for `suite`. Reuse the
+prepared interpreter and dependencies; do not install or invent a test framework.

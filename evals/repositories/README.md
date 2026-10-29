@@ -106,3 +106,21 @@ so this is not an isolated causal estimate for either change.
 The result supports an optional prepared native workflow, particularly for verbose
 failure output, but installation/configuration pay-off and broader defect coverage
 remain unproven. The current frontend still lives only in evaluation tooling.
+
+### Configuration-inclusive adoption experiment
+
+Pass `--discover-checks` to both arms for a separate comparison. The skill arm
+receives the reusable runner and schema guidance, but no command configuration.
+The agent discovers existing native commands and creates `.loop/feedback.json`
+within its measured task. Natural tooling remains unconstrained. Both arms use
+the same prepared dependencies and repair task.
+
+The grader preserves original tests and configuration, reruns independent native
+checks, and verifies each authored helper command with a pass/fail/pass sequence:
+repaired source, the known regression, then restored repaired source. Regression
+failures must include the expected native assertion marker. No-op commands and
+always-failing commands are rejected by executable grader regressions. Grader
+invocations are excluded from the agent's helper-adoption audit.
+
+This measures command configuration plus one repair, not helper installation or
+longitudinal maintenance pay-off. Do not pool it with prepared-command trials.

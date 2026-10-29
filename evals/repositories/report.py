@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import statistics
 
-IDENTITY = ('source_revision', 'harness_sha256', 'model', 'reasoning_effort', 'codex_version')
+IDENTITY = ('experiment', 'source_revision', 'harness_sha256', 'model', 'reasoning_effort', 'codex_version')
 
 
 def aggregate(records):
@@ -42,7 +42,7 @@ def aggregate(records):
             'conditions': groups, 'comparison_valid': valid, 'skill_to_natural_total_token_ratio': ratio}
     return {'schema_version': 1, 'profiles': profiles,
         'limitations': ['One injected regression per repository, three repetitions per condition; not broad task coverage.',
-            'Prepared skill includes command discovery and compact output. Effects are not isolated.',
+            'Skill guidance and compact output are bundled. Effects are not isolated; check experiment identity for whether command configuration is measured.',
             'Helper installation and dependency preparation are outside model timing; kit engineering is reported separately.',
             'Repository streams ran concurrently; order alternated within each stream. Cache effects remain possible.',
             'Total input includes cached input once; this is not a monetary-cost comparison.']}

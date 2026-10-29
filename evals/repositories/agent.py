@@ -30,12 +30,35 @@ def digest_files(work, paths):
     return {p: hashlib.sha256((work / p).read_bytes()).hexdigest() if (work / p).is_file() else None for p in paths}
 
 
+def grade_configured_checks(work, target, broken, env, output, marker):
+    """Reject no-op and always-failing recipes using a pass/fail/pass contract."""
+    repaired = target.read_bytes()
+    grades = {}
+    try:
+        for phase, contents in (('repaired', repaired), ('regressed', broken), ('restored', repaired)):
+            target.write_bytes(contents)
+            for name in ('focused', 'suite'):
+                result, text = command([sys.executable, str(work / '.loop/feedback.py'), name],
+                                       work, env, output, f'configured-{phase}-{name}')
+                if phase == 'regressed':
+                    # Inspect the retained native log: compact excerpts may omit the assertion.
+                    log = work / '.loop/logs' / (name + '.log')
+                    native = log.read_text(errors='replace') if log.is_file() and log.stat().st_size <= 8 * 1024 * 1024 else ''
+                    grades[f'{phase}_{name}'] = mutation_detected(result, native, marker)
+                else:
+                    grades[f'{phase}_{name}'] = command_passed(result)
+    finally:
+        target.write_bytes(repaired)
+    return grades
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--profile', choices=tuple(PROFILES), required=True)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--condition', choices=('natural', 'skill'), required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--discover-checks', action='store_true', help='Include native-check configuration in the measured task')
     parser.add_argument('--python', default='python3')
     parser.add_argument('--model', default='gpt-6.1-sol')
     parser.add_argument('--timeout', type=int, default=300)
@@ -48,7 +71,7 @@ def main():
     harness_hash = hashlib.sha256(b''.join((HERE / p).read_bytes() for p in harness_files)).hexdigest()
     env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'SYSTEMROOT', 'WINDIR') if k in os.environ}
     env.update(CGO_ENABLED='0', GOWORK='off')
-    identity = {'schema_version': 1, 'experiment': 'native_component_repair_v2',
+    identity = {'schema_version': 1, 'experiment': 'native_component_adoption_v1' if args.discover_checks else 'native_component_repair_v2',
         'profile': args.profile, 'condition': args.condition, 'source_revision': revision,
         'harness_sha256': harness_hash, 'model': args.model, 'reasoning_effort': 'low',
         'codex_version': subprocess.check_output(['codex', '--version'], text=True).strip()}
@@ -83,7 +106,8 @@ def main():
         if not command_passed(baseline) or original.count(profile.before.encode()) != 1:
             fail_preflight('baseline_or_anchor', {'setup': setup, 'baseline': baseline})
             return
-        target.write_bytes(original.replace(profile.before.encode(), profile.after.encode()))
+        broken = original.replace(profile.before.encode(), profile.after.encode())
+        target.write_bytes(broken)
         mutation, text = command(focused, work, env, output, 'mutation')
         if not mutation_detected(mutation, text, profile.failure_marker):
             fail_preflight('mutation', {'baseline': baseline, 'mutation': mutation})
@@ -93,11 +117,14 @@ def main():
             feedback.mkdir(exist_ok=True)
             for name in ('native_command.py', 'feedback.py'):
                 shutil.copyfile(HERE / name, feedback / name)
-            (feedback / 'feedback.json').write_text(json.dumps({'checks': {'focused': focused, 'suite': suite}}))
+            if not args.discover_checks:
+                (feedback / 'feedback.json').write_text(json.dumps({'checks': {'focused': focused, 'suite': suite}}))
             skill = work / '.agents/skills/loop-feedback'
             skill.mkdir(parents=True)
             shutil.copyfile(HERE / 'skill/SKILL.md', skill / 'SKILL.md')
         helper_paths = ['.loop/native_command.py', '.loop/feedback.py', '.loop/feedback.json'] if args.condition == 'skill' else []
+        if args.discover_checks and '.loop/feedback.json' in helper_paths:
+            helper_paths.remove('.loop/feedback.json')
         prepared = digest_files(work, helper_paths)
         subprocess.run(['git', 'init', '-q'], cwd=work, check=True)
         # Keep generated caches out of discovery without changing source guidance.
@@ -112,7 +139,9 @@ workspace; do not publish, contact live services or read other projects.
 Dependencies are prepared. The Python test interpreter is {args.python}.
 '''
         if args.condition == 'skill':
-            prompt += 'Use .agents/skills/loop-feedback/SKILL.md for the prepared native feedback commands.\n'
+            prompt += 'Use .agents/skills/loop-feedback/SKILL.md for native feedback.\n'
+            if args.discover_checks:
+                prompt += 'Also create .loop/feedback.json by discovering existing focused and native suite commands. This new helper configuration is permitted; preserve all existing test configuration.\n'
         started = time.monotonic()
         with (output / 'events.jsonl').open('wb') as events, (output / 'stderr.txt').open('wb') as stderr:
             try:
@@ -146,9 +175,13 @@ Dependencies are prepared. The Python test interpreter is {args.python}.
                         observed = [json.loads(line)['check'] for line in raw.splitlines()]
                     except (ValueError, KeyError, TypeError):
                         observed = []
+        configured = {}
+        if args.condition == 'skill' and args.discover_checks:
+            configured = grade_configured_checks(work, target, broken, env, output, profile.failure_marker)
+            checks['configured_checks_detect_regression'] = all(configured.values())
         (output / 'repaired-source.txt').write_bytes(target.read_bytes())
         result = {**identity, 'model_started': True,
-            'feedback_checks_observed': observed,
+            'feedback_checks_observed': observed, 'configured_check_grades': configured,
             'used_prepared_feedback': set(('focused', 'suite')).issubset(observed) if args.condition == 'skill' else None,
             'duration_seconds': round(elapsed, 3), 'usage': usage, 'checks': checks,
             'passed': all(checks.values()), 'preflight': {'setup': setup, 'baseline': baseline, 'mutation': mutation}}
