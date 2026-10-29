@@ -240,3 +240,11 @@ named checks separately by pass/fail/pass mutation, without requiring otherwise
 unused configuration files in the direct-native arms. Audit their actual commands
 descriptively rather than replaying arbitrary shell code. This comparison has not
 yet been run; no direct-guidance or wrapper-attribution claim is established.
+
+The component-switch fixture is now validated independently of model trials:
+`switch.py --source CHECKOUT --python PREPARED_INTERPRETER --output NEW_DIRECTORY`
+uses a pinned PorscheConnect snapshot, exercises both components' mutation and
+restoration cycles, and demonstrates that the old sensor check stays green while
+the configuration regression is present. The relevant configuration tests reject
+it. `../results/component-switch-preflight-v1.json` records this result. It is
+fixture sensitivity evidence, not an agent-efficiency or completed ablation result.

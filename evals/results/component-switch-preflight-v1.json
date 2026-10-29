@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "kind": "deterministic_component_switch",
+  "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+  "model_tokens": null,
+  "components": [
+    {
+      "passed": true,
+      "mutation_detected": true,
+      "source_restored": true,
+      "stages": {
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.823,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.382,
+          "output_bytes": 42316,
+          "output_within_limit": true
+        },
+        "restored": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.253,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "native_suite": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.852,
+          "output_bytes": 1736,
+          "output_within_limit": true
+        }
+      },
+      "failure_phase": null
+    },
+    {
+      "passed": true,
+      "mutation_detected": true,
+      "source_restored": true,
+      "stages": {
+        "baseline": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.976,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "mutation": {
+          "exit_code": 1,
+          "timed_out": false,
+          "duration_seconds": 1.004,
+          "output_bytes": 5212,
+          "output_within_limit": true
+        },
+        "restored": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 0.962,
+          "output_bytes": 80,
+          "output_within_limit": true
+        },
+        "native_suite": {
+          "exit_code": 0,
+          "timed_out": false,
+          "duration_seconds": 1.799,
+          "output_bytes": 1736,
+          "output_within_limit": true
+        }
+      },
+      "failure_phase": null
+    }
+  ],
+  "stale_sensor_check_passes_with_config_regression": true,
+  "relevant_config_check_detects_regression": true,
+  "passed": true
+}
