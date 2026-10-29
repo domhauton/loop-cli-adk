@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """Report cumulative native-workflow costs, including adoption and failed trials."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import statistics
 from .report import IDENTITY
+try:
+    from ..usage import summarise, MAX_EVENT_BYTES, MAX_STREAM_BYTES
+except ImportError:
+    from usage import summarise, MAX_EVENT_BYTES, MAX_STREAM_BYTES
 
 
 def aggregate(records):
@@ -62,12 +67,45 @@ def aggregate(records):
         'Total input includes cached input once; token counts are not monetary costs.']}
 
 
+def read_verified_record(path):
+    """Verify local transcripts before publishing counters or failure categories."""
+    record = json.loads(path.read_text())
+    for stage in record['stages']:
+        if 'evidence_sha256' not in stage:
+            continue
+        index = stage['stage']
+        if type(index) is not int or not 1 <= index <= record['expected_stages']:
+            raise ValueError('invalid stage index')
+        events = path.parent / f'stage-{index}' / 'events.jsonl'
+        digest, size = hashlib.sha256(), 0
+        with events.open('rb') as source:
+            for chunk in iter(lambda: source.read(1024 * 1024), b''):
+                size += len(chunk)
+                if size > MAX_STREAM_BYTES:
+                    raise ValueError('event stream exceeds size limit')
+                digest.update(chunk)
+        if digest.hexdigest() != stage['evidence_sha256']:
+            raise ValueError('stage transcript changed')
+        with events.open('rb') as source:
+            measured = summarise(iter(lambda: source.readline(MAX_EVENT_BYTES + 1), b''))
+        if measured != stage['usage']:
+            raise ValueError('stage usage differs from transcript')
+        with events.open('rb') as source:
+            for line in iter(lambda: source.readline(MAX_EVENT_BYTES + 1), b''):
+                if not line.strip():
+                    continue
+                event = json.loads(line)
+                if event.get('type') == 'error' and event.get('message') == 'Selected model is at capacity. Please try a different model.':
+                    stage['model_failure_category'] = 'model_capacity'
+    return record
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('results', nargs='+', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    records = [json.loads(p.read_text()) for p in args.results]
+    records = [read_verified_record(p) for p in args.results]
     report = {**aggregate(records), 'records': records}
     args.output.write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report['profiles'], indent=2))

@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -7,7 +8,8 @@ import unittest
 from unittest.mock import patch
 from repositories import lifecycle
 from repositories.profiles import Profile
-from repositories.lifecycle_report import aggregate
+from repositories.lifecycle_report import aggregate, read_verified_record
+from usage import summarise
 from repositories.report import IDENTITY
 
 
@@ -80,3 +82,21 @@ class LifecycleReportTests(unittest.TestCase):
         self.assertFalse(aggregate(rows)['profiles']['fixture']['comparison_valid'])
         with self.assertRaises(ValueError):
             aggregate(rows + [rows[0]])
+
+
+class LifecycleEvidenceTests(unittest.TestCase):
+    def test_transcript_verification_preserves_capacity_failure(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            stage_dir = root / 'stage-1'
+            stage_dir.mkdir()
+            raw = (json.dumps({'type': 'error', 'message': 'Selected model is at capacity. Please try a different model.'}) + '\n').encode()
+            events = stage_dir / 'events.jsonl'
+            events.write_bytes(raw)
+            report = root / 'result.json'
+            report.write_text(json.dumps({'expected_stages': 3, 'stages': [{'stage': 1,
+                'evidence_sha256': hashlib.sha256(raw).hexdigest(), 'usage': summarise([raw])}]}))
+            self.assertEqual(read_verified_record(report)['stages'][0]['model_failure_category'], 'model_capacity')
+            events.write_bytes(raw + b'\n')
+            with self.assertRaisesRegex(ValueError, 'transcript changed'):
+                read_verified_record(report)

@@ -291,3 +291,9 @@ It counts command discovery and creation in the model task. Loop and Landing
 were near parity in median total tokens; PorscheConnect had one invalid focused
 configuration, caught by pass/fail/pass grading, so no cost ratio is accepted for
 that repository. See the native harness README for the coverage-gate diagnosis.
+
+`results/native-maintenance-v1.json` measures retained workspaces across three
+native repairs. PorscheConnect's six sequences passed and showed about 16% lower
+median cumulative total tokens with configuration included. Loop/Landing each
+have a retained model-capacity failure, so their cumulative cost comparisons are
+invalid. Native test reuse and API-CLI amortisation remain separate questions.

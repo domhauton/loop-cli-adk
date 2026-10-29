@@ -1,0 +1,3173 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "landing-counters": {
+      "identity": {
+        "experiment": "native_retained_workspace_v1",
+        "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+        "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1"
+      },
+      "conditions": {
+        "natural": {
+          "sequences": 3,
+          "accepted_sequences": 3,
+          "cumulative": [
+            {
+              "through_stage": 1,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 101121,
+                "cached_input_tokens": 89216,
+                "output_tokens": 553,
+                "total_tokens": 101631,
+                "uncached_input_tokens": 11905
+              },
+              "sum_total_tokens": 320485
+            },
+            {
+              "through_stage": 2,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 225744,
+                "cached_input_tokens": 190080,
+                "output_tokens": 1061,
+                "total_tokens": 226799,
+                "uncached_input_tokens": 32976
+              },
+              "sum_total_tokens": 673055
+            },
+            {
+              "through_stage": 3,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 340778,
+                "cached_input_tokens": 288256,
+                "output_tokens": 1654,
+                "total_tokens": 342363,
+                "uncached_input_tokens": 52522
+              },
+              "sum_total_tokens": 1010506
+            }
+          ]
+        },
+        "skill": {
+          "sequences": 3,
+          "accepted_sequences": 2,
+          "cumulative": [
+            {
+              "through_stage": 1,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 104004,
+                "cached_input_tokens": 82944,
+                "output_tokens": 562,
+                "total_tokens": 104566,
+                "uncached_input_tokens": 21060
+              },
+              "sum_total_tokens": 314155
+            },
+            {
+              "through_stage": 2,
+              "known_sequences": 2,
+              "median_tokens": null,
+              "sum_total_tokens": null
+            },
+            {
+              "through_stage": 3,
+              "known_sequences": 2,
+              "median_tokens": null,
+              "sum_total_tokens": null
+            }
+          ]
+        }
+      },
+      "comparison_valid": false,
+      "cumulative_median_skill_to_natural_ratios": [],
+      "first_sustained_observed_crossover_stage": null
+    },
+    "loop-definition": {
+      "identity": {
+        "experiment": "native_retained_workspace_v1",
+        "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+        "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1"
+      },
+      "conditions": {
+        "natural": {
+          "sequences": 3,
+          "accepted_sequences": 3,
+          "cumulative": [
+            {
+              "through_stage": 1,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 131340,
+                "cached_input_tokens": 118656,
+                "output_tokens": 679,
+                "total_tokens": 131942,
+                "uncached_input_tokens": 12684
+              },
+              "sum_total_tokens": 427383
+            },
+            {
+              "through_stage": 2,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 260380,
+                "cached_input_tokens": 225664,
+                "output_tokens": 1215,
+                "total_tokens": 261614,
+                "uncached_input_tokens": 29622
+              },
+              "sum_total_tokens": 781095
+            },
+            {
+              "through_stage": 3,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 374301,
+                "cached_input_tokens": 327680,
+                "output_tokens": 1761,
+                "total_tokens": 376062,
+                "uncached_input_tokens": 45929
+              },
+              "sum_total_tokens": 1137330
+            }
+          ]
+        },
+        "skill": {
+          "sequences": 3,
+          "accepted_sequences": 2,
+          "cumulative": [
+            {
+              "through_stage": 1,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 130832,
+                "cached_input_tokens": 114432,
+                "output_tokens": 701,
+                "total_tokens": 131533,
+                "uncached_input_tokens": 14695
+              },
+              "sum_total_tokens": 390184
+            },
+            {
+              "through_stage": 2,
+              "known_sequences": 2,
+              "median_tokens": null,
+              "sum_total_tokens": null
+            },
+            {
+              "through_stage": 3,
+              "known_sequences": 2,
+              "median_tokens": null,
+              "sum_total_tokens": null
+            }
+          ]
+        }
+      },
+      "comparison_valid": false,
+      "cumulative_median_skill_to_natural_ratios": [],
+      "first_sustained_observed_crossover_stage": null
+    },
+    "porsche-timestamp": {
+      "identity": {
+        "experiment": "native_retained_workspace_v1",
+        "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+        "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "codex_version": "codex-cli 0.164.0-alpha.11.1"
+      },
+      "conditions": {
+        "natural": {
+          "sequences": 3,
+          "accepted_sequences": 3,
+          "cumulative": [
+            {
+              "through_stage": 1,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 194579,
+                "cached_input_tokens": 165888,
+                "output_tokens": 1075,
+                "total_tokens": 195601,
+                "uncached_input_tokens": 30525
+              },
+              "sum_total_tokens": 594577
+            },
+            {
+              "through_stage": 2,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 377704,
+                "cached_input_tokens": 323968,
+                "output_tokens": 2011,
+                "total_tokens": 379768,
+                "uncached_input_tokens": 54092
+              },
+              "sum_total_tokens": 1152605
+            },
+            {
+              "through_stage": 3,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 568167,
+                "cached_input_tokens": 488320,
+                "output_tokens": 2916,
+                "total_tokens": 571083,
+                "uncached_input_tokens": 70773
+              },
+              "sum_total_tokens": 1709360
+            }
+          ]
+        },
+        "skill": {
+          "sequences": 3,
+          "accepted_sequences": 3,
+          "cumulative": [
+            {
+              "through_stage": 1,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 166422,
+                "cached_input_tokens": 147968,
+                "output_tokens": 1050,
+                "total_tokens": 167386,
+                "uncached_input_tokens": 20118
+              },
+              "sum_total_tokens": 522035
+            },
+            {
+              "through_stage": 2,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 332151,
+                "cached_input_tokens": 290688,
+                "output_tokens": 1675,
+                "total_tokens": 333861,
+                "uncached_input_tokens": 42876
+              },
+              "sum_total_tokens": 980571
+            },
+            {
+              "through_stage": 3,
+              "known_sequences": 3,
+              "median_tokens": {
+                "input_tokens": 475669,
+                "cached_input_tokens": 432768,
+                "output_tokens": 2363,
+                "total_tokens": 478050,
+                "uncached_input_tokens": 58271
+              },
+              "sum_total_tokens": 1458249
+            }
+          ]
+        }
+      },
+      "comparison_valid": true,
+      "cumulative_median_skill_to_natural_ratios": [
+        0.8557522712051574,
+        0.8791183038065346,
+        0.8370937324346899
+      ],
+      "first_sustained_observed_crossover_stage": 1
+    }
+  },
+  "limitations": [
+    "Three defects within one component per repository; not general project maintenance.",
+    "Each stage uses a fresh model session; workspace files persist in both arms.",
+    "Helper command configuration is measured; dependency preparation and helper installation are excluded.",
+    "No extrapolation beyond observed stages. A crossover in three repetitions is not statistical proof.",
+    "Total input includes cached input once; token counts are not monetary costs."
+  ],
+  "records": [
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.139,
+            "output_bytes": 295,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.129,
+            "output_bytes": 1280,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 123059,
+              "cached_input_tokens": 102784,
+              "output_tokens": 553
+            },
+            "reasoning_output_tokens": 21,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 28693
+          },
+          "duration_seconds": 23.311,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "6a79693a4825bdd6189ee34aed163114e58ccc9511710df1e334c11ba1a356fd"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.189,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.138,
+            "output_bytes": 1288,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 102685,
+              "cached_input_tokens": 89984,
+              "output_tokens": 502
+            },
+            "reasoning_output_tokens": 24,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 29001
+          },
+          "duration_seconds": 23.303,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "b7ab14db7edfc8f92e5fe83e41fcdf17d605e028ee2d9df275015082594d61a8"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.139,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.14,
+            "output_bytes": 1333,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 94937,
+              "cached_input_tokens": 82688,
+              "output_tokens": 599
+            },
+            "reasoning_output_tokens": 65,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 32494
+          },
+          "duration_seconds": 24.405,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "8e1793a7d4ff007b2dae955654b5cc704a39f2c0400d9cea1726b7bf1b96e090"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.141,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.138,
+            "output_bytes": 1286,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 94645,
+              "cached_input_tokens": 84224,
+              "output_tokens": 597
+            },
+            "reasoning_output_tokens": 25,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 28232
+          },
+          "duration_seconds": 64.929,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "6d3dc2844a77f002278b8e1529fbfb4b2c27369f7c5afb51fe14ccfe982c3ceb"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.142,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.132,
+            "output_bytes": 1287,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 122985,
+              "cached_input_tokens": 102016,
+              "output_tokens": 476
+            },
+            "reasoning_output_tokens": 19,
+            "command_count": 5,
+            "failed_command_count": 1,
+            "event_bytes": 28651
+          },
+          "duration_seconds": 21.296,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "a7dce3fa4b17fb7dca41ed8e365f934451e9a6e0cf73ce82ad04163ba9b59f2f"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.143,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.141,
+            "output_bytes": 1328,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 123148,
+              "cached_input_tokens": 102016,
+              "output_tokens": 512
+            },
+            "reasoning_output_tokens": 28,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 29029
+          },
+          "duration_seconds": 18.854,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "46a0b8947f912b4d9c0d720747ff3c40e64d89d3e03bd768f003ae92d8ff1dd1"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.141,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.14,
+            "output_bytes": 1284,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 101121,
+              "cached_input_tokens": 89216,
+              "output_tokens": 510
+            },
+            "reasoning_output_tokens": 8,
+            "command_count": 6,
+            "failed_command_count": 0,
+            "event_bytes": 26701
+          },
+          "duration_seconds": 15.693,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "3c4c22b48e56cd77b05062de9f391e74ed99c19ff0c3b620088dad399de82825"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.15,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.146,
+            "output_bytes": 1288,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 125371,
+              "cached_input_tokens": 100864,
+              "output_tokens": 551
+            },
+            "reasoning_output_tokens": 42,
+            "command_count": 7,
+            "failed_command_count": 0,
+            "event_bytes": 28686
+          },
+          "duration_seconds": 23.607,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "895c39d389cc1b5d07ee96701652f5f924b1355a731eb4b4780f1cbedb8e2ae2"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.138,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.133,
+            "output_bytes": 1325,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 117533,
+              "cached_input_tokens": 101248,
+              "output_tokens": 722
+            },
+            "reasoning_output_tokens": 88,
+            "command_count": 8,
+            "failed_command_count": 1,
+            "event_bytes": 29548
+          },
+          "duration_seconds": 28.493,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "03a6cc724bdca18f14ea435522a242721e25d60c9863a2b3ffa651dd4afc28e6"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "skill",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.133,
+            "output_bytes": 295,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.14,
+            "output_bytes": 1286,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 81211,
+              "cached_input_tokens": 58752,
+              "output_tokens": 473
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 4,
+            "failed_command_count": 1,
+            "event_bytes": 23108
+          },
+          "duration_seconds": 37.14,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "52cb1cc94ec0fa06adfcd21865ce077f167262422842660e4780b67303feca45"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.135,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.143,
+            "output_bytes": 1288,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 77724,
+              "cached_input_tokens": 60928,
+              "output_tokens": 359
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 4,
+            "failed_command_count": 0,
+            "event_bytes": 15532
+          },
+          "duration_seconds": 23.688,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "3c3d361b8167ce1eba0714a70642230e2f21f30b30631dcd9ae48c51d6439c40"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.137,
+            "output_bytes": 296,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.129,
+            "output_bytes": 1330,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 79493,
+              "cached_input_tokens": 70144,
+              "output_tokens": 368
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 4,
+            "failed_command_count": 0,
+            "event_bytes": 17167
+          },
+          "duration_seconds": 18.673,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "485533f5a2db2f6220dfb0ba88b41393553d1589463cea69f6ce098c2d4c8746"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "skill",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.133,
+            "output_bytes": 296,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.128,
+            "output_bytes": 1284,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 127290,
+              "cached_input_tokens": 115840,
+              "output_tokens": 615
+            },
+            "reasoning_output_tokens": 16,
+            "command_count": 5,
+            "failed_command_count": 0,
+            "event_bytes": 24235
+          },
+          "duration_seconds": 22.33,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "ad943419601eb81f684b413248ef3ac3183a8716536c6816963033c14c10405e"
+        },
+        {
+          "stage": 2,
+          "passed": false,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.131,
+            "output_bytes": 294,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.137,
+            "output_bytes": 1288,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": false,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "completed_turns": 0,
+            "failure_events": 2,
+            "tokens": null,
+            "reasoning_output_tokens": null,
+            "command_count": 4,
+            "failed_command_count": 0,
+            "event_bytes": 15522
+          },
+          "duration_seconds": 200.063,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "a696ac8e4ef856b12c9550c9beaf739a86a495666a0a40ee9f4d5e65480c5eca",
+          "model_failure_category": "model_capacity"
+        }
+      ],
+      "passed": false,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "skill",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.136,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.121,
+            "output_bytes": 1286,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 104004,
+              "cached_input_tokens": 82944,
+              "output_tokens": 562
+            },
+            "reasoning_output_tokens": 10,
+            "command_count": 5,
+            "failed_command_count": 0,
+            "event_bytes": 22453
+          },
+          "duration_seconds": 19.574,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "9c5829f81faf8e6a086edaa014777aac760c3158ce1f6ec9b541d4a67a3fa19a"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.556,
+            "output_bytes": 299,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.242,
+            "output_bytes": 1288,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 95252,
+              "cached_input_tokens": 74752,
+              "output_tokens": 427
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 5,
+            "failed_command_count": 1,
+            "event_bytes": 21635
+          },
+          "duration_seconds": 15.702,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "92cdecca169c7ba0ae14dd0140df7d60b87b1b48d509d159b2b8c3c7cbf38975"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.133,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.131,
+            "output_bytes": 1333,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 112126,
+              "cached_input_tokens": 100352,
+              "output_tokens": 530
+            },
+            "reasoning_output_tokens": 18,
+            "command_count": 5,
+            "failed_command_count": 1,
+            "event_bytes": 20271
+          },
+          "duration_seconds": 18.209,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "86ba6e2304c735909ef6fc6e3ff9f7aded8dbbf7806c2141b080b888ddd4a293"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 4.398,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.591,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 163105,
+              "cached_input_tokens": 151808,
+              "output_tokens": 679
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 18297
+          },
+          "duration_seconds": 34.901,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "5a225d2bcd397ea33bbc5205e4134bbb051021bd71b52ceae681b75823c65b20"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.357,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.405,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 110849,
+              "cached_input_tokens": 102144,
+              "output_tokens": 536
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 20690
+          },
+          "duration_seconds": 87.302,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "6a30e2b42cb3f2f71482c77338018dbf1b3f3a936f7ec409535d8cbd96b767ea"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.303,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.352,
+            "output_bytes": 486,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 111144,
+              "cached_input_tokens": 102912,
+              "output_tokens": 546
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 18120
+          },
+          "duration_seconds": 69.526,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "22049dd996f7fb236879a3fa41d5a1ac22cf7dd686bd099990fa1077b4281b3c"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.833,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.592,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 131340,
+              "cached_input_tokens": 118656,
+              "output_tokens": 602
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 8,
+            "failed_command_count": 1,
+            "event_bytes": 21504
+          },
+          "duration_seconds": 32.005,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "95c74f09b03571c7ad8cbcd253a80108a9e92104610807ab7b548e4a881df7fd"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.313,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.364,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 129040,
+              "cached_input_tokens": 107008,
+              "output_tokens": 632
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 18664
+          },
+          "duration_seconds": 22.192,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "e0b542fb763cd8eb9c8e0ccfab3189b4c7ce916dc976ee599a934741f04c0c35"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.314,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.372,
+            "output_bytes": 486,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 113921,
+              "cached_input_tokens": 102016,
+              "output_tokens": 527
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 20521
+          },
+          "duration_seconds": 16.818,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "a522807dafd085f6a0f18d223699b3dd7ad0f86e45705b776d741f42556067da"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.632,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.354,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 130969,
+              "cached_input_tokens": 114688,
+              "output_tokens": 688
+            },
+            "reasoning_output_tokens": 10,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 18948
+          },
+          "duration_seconds": 30.21,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "b015f736244d0846f62428976f71e86c893fae73347cca0c5e251de91e0bb6b5"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.305,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.356,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 112157,
+              "cached_input_tokens": 98816,
+              "output_tokens": 498
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 5,
+            "failed_command_count": 1,
+            "event_bytes": 19994
+          },
+          "duration_seconds": 19.073,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "9a118b82a814ea032566b3c2223b02dc1fb4482bbdd55434b25fece68c8eb8a8"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.373,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.637,
+            "output_bytes": 486,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 129459,
+              "cached_input_tokens": 113152,
+              "output_tokens": 638
+            },
+            "reasoning_output_tokens": 6,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 18663
+          },
+          "duration_seconds": 20.349,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "7190841582a1aaa7d4611d353bb4b0131370c9ef1f1abda9c5dc15cd16df260a"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "skill",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.708,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.372,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 117953,
+              "cached_input_tokens": 107904,
+              "output_tokens": 643
+            },
+            "reasoning_output_tokens": 6,
+            "command_count": 5,
+            "failed_command_count": 0,
+            "event_bytes": 25262
+          },
+          "duration_seconds": 28.973,
+          "feedback_checks_observed": [
+            "focused",
+            "suite",
+            "vet"
+          ],
+          "evidence_sha256": "0d87455de5878be6f13276c779db2eba11509a2b83c15cd60e31730c0670f4c4"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.291,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.351,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 119737,
+              "cached_input_tokens": 101376,
+              "output_tokens": 534
+            },
+            "reasoning_output_tokens": 6,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 16888
+          },
+          "duration_seconds": 17.922,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite",
+            "vet"
+          ],
+          "evidence_sha256": "5de88e87bb1d638e627bf7301f52edeae99a0910508509faec4c763625adf810"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.343,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.357,
+            "output_bytes": 486,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 145128,
+              "cached_input_tokens": 126208,
+              "output_tokens": 584
+            },
+            "reasoning_output_tokens": 12,
+            "command_count": 5,
+            "failed_command_count": 1,
+            "event_bytes": 21811
+          },
+          "duration_seconds": 39.434,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite",
+            "vet"
+          ],
+          "evidence_sha256": "5e3f9a10f15e6a4cef2df33bfec8678c344a7cbe9e478f0166d0551454628ac9"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "skill",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.666,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.366,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 130832,
+              "cached_input_tokens": 114432,
+              "output_tokens": 701
+            },
+            "reasoning_output_tokens": 14,
+            "command_count": 5,
+            "failed_command_count": 0,
+            "event_bytes": 18990
+          },
+          "duration_seconds": 25.37,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "f679a2a3a8b26209a6899e14f42e79f857dd0a7c84916522dfdf5a59aa308b25"
+        },
+        {
+          "stage": 2,
+          "passed": false,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.301,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.364,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": false,
+            "repaired_suite": false,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": false,
+            "restored_suite": false
+          },
+          "checks": {
+            "model_completed": false,
+            "protected_files_unchanged": true,
+            "focused_tests": false,
+            "native_suite": false,
+            "helper_unchanged": true,
+            "helper_used": false,
+            "configured_checks_detect_regression": false
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "completed_turns": 0,
+            "failure_events": 2,
+            "tokens": null,
+            "reasoning_output_tokens": null,
+            "command_count": 2,
+            "failed_command_count": 0,
+            "event_bytes": 11086
+          },
+          "duration_seconds": 66.94,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "29f2bef6dfa1e7abf0a2b7681d416dc84b07270d4b0522366e35b0469fc9a9f9",
+          "model_failure_category": "model_capacity"
+        }
+      ],
+      "passed": false,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "skill",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.704,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.36,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 139239,
+              "cached_input_tokens": 124544,
+              "output_tokens": 816
+            },
+            "reasoning_output_tokens": 33,
+            "command_count": 5,
+            "failed_command_count": 0,
+            "event_bytes": 26210
+          },
+          "duration_seconds": 31.08,
+          "feedback_checks_observed": [
+            "focused",
+            "suite",
+            "vet"
+          ],
+          "evidence_sha256": "f531f5ac8a45341c2b317c69295ab8eb6ce74ad3941fdf4091ad80775fa3baa3"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.294,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.365,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 113521,
+              "cached_input_tokens": 104448,
+              "output_tokens": 588
+            },
+            "reasoning_output_tokens": 7,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 21853
+          },
+          "duration_seconds": 22.218,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite",
+            "vet"
+          ],
+          "evidence_sha256": "da9b8dcbba24650908cc5ba3a14171e4fb09d7bff3287687b975b556b9673c34"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.311,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.361,
+            "output_bytes": 486,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 112574,
+              "cached_input_tokens": 98688,
+              "output_tokens": 573
+            },
+            "reasoning_output_tokens": 6,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 18759
+          },
+          "duration_seconds": 21.579,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite",
+            "vet"
+          ],
+          "evidence_sha256": "38ab425eaf3980e66a75ef6f90739af8ddee98e21c984e0c45ca86223ecfcd6b"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.615,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 2.151,
+            "output_bytes": 42316,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 183997,
+              "cached_input_tokens": 153472,
+              "output_tokens": 1075
+            },
+            "reasoning_output_tokens": 126,
+            "command_count": 8,
+            "failed_command_count": 1,
+            "event_bytes": 71855
+          },
+          "duration_seconds": 49.834,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "538db054fec29015e4e94f85e9780653cc2a86f318a4d7e780a64a5fab853c7a"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.561,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.701,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 185487,
+              "cached_input_tokens": 161920,
+              "output_tokens": 936
+            },
+            "reasoning_output_tokens": 57,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 47803
+          },
+          "duration_seconds": 102.268,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "874b5075db632080bcbf311038a33353a387d2d92ff0e2b68516fbc50cf31824"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.007,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.773,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 189609,
+              "cached_input_tokens": 172928,
+              "output_tokens": 1036
+            },
+            "reasoning_output_tokens": 135,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 48681
+          },
+          "duration_seconds": 83.827,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "ab14dc0ffe008de1bbadd72a9ed229a464be0880da59531b6b93f6a1ffae463a"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.747,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.527,
+            "output_bytes": 42316,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 212789,
+              "cached_input_tokens": 182016,
+              "output_tokens": 1115
+            },
+            "reasoning_output_tokens": 115,
+            "command_count": 8,
+            "failed_command_count": 1,
+            "event_bytes": 79771
+          },
+          "duration_seconds": 38.819,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "6fd03cff63dea1e30e18a86c3f2a15bc9b113c55ee7d886ddaede24c5a522f06"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.375,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.454,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 164915,
+              "cached_input_tokens": 141952,
+              "output_tokens": 949
+            },
+            "reasoning_output_tokens": 6,
+            "command_count": 7,
+            "failed_command_count": 2,
+            "event_bytes": 47405
+          },
+          "duration_seconds": 34.739,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "5ac9d83aeba81da8244cfe37e466ec25e53ca3d19510d5e304da9f2ab7c01f76"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.372,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.394,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 190463,
+              "cached_input_tokens": 174336,
+              "output_tokens": 852
+            },
+            "reasoning_output_tokens": 9,
+            "command_count": 7,
+            "failed_command_count": 1,
+            "event_bytes": 46896
+          },
+          "duration_seconds": 35.333,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "c8436453e3ffd99716db370f420695549985f964a90976cc925807d11790b65d"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.413,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.503,
+            "output_bytes": 42316,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 194579,
+              "cached_input_tokens": 165888,
+              "output_tokens": 1022
+            },
+            "reasoning_output_tokens": 61,
+            "command_count": 7,
+            "failed_command_count": 2,
+            "event_bytes": 80820
+          },
+          "duration_seconds": 33.296,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "3ec7c8f21733c3bfed6699032a17ab52c9f9240667adb11ae8aa4728842bbb6b"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.342,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.418,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 204904,
+              "cached_input_tokens": 174080,
+              "output_tokens": 837
+            },
+            "reasoning_output_tokens": 19,
+            "command_count": 6,
+            "failed_command_count": 2,
+            "event_bytes": 44576
+          },
+          "duration_seconds": 34.335,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "2b9c6c0cf94e671c6649fc7337256af92646bcf50ff23b7ff395c85de6ee1584"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.359,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.401,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 174020,
+              "cached_input_tokens": 146432,
+              "output_tokens": 775
+            },
+            "reasoning_output_tokens": 15,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 46600
+          },
+          "duration_seconds": 29.229,
+          "feedback_checks_observed": [],
+          "evidence_sha256": "b5f43a85ffe8fcac3942384c58723ff82b3f77a53b8ad053defd15b86e52ec35"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "skill",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.657,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.572,
+            "output_bytes": 42316,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 166422,
+              "cached_input_tokens": 146304,
+              "output_tokens": 964
+            },
+            "reasoning_output_tokens": 68,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 36165
+          },
+          "duration_seconds": 100.868,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "7e12192234ad8c8b2d624f238a2c794e1ef15a21aca98053f7418dcda65fac96"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.373,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.479,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 167142,
+              "cached_input_tokens": 144384,
+              "output_tokens": 678
+            },
+            "reasoning_output_tokens": 17,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 34876
+          },
+          "duration_seconds": 27.298,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "00c7a87b841a29b9ef38c204d9debea8648c15c81802a90254e015be7daa27e5"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.365,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.422,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 166691,
+              "cached_input_tokens": 151296,
+              "output_tokens": 721
+            },
+            "reasoning_output_tokens": 7,
+            "command_count": 6,
+            "failed_command_count": 2,
+            "event_bytes": 37848
+          },
+          "duration_seconds": 26.478,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "3c9e9d1c8281e832a4fe680d51263e0f60dcdcf8a9cc780ca2074922ace5b5ca"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "skill",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.478,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 2.751,
+            "output_bytes": 42316,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 161902,
+              "cached_input_tokens": 147968,
+              "output_tokens": 1050
+            },
+            "reasoning_output_tokens": 124,
+            "command_count": 7,
+            "failed_command_count": 0,
+            "event_bytes": 39104
+          },
+          "duration_seconds": 34.093,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "aeaacee034cc38ce582e2ecbf5624d08516f11936ef4b118d982d21245f34c02"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.418,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.434,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 170249,
+              "cached_input_tokens": 151424,
+              "output_tokens": 660
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 26398
+          },
+          "duration_seconds": 28.123,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "e09e2e9e3d8c5e3824a3974246f022208d24056fbc6009bf47bee4d686a24043"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.378,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.397,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 143127,
+              "cached_input_tokens": 133376,
+              "output_tokens": 593
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 5,
+            "failed_command_count": 1,
+            "event_bytes": 31535
+          },
+          "duration_seconds": 24.213,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "6eb3699a012e57a959b1e93bcbfe1557be1633f0f1b87bb06524b71b3e0062c3"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "skill",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.36,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.405,
+            "output_bytes": 42316,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 190576,
+              "cached_input_tokens": 149888,
+              "output_tokens": 1121
+            },
+            "reasoning_output_tokens": 126,
+            "command_count": 6,
+            "failed_command_count": 2,
+            "event_bytes": 43744
+          },
+          "duration_seconds": 35.106,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "f50b60de06e755db71da7bb0cc7384505f588ef1ccd6f2a0cb45870e7c42288f"
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.483,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.51,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 119253,
+              "cached_input_tokens": 109184,
+              "output_tokens": 554
+            },
+            "reasoning_output_tokens": 0,
+            "command_count": 5,
+            "failed_command_count": 0,
+            "event_bytes": 28090
+          },
+          "duration_seconds": 24.4,
+          "feedback_checks_observed": [
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "0438173c47bc7fa1d4828435fa5b2a94efa560e67c85d4a08aef79b7b38091f4"
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.379,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.446,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "configured_check_grades": {
+            "repaired_focused": true,
+            "repaired_suite": true,
+            "regressed_focused": true,
+            "regressed_suite": true,
+            "restored_focused": true,
+            "restored_suite": true
+          },
+          "checks": {
+            "model_completed": true,
+            "protected_files_unchanged": true,
+            "focused_tests": true,
+            "native_suite": true,
+            "helper_unchanged": true,
+            "helper_used": true,
+            "configured_checks_detect_regression": true
+          },
+          "usage": {
+            "schema_version": 1,
+            "usage_source": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "completed_turns": 1,
+            "failure_events": 0,
+            "tokens": {
+              "input_tokens": 165840,
+              "cached_input_tokens": 132096,
+              "output_tokens": 706
+            },
+            "reasoning_output_tokens": 7,
+            "command_count": 6,
+            "failed_command_count": 1,
+            "event_bytes": 35963
+          },
+          "duration_seconds": 27.607,
+          "feedback_checks_observed": [
+            "focused",
+            "focused",
+            "suite"
+          ],
+          "evidence_sha256": "663c720fc6214f324f9161efd85b73fc720b2d15bc6a877a19bfc88ebf069f23"
+        }
+      ],
+      "passed": true,
+      "preflight_only": false
+    }
+  ]
+}

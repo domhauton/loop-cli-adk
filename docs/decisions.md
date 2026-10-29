@@ -162,3 +162,13 @@ command discovery explicit and preserve whole-suite quality gates; a successful
 repair alone does not prove the reusable feedback setup is usable. See
 `evals/results/native-adoption-v1.json`. Longitudinal native-workflow pay-off remains
 unmeasured; do not extrapolate it by subtracting unrelated experiment medians.
+
+A retained-workspace follow-up measured three distinct native repairs per sequence,
+with command setup charged to the first task. PorscheConnect passed all six
+sequences and used about 16% fewer median total tokens across three tasks; median
+uncached input and output also fell. Loop and Landing each had an explicit model
+capacity failure with unknown cost, so their cumulative comparisons are invalid.
+The evidence now supports an optional native-feedback workflow for this tested
+Home Assistant component, including configuration. It still does not justify a
+universal saving, a mandatory runtime feature, or API-CLI pay-off claims. Preserve
+the failed attempts and keep broader coverage and installation cost explicit.

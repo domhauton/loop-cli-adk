@@ -184,3 +184,33 @@ gates and requires both configured commands to pass on repaired code. This chang
 belongs to the new experiment; the previous adoption report is not retroactively
 regraded or pooled with it. Helper installation and dependency preparation remain
 outside model timing. These are component repairs, not full application releases.
+
+`../results/native-maintenance-v1.json` records 18 attempted sequences. Sixteen
+completed all three repairs. Two second-stage model calls (one Loop, one Landing)
+returned an explicit model-capacity error, without usage counters. Both attempts
+remain in the cohort; their unrun third stages and unknown costs invalidate those
+repositories' cumulative comparisons. New launches were briefly held, then resumed
+after active PorscheConnect model turns completed. No failed attempt was replaced.
+
+PorscheConnect completed all six sequences, with all authored checks passing their
+repair/regression/restoration contracts at every stage:
+
+| Cumulative tasks | Natural median total tokens | Skill median total tokens |
+| --- | ---: | ---: |
+| Setup and timestamp repair | 195,601 | 167,386 |
+| Plus mileage repair | 379,768 | 333,861 |
+| Plus charging-status repair | 571,083 | 478,050 |
+
+The skill was lower from the first measured stage and remained lower, ending about
+16% below the natural median. Final median uncached input was 70,773 versus 58,271,
+and output was 2,916 versus 2,363. Component medians need not sum to the total median.
+This supports the optional workflow on this Home Assistant component, including
+command configuration, but not universal savings or a monetary-cost estimate.
+Installation remains excluded. The generic coverage-scope guidance and wrapper
+are bundled; this experiment does not isolate either effect. It also does not
+supply a pay-off estimate for the API CLI, which is a different comparison.
+
+Report generation verifies each local transcript hash and recomputes its usage
+before accepting counters. Recognised capacity failures receive a safe category;
+raw model output and external source stay local. Ordinary CI checks the reporting
+and retention contracts without model calls.
