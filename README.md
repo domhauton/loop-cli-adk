@@ -148,6 +148,16 @@ handlers in an offline fixture and runs opt-in agent trials for command developm
 It records observed model tokens, task success and whether the agent's tests catch
 broken API mappings. Model trials consume allowance and are not part of normal CI.
 
+Generated CLIs use native Go tests and `pkg/clitest` for HTTP contracts. Keep the
+application's existing test framework as the source of assertions. The compact
+native-test runner and declarative API-check alternatives under `evals/` are
+experimental; `loop init` does not install them and runtime packages do not import
+them. Python is required only for this developer evaluation tooling.
+
+See the [evidence index](evals/README.md#evidence-index) before choosing a workflow.
+Some measured tasks improved, but API-CLI setup pay-off and universal token savings
+are not established. Cached input, uncached input and output are reported separately.
+
 Non-2xx HTTP errors expose a machine-readable status, for example
 `{"error":{"code":"http_status","message":"API returned HTTP 401","details":{"http_status":"401"}}}`.
 The optional details map contains safe string values. Existing error codes and

@@ -4,6 +4,21 @@ There are two independent questions: does the CLI preserve the project's actual
 API behaviour, and does its development skill help an agent finish correct work
 for fewer tokens? Passing the first does not answer the second.
 
+## Evidence index
+
+| Question | Evidence | What it establishes |
+| --- | --- | --- |
+| Does the CLI preserve Energy behaviour? | [Energy integration](results/energy-integration-v2.json) | Deterministic offline checks of actual handlers; no token-cost claim. |
+| Does precise authoring guidance help? | [Held-out CLI development](results/manifest-example-heldout-v1.json) | Six passing trials; lower total and output tokens, higher uncached input. |
+| Does a retained native-check helper help? | [Native maintenance](results/native-maintenance-v1.json) | PorscheConnect improved across three repairs including configuration; Loop/Landing comparisons are incomplete after capacity failures. |
+| Has API-CLI setup paid off? | [Verification prototypes](results/verification-prototypes-v1.json) | No demonstrated break-even over the measured four-task sequences. |
+| What did engineering consume? | [Parent-session checkpoint](results/engineering-checkpoint.json) | Observed conversation counters, including repeated cached context; separate trial usage is in each report. |
+
+The shipped kit uses native assertions and shared HTTP fixtures. Neither the native
+process runner nor the declarative verification prototype is a production runtime
+feature. Select only the relevant experiment below; these comparisons answer
+different questions and must not be pooled into one productivity percentage.
+
 ## Energy integration
 
 ```sh
@@ -81,8 +96,9 @@ Do not tune the skill against grading-only details or repeatedly rerun until it 
 Next evaluation cases should cover repairing an API mapping, adding a new project,
 and updating the SDK. Measure setup and migration cost as well as steady-state
 maintenance. Amortisation is setup tokens divided by the measured per-task saving;
-if the saving is absent or uncertain, report no demonstrated break-even. The current
-repository's historical creation cost has not been measured by this harness.
+if the saving is absent or uncertain, report no demonstrated break-even. The parent-session checkpoint records observed engineering usage, but does not
+isolate initial kit creation from research, testing and maintenance; architecture
+subagents are excluded and model trials are accounted for separately.
 
 ## Initial evidence
 
