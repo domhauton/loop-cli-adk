@@ -24,7 +24,7 @@ import (
 const DefaultSDKVersion = "v0.0.0-20261028225343-2b0eb32ab06c"
 
 // TemplateVersion identifies the scaffold recipe without implying automatic upgrades.
-const TemplateVersion = 4
+const TemplateVersion = 5
 
 //go:embed templates/*
 var scaffoldTemplates embed.FS
@@ -34,6 +34,9 @@ const ModeProject = "project"
 
 // ModeManifest scaffolds a manifest and inspection skill for an installed Loop.
 const ModeManifest = "manifest"
+
+// ModeTesting installs native-testing guidance without introducing a project runtime.
+const ModeTesting = "testing"
 
 // InitOptions selects a local destination, mode, name and optional SDK version.
 // Initialisation does not invoke Go, inspect credentials or access the network.
@@ -72,8 +75,12 @@ func Init(opts InitOptions) (InitResult, error) {
 		if opts.SDKVersion != "" {
 			return result, fmt.Errorf("manifest mode uses the installed Loop and cannot select an SDK version")
 		}
+	case ModeTesting:
+		if opts.SDKVersion != "" {
+			return result, fmt.Errorf("testing mode has no SDK dependency")
+		}
 	default:
-		return result, fmt.Errorf("mode must be project or manifest")
+		return result, fmt.Errorf("mode must be project, manifest or testing")
 	}
 	files, err := renderScaffold(opts)
 	if err != nil {
@@ -164,6 +171,13 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 	}
 	prefix := strings.ToUpper(strings.ReplaceAll(opts.Name, "-", "_"))
 	data := scaffoldData{Name: opts.Name, SDKVersion: opts.SDKVersion, BaseURLEnv: prefix + "_API_URL", TokenEnv: prefix + "_API_TOKEN"}
+	if opts.Mode == ModeTesting {
+		content, err := renderTemplate("native-test-skill.md.tmpl", data)
+		if err != nil {
+			return nil, err
+		}
+		return map[string][]byte{".agents/skills/" + opts.Name + "-native-test/SKILL.md": content}, nil
+	}
 	m := definition.Manifest{SchemaVersion: 1, Name: opts.Name, Description: "Inspect the " + opts.Name + " project", API: definition.API{BaseURLEnv: data.BaseURLEnv, TokenEnv: data.TokenEnv}, Commands: []definition.Command{{Name: "status get", Description: "Read the API health endpoint", HTTP: definition.HTTP{Method: "GET", Path: "/health"}}}}
 	manifest, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {
@@ -201,20 +215,11 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 		files["main.go"] = []byte(projectMain)
 	}
 	for destination, source := range templates {
-		content, err := scaffoldTemplates.ReadFile("templates/" + source)
+		content, err := renderTemplate(source, data)
 		if err != nil {
-			return nil, fmt.Errorf("read template %s: %w", source, err)
+			return nil, err
 		}
-		// Separate delimiters preserve GitHub Actions and GoReleaser expressions verbatim.
-		t, err := template.New(source).Delims("[[", "]]").Option("missingkey=error").Parse(string(content))
-		if err != nil {
-			return nil, fmt.Errorf("parse template %s: %w", source, err)
-		}
-		var output bytes.Buffer
-		if err := t.Execute(&output, data); err != nil {
-			return nil, fmt.Errorf("render template %s: %w", source, err)
-		}
-		files[destination] = output.Bytes()
+		files[destination] = content
 	}
 	for name, content := range files {
 		if strings.HasSuffix(name, ".go") {
@@ -226,4 +231,21 @@ func renderScaffold(opts InitOptions) (map[string][]byte, error) {
 		}
 	}
 	return files, nil
+}
+
+func renderTemplate(source string, data scaffoldData) ([]byte, error) {
+	content, err := scaffoldTemplates.ReadFile("templates/" + source)
+	if err != nil {
+		return nil, fmt.Errorf("read template %s: %w", source, err)
+	}
+	// Separate delimiters preserve GitHub Actions and GoReleaser expressions verbatim.
+	t, err := template.New(source).Delims("[[", "]]").Option("missingkey=error").Parse(string(content))
+	if err != nil {
+		return nil, fmt.Errorf("parse template %s: %w", source, err)
+	}
+	var output bytes.Buffer
+	if err := t.Execute(&output, data); err != nil {
+		return nil, fmt.Errorf("render template %s: %w", source, err)
+	}
+	return output.Bytes(), nil
 }

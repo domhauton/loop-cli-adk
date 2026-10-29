@@ -24,3 +24,8 @@ manifest, inspection skill and metadata; it must not write a Go module, README,
 root AGENTS file or workflows into an existing host project. It cannot select an
 SDK version because it uses the installed runner. Keep both modes on the same
 preflight/exclusive-create path and bump the template version for recipe changes.
+
+`testing` mode installs only a project-named native-testing skill. It has no SDK
+version, API manifest or scaffold metadata file, so it can coexist with existing
+project definitions. It shares exclusive creation and symlink checks with the other
+modes; no host configuration or test commands are inferred or executed during init.

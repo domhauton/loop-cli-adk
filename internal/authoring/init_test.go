@@ -117,8 +117,10 @@ func TestInitRejectsSymlinkParent(t *testing.T) {
 	if err := os.Symlink(outside, filepath.Join(dir, ".agents")); err != nil {
 		t.Skipf("symlink creation unavailable: %v", err)
 	}
-	if _, err := Init(InitOptions{Directory: dir, Name: "reefctl"}); err == nil {
-		t.Fatal("accepted symlink parent")
+	for _, mode := range []string{ModeProject, ModeManifest, ModeTesting} {
+		if _, err := Init(InitOptions{Directory: dir, Name: "reefctl", Mode: mode}); err == nil {
+			t.Fatalf("%s mode accepted symlink parent", mode)
+		}
 	}
 	if files := snapshot(t, outside); len(files) != 0 {
 		t.Fatalf("wrote outside destination: %v", files)
@@ -229,7 +231,7 @@ func TestManifestModeFitsAnExistingProject(t *testing.T) {
 }
 
 func TestInitRejectsAmbiguousModesBeforeWriting(t *testing.T) {
-	for _, opts := range []InitOptions{{Name: "reefctl", Mode: "unknown"}, {Name: "reefctl", Mode: ModeManifest, SDKVersion: DefaultSDKVersion}} {
+	for _, opts := range []InitOptions{{Name: "reefctl", Mode: ModeTesting, SDKVersion: DefaultSDKVersion}, {Name: "reefctl", Mode: "unknown"}, {Name: "reefctl", Mode: ModeManifest, SDKVersion: DefaultSDKVersion}} {
 		opts.Directory = filepath.Join(t.TempDir(), "new")
 		if _, err := Init(opts); err == nil {
 			t.Fatalf("accepted %+v", opts)
@@ -237,5 +239,42 @@ func TestInitRejectsAmbiguousModesBeforeWriting(t *testing.T) {
 		if _, err := os.Stat(opts.Directory); !os.IsNotExist(err) {
 			t.Fatalf("invalid options touched destination: %v", err)
 		}
+	}
+}
+
+func TestTestingModePreservesExistingProjectWithoutRuntime(t *testing.T) {
+	t.Setenv("PATH", "")
+	for _, host := range []string{"go.mod", "package.json", "pyproject.toml"} {
+		t.Run(host, func(t *testing.T) {
+			dir := t.TempDir()
+			for _, name := range []string{host, "README.md", "AGENTS.md", "project.json"} {
+				if err := os.WriteFile(filepath.Join(dir, name), []byte("existing unrelated content"), 0644); err != nil {
+					t.Fatal(err)
+				}
+			}
+			before := snapshot(t, dir)
+			result, err := Init(InitOptions{Directory: dir, Name: "reef", Mode: ModeTesting})
+			if err != nil {
+				t.Fatal(err)
+			}
+			if result.Mode != ModeTesting || result.SDKVersion != "" || len(result.Files) != 1 || result.Files[0] != ".agents/skills/reef-native-test/SKILL.md" {
+				t.Fatalf("unexpected testing scaffold: %+v", result)
+			}
+			after := snapshot(t, dir)
+			if len(after) != len(before)+1 {
+				t.Fatalf("testing mode created unrelated files: %v", result.Files)
+			}
+			for name, content := range before {
+				if after[name] != content {
+					t.Fatalf("changed host file %s", name)
+				}
+			}
+			if _, err := Init(InitOptions{Directory: dir, Name: "reef", Mode: ModeTesting}); err == nil {
+				t.Fatal("repeated installation must preserve the existing skill")
+			}
+			if !reflect.DeepEqual(after, snapshot(t, dir)) {
+				t.Fatal("conflict modified the project")
+			}
+		})
 	}
 }

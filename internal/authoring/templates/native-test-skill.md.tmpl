@@ -1,0 +1,25 @@
+---
+name: [[.Name]]-native-test
+description: Select and run [[.Name]]'s existing native tests while implementing or repairing behaviour. Use for focused feedback and checking the relevant suite.
+---
+
+# Test [[.Name]]
+
+Discover existing test entry points from nearby project guidance, package scripts
+and CI. Reuse the prepared tools, fixtures and working commands. Keep assertions
+in the project's test framework; a new runner is not required.
+
+Choose focused checks that cover the affected behaviour. Reconsider that selection
+when the changed component changes: a previous component's passing tests do not
+validate the new repair. Use focused checks while iterating and the relevant native
+suite when ready. Preserve the task's scope rather than claiming unrun gates passed.
+
+Component feedback and aggregate quality gates can have different scopes. Use the
+project's supported focused invocation while retaining full-suite coverage and
+other repository gates. Verify each chosen command passes on repaired code; a
+passing full suite does not make a permanently failing focused command usable.
+
+For regressions, establish that the relevant test fails before the fix and passes
+afterwards. Reuse existing assertions and fixtures where they express the contract.
+Keep lengthy diagnostics in a local log and inspect relevant excerpts when useful;
+label omissions instead of treating truncated output as complete evidence.

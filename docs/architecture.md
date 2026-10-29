@@ -172,3 +172,14 @@ on the first failed check. Skipped checks are explicit; a partial batch cannot
 report success. Full bounded logs stay local, with compact results and labelled
 failure excerpts. Independent grading runs original native tests regardless of
 the helper's claimed outcome and checks that tests/configuration remain unchanged.
+
+## Native-testing skill delivery
+
+`loop init --mode testing --name NAME --dir DIRECTORY` uses the authoring module's
+existing validation and exclusive-create path to install one project-named native
+testing skill. It creates no API definition, SDK dependency, runner, workflow or
+root guidance file. It does not load an existing manifest. The host's native test
+framework owns assertions and execution; installed skill use needs no Loop runtime.
+The installed Loop binary can scaffold the skill without Go, Python or networking.
+No new production dependency is introduced. Experimental process wrappers remain
+in `evals/` until their benefit over the same guidance alone is measured.

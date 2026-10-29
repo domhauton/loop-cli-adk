@@ -180,3 +180,18 @@ fell about 49%, output about 23%, but uncached input increased. Keep the short
 contract example: it improves the measured authoring loop without adding a new
 runtime or verification language. Do not translate the total-token result into
 credit or monetary savings, or generalise it beyond the measured task.
+
+## Deliver guidance before adding another executor
+
+A three-agent review challenged the remaining adoption gap and the bundled effects
+in native-feedback results. The next slice ships optional, one-file native-testing
+guidance through `loop init --mode testing`. It preserves native assertions and
+uses existing authoring safety; it adds no runtime or command catalogue. Generated
+skills cover component selection and the distinction between focused feedback and
+aggregate quality gates, based on observed setup failures.
+
+Compare natural tooling, installed guidance, and the same guidance plus the
+experimental wrapper before deciding whether to port that wrapper. Count actual
+installation and switch components between tasks. Keep common repair correctness
+separate from the wrapper's additional promise that named checks remain reusable.
+Do not require unused command-configuration files in the direct-native arms.

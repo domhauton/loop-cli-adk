@@ -93,6 +93,19 @@ is laid out as a dedicated CLI repository root. For a monorepo, an agent must me
 the generated workflows into the repository-root `.github/workflows/` with the
 appropriate working directories. Init does not modify the parent repository.
 
+## Add native-testing guidance to an existing project
+
+```sh
+loop init --mode testing --name myproject --dir .
+```
+
+This creates only `.agents/skills/myproject-native-test/SKILL.md`. It guides an
+agent to reuse existing tests, update focused checks when components change, and
+preserve full-suite quality gates. It introduces no API manifest, Go module,
+Python helper or command configuration, and preserves existing project files.
+Using the installed skill needs only the project's normal test tools. Installation
+is opt-in; efficiency beyond the measured cases remains under evaluation.
+
 ## Project definition
 
 ```json

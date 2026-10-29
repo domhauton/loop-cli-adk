@@ -101,3 +101,26 @@ func TestManifestInitCommand(t *testing.T) {
 		t.Fatalf("unexpected result: %s", &out)
 	}
 }
+
+func TestTestingInitCommandNeedsNoProjectRuntime(t *testing.T) {
+	t.Setenv("PATH", "")
+	dir := t.TempDir()
+	var out, diagnostic bytes.Buffer
+	status := execute(t.Context(), []string{"init", "--mode", "testing", "--name", "reef", "--dir", dir}, &out, &diagnostic)
+	if status != 0 || diagnostic.Len() != 0 {
+		t.Fatalf("status=%d stderr=%s", status, &diagnostic)
+	}
+	var result struct {
+		Mode  string   `json:"mode"`
+		Files []string `json:"files"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &result); err != nil {
+		t.Fatal(err)
+	}
+	if result.Mode != "testing" || len(result.Files) != 1 {
+		t.Fatalf("unexpected testing result: %s", &out)
+	}
+	if _, err := os.Stat(filepath.Join(dir, result.Files[0])); err != nil {
+		t.Fatal(err)
+	}
+}

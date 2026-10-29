@@ -28,7 +28,7 @@ func run() int {
 
 func execute(ctx context.Context, args []string, stdout, stderr io.Writer) int {
 	if len(args) == 0 || args[0] == "--help" || args[0] == "help" {
-		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop init --name myproject --dir ./myproject-cli\n  loop init --mode manifest --name myproject --dir .\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
+		fmt.Fprintln(stdout, "Loop - build agent-facing project CLIs\n\n  loop init --name myproject --dir ./myproject-cli\n  loop init --mode manifest --name myproject --dir .\n  loop init --mode testing --name myproject --dir .\n  loop check --manifest project.json\n  loop run --manifest project.json -- describe\n  loop run --manifest project.json -- users list --input '{}'\n  loop build --manifest project.json --output bin/myproject --sdk-dir .\n  loop version")
 		return 0
 	}
 	if args[0] == "version" || args[0] == "--version" {
@@ -100,13 +100,13 @@ func initialise(args []string, stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("init", flag.ContinueOnError)
 	flags.SetOutput(io.Discard)
 	var opts authoring.InitOptions
-	flags.StringVar(&opts.Mode, "mode", authoring.ModeProject, "project or manifest")
+	flags.StringVar(&opts.Mode, "mode", authoring.ModeProject, "project, manifest or testing")
 	flags.StringVar(&opts.Directory, "dir", ".", "destination directory")
 	flags.StringVar(&opts.Name, "name", "", "project executable name")
 	flags.StringVar(&opts.SDKVersion, "sdk-version", "", "pinned SDK semantic version (project mode)")
 	if err := flags.Parse(args); err != nil {
 		if err == flag.ErrHelp {
-			fmt.Fprintln(stdout, "loop init --name NAME [--dir DIRECTORY] [--mode project|manifest] [--sdk-version VERSION]\nProject mode creates a standalone CLI, skills, tests and release workflow. Manifest mode creates project.json and an inspection skill for the installed Loop. Existing files are never overwritten.")
+			fmt.Fprintln(stdout, "loop init --name NAME [--dir DIRECTORY] [--mode project|manifest|testing] [--sdk-version VERSION]\nProject mode creates a standalone CLI, skills, tests and release workflow. Manifest mode creates project.json and an inspection skill for the installed Loop. Testing mode installs one native-testing skill into an existing project, without an API manifest or runtime dependency. Existing files are never overwritten.")
 			return 0
 		}
 		return cli.WriteError(stderr, operation.NewError("usage", err.Error(), err))
