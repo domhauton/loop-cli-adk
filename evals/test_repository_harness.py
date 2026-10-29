@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sys
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -38,3 +39,31 @@ class RepositoryHarnessTests(unittest.TestCase):
             self.assertFalse(command_passed(result))
             self.assertLessEqual((work / 'overflow.log').stat().st_size, 2048)
             self.assertLessEqual(len(text), 2048)
+
+    def test_interruption_stops_real_child_before_propagating(self):
+        spawned = []
+        real_popen = subprocess.Popen
+        def start(argv, **kwargs):
+            if argv[0] != sys.executable:
+                return real_popen(argv, **kwargs)
+            proc = real_popen(argv, stdin=subprocess.PIPE, **kwargs)
+            spawned.append(proc)
+            real_wait = proc.wait
+            def interrupt_once(**kwargs):
+                proc.wait = real_wait
+                raise KeyboardInterrupt()
+            proc.wait = interrupt_once
+            return proc
+        try:
+            with tempfile.TemporaryDirectory() as temp:
+                work = Path(temp)
+                with patch('repositories.native_command.subprocess.Popen', side_effect=start):
+                    with self.assertRaises(KeyboardInterrupt):
+                        command([sys.executable, '-c', 'import sys; sys.stdin.buffer.read(1)'], work, os.environ, work, 'interrupted')
+                self.assertEqual(len(spawned), 1)
+                self.assertIsNotNone(spawned[0].poll())
+        finally:
+            for proc in spawned:
+                proc.kill()
+                proc.wait(timeout=5)
+                proc.stdin.close()

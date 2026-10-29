@@ -55,6 +55,14 @@ def command(argv, work, env, logs, name, timeout=300):
             stop(proc)
             proc.wait(timeout=10)
             code = None
+        except BaseException:
+            # An interrupted caller must not leave its native test process alive.
+            stop(proc)
+            try:
+                proc.wait(timeout=10)
+            finally:
+                reader.join(timeout=10)
+            raise
         reader.join(timeout=5)
         if reader.is_alive():
             stop(proc)
