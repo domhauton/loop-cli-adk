@@ -297,3 +297,27 @@ native repairs. PorscheConnect's six sequences passed and showed about 16% lower
 median cumulative total tokens with configuration included. Loop/Landing each
 have a retained model-capacity failure, so their cumulative cost comparisons are
 invalid. Native test reuse and API-CLI amortisation remain separate questions.
+
+## Held-out manifest guidance
+
+`results/manifest-example-heldout-v1.json` compares template version 3 (`8cce793`)
+with version 4 (`375fa17`) on `add_audit_events`, separately from the earlier
+billing task. The runtime and shared test helper are identical between these
+revisions; authoring adds a generic input/query example and increments the template
+version. Trial order was baseline/candidate, candidate/baseline, baseline/candidate.
+All six trials passed independent runtime and test-mutation checks, and both SDK
+source fingerprints remained unchanged.
+
+| Median tokens | Without example | With example |
+| --- | ---: | ---: |
+| Total input plus output | 222,180 | 114,129 |
+| Uncached input | 10,571 | 15,615 |
+| Output | 2,153 | 1,667 |
+
+Median total tokens fell about 49% and output about 23%. Across all three trials,
+total tokens fell about 46%, while uncached input increased. This supports precise,
+short contract examples as a useful authoring improvement on this task. It does
+not establish monetary or allowance savings, because cached input and output have
+different accounting implications. Scaffold creation and dependency preparation
+remain outside the measured task. Three repetitions of one held-out task are a
+regression signal, not proof of a universal productivity gain.

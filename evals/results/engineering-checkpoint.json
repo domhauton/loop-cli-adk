@@ -1,23 +1,23 @@
 {
   "schema_version": 1,
   "usage_source": "parent Codex session token_count cumulative counters",
-  "through": "2026-10-29T00:30:23.912Z",
+  "through": "2026-10-29T00:38:15.327Z",
   "scope": "Whole parent conversation, including design, implementation, research and evaluation work. Excludes architecture subagents and separate codex exec trials.",
   "parent_totals": {
-    "input_tokens": 59202766,
-    "cached_input_tokens": 58529024,
-    "output_tokens": 314517,
-    "reasoning_output_tokens": 141321,
-    "total_tokens": 59517283
+    "input_tokens": 61625338,
+    "cached_input_tokens": 60940160,
+    "output_tokens": 322321,
+    "reasoning_output_tokens": 145421,
+    "total_tokens": 61947659
   },
   "evaluation_goal_started_at": "2026-10-28T21:30:18+00:00",
   "last_counter_before_goal": "2026-10-28T21:29:51.935Z",
   "since_goal_counter_delta": {
-    "input_tokens": 41562567,
-    "cached_input_tokens": 41184896,
-    "output_tokens": 235967,
-    "reasoning_output_tokens": 119055,
-    "total_tokens": 41798534
+    "input_tokens": 43985139,
+    "cached_input_tokens": 43596032,
+    "output_tokens": 243771,
+    "reasoning_output_tokens": 123155,
+    "total_tokens": 44228910
   },
   "limitations": [
     "Cached input is already included in input; reasoning output is already included in output.",

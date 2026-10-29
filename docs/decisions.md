@@ -172,3 +172,11 @@ The evidence now supports an optional native-feedback workflow for this tested
 Home Assistant component, including configuration. It still does not justify a
 universal saving, a mandatory runtime feature, or API-CLI pay-off claims. Preserve
 the failed attempts and keep broader coverage and installation cost explicit.
+
+The template-version-4 manifest example has now been checked on the held-out
+`add_audit_events` CLI-development task. All six revision-comparison trials passed
+with immutable SDK sources and identical runtime/helper code. Median total tokens
+fell about 49%, output about 23%, but uncached input increased. Keep the short
+contract example: it improves the measured authoring loop without adding a new
+runtime or verification language. Do not translate the total-token result into
+credit or monetary savings, or generalise it beyond the measured task.
