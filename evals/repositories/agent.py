@@ -52,6 +52,28 @@ def grade_configured_checks(work, target, broken, env, output, marker):
     return grades
 
 
+def invoke_agent(work, output, env, prompt, model, timeout):
+    """Run one isolated model session and return observed counters."""
+    started = time.monotonic()
+    with (output / 'events.jsonl').open('wb') as events, (output / 'stderr.txt').open('wb') as stderr:
+        try:
+            proc = subprocess.run(['codex', '--no-daemon', 'exec', '--ignore-user-config',
+                '--ephemeral', '--json', '--model', model, '-c', 'model_reasoning_effort="low"',
+                '--sandbox', 'workspace-write', '-c', 'approval_policy="never"',
+                '-c', 'sandbox_workspace_write.network_access=true',
+                '-c', 'shell_environment_policy.set.GOCACHE=' + json.dumps(env['GOCACHE']),
+                '-c', 'shell_environment_policy.set.PYTHONPATH=' + json.dumps(str(work)),
+                '-C', str(work), '-'], input=prompt.encode(), env=env, stdout=events,
+                stderr=stderr, timeout=timeout)
+            exit_code = proc.returncode
+        except subprocess.TimeoutExpired:
+            exit_code = None
+    elapsed = time.monotonic() - started
+    with (output / 'events.jsonl').open('rb') as stream:
+        usage = summarise(iter(lambda: stream.readline(MAX_EVENT_BYTES + 1), b''))
+    return exit_code, elapsed, usage
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--profile', choices=tuple(PROFILES), required=True)
@@ -142,23 +164,7 @@ Dependencies are prepared. The Python test interpreter is {args.python}.
             prompt += 'Use .agents/skills/loop-feedback/SKILL.md for native feedback.\n'
             if args.discover_checks:
                 prompt += 'Also create .loop/feedback.json by discovering existing focused and native suite commands. This new helper configuration is permitted; preserve all existing test configuration.\n'
-        started = time.monotonic()
-        with (output / 'events.jsonl').open('wb') as events, (output / 'stderr.txt').open('wb') as stderr:
-            try:
-                proc = subprocess.run(['codex', '--no-daemon', 'exec', '--ignore-user-config',
-                    '--ephemeral', '--json', '--model', args.model, '-c', 'model_reasoning_effort="low"',
-                    '--sandbox', 'workspace-write', '-c', 'approval_policy="never"',
-                    '-c', 'sandbox_workspace_write.network_access=true',
-                    '-c', 'shell_environment_policy.set.GOCACHE=' + json.dumps(env['GOCACHE']),
-                    '-c', 'shell_environment_policy.set.PYTHONPATH=' + json.dumps(str(work)),
-                    '-C', str(work), '-'], input=prompt.encode(), env=env, stdout=events,
-                    stderr=stderr, timeout=args.timeout)
-                exit_code = proc.returncode
-            except subprocess.TimeoutExpired:
-                exit_code = None
-        elapsed = time.monotonic() - started
-        with (output / 'events.jsonl').open('rb') as stream:
-            usage = summarise(iter(lambda: stream.readline(MAX_EVENT_BYTES + 1), b''))
+        exit_code, elapsed, usage = invoke_agent(work, output, env, prompt, args.model, args.timeout)
         focused_result, _ = command(focused, work, env, output, 'grade-focused')
         suite_result, _ = command(suite, work, env, output, 'grade-suite')
         checks = {'model_completed': exit_code == 0, 'protected_files_unchanged': protected == digest_files(work, paths),

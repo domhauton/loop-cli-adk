@@ -28,3 +28,9 @@ conventions. Create `.loop/feedback.json` with `{"checks":{"focused":["command",
 executed from the repository root without a shell. Choose the affected component's
 existing tests for `focused` and the native language suite for `suite`. Reuse the
 prepared interpreter and dependencies; do not install or invent a test framework.
+
+Validate each configured command on the repaired code before declaring setup
+complete. Component checks and whole-project quality gates can have different
+scopes (for example, coverage across all modules). Keep the full suite's gates
+intact; choose a supported component-testing invocation rather than lowering the
+project's thresholds. A passing full suite does not repair a failing focused command.

@@ -153,3 +153,34 @@ repaired code. The prepared-command comparison excluded precisely this work.
 
 The runner remains experimental. Installation is still excluded, and no retained
 workspace maintenance sequence has yet established native-helper break-even.
+
+### Retained-workspace maintenance
+
+`lifecycle.py` accepts the same profile/source/condition/output/interpreter options
+as `agent.py`. Each sequence has three distinct defects in the same component.
+The skill arm discovers its command configuration in the first task. Both arms
+retain repaired source and any new helper scripts or notes between tasks, while
+each task starts a fresh model session. Existing tests, dependencies and original
+configuration remain protected. Each authored command is revalidated against the
+current regression, so a test selection that only covers the first defect cannot
+silently pass later tasks.
+
+Use `--preflight-only` to validate all mutations and restored native suites without
+model calls. `../results/native-maintenance-preflight-v1.json` records the nine
+successful deterministic mutation/restoration cycles. A missing mutation anchor
+or failed preflight stops a sequence and remains a failure; the harness never
+resets candidate code to force later tasks to work.
+
+For measured trials, run three sequences per arm per repository, alternating order,
+then use `python3 -m evals.repositories.lifecycle_report RESULT... --output REPORT`.
+The report includes cumulative setup-plus-repair usage by stage. Missing stages,
+unknown usage or any failed sequence invalidate cost ratios and crossover claims.
+A sustained observed crossover means the cumulative skill median stays below the
+natural median through every remaining measured stage; it does not extrapolate
+beyond three tasks or prove a general saving.
+
+The generic skill now distinguishes component feedback from whole-project quality
+gates and requires both configured commands to pass on repaired code. This change
+belongs to the new experiment; the previous adoption report is not retroactively
+regraded or pooled with it. Helper installation and dependency preparation remain
+outside model timing. These are component repairs, not full application releases.

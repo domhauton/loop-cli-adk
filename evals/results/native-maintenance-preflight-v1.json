@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "kind": "deterministic_native_sequence_preflight",
+  "model_tokens": null,
+  "records": [
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "loop-definition",
+      "condition": "natural",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": null,
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.79,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.4,
+            "output_bytes": 505,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 10.421,
+            "output_bytes": 697,
+            "output_within_limit": true
+          }
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.301,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.417,
+            "output_bytes": 495,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.464,
+            "output_bytes": 713,
+            "output_within_limit": true
+          }
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.317,
+            "output_bytes": 66,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.362,
+            "output_bytes": 486,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.943,
+            "output_bytes": 713,
+            "output_within_limit": true
+          }
+        }
+      ],
+      "passed": true,
+      "preflight_only": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "landing-counters",
+      "condition": "natural",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": null,
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.137,
+            "output_bytes": 296,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.15,
+            "output_bytes": 1285,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.654,
+            "output_bytes": 9630,
+            "output_within_limit": true
+          }
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.246,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.198,
+            "output_bytes": 1288,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.531,
+            "output_bytes": 9622,
+            "output_within_limit": true
+          }
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.136,
+            "output_bytes": 297,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 0.138,
+            "output_bytes": 1326,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 0.762,
+            "output_bytes": 9621,
+            "output_within_limit": true
+          }
+        }
+      ],
+      "passed": true,
+      "preflight_only": true
+    },
+    {
+      "schema_version": 1,
+      "experiment": "native_retained_workspace_v1",
+      "profile": "porsche-timestamp",
+      "condition": "natural",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "harness_sha256": "807ebe784d1b97f0cdf30344dba6c05f2662426d81f75851f929f44b509e92ac",
+      "model": null,
+      "reasoning_effort": "low",
+      "codex_version": "codex-cli 0.164.0-alpha.11.1",
+      "expected_stages": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 3.814,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 4.005,
+            "output_bytes": 43769,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 4.257,
+            "output_bytes": 1736,
+            "output_within_limit": true
+          }
+        },
+        {
+          "stage": 2,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.85,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.804,
+            "output_bytes": 14106,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.605,
+            "output_bytes": 1736,
+            "output_within_limit": true
+          }
+        },
+        {
+          "stage": 3,
+          "passed": true,
+          "baseline": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 1.709,
+            "output_bytes": 80,
+            "output_within_limit": true
+          },
+          "mutation": {
+            "exit_code": 1,
+            "timed_out": false,
+            "duration_seconds": 1.599,
+            "output_bytes": 13773,
+            "output_within_limit": true
+          },
+          "restored_suite": {
+            "exit_code": 0,
+            "timed_out": false,
+            "duration_seconds": 2.175,
+            "output_bytes": 1736,
+            "output_within_limit": true
+          }
+        }
+      ],
+      "passed": true,
+      "preflight_only": true
+    }
+  ]
+}
