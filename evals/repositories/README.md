@@ -214,3 +214,29 @@ Report generation verifies each local transcript hash and recomputes its usage
 before accepting counters. Recognised capacity failures receive a safe category;
 raw model output and external source stay local. Ordinary CI checks the reporting
 and retention contracts without model calls.
+
+### Delivered skill installation
+
+`loop init --mode testing --name NAME --dir .` now installs one native-testing
+skill without a runner, manifest or language dependency. `install.py --profile
+PROFILE --source CHECKOUT --loop EXECUTABLE --output NEW_DIRECTORY` verifies this
+on a pinned project snapshot. It empties `PATH`, hashes original content, records
+link targets and permissions, requires exactly one new skill, then verifies repeat
+installation fails without changes. The installer grader has a real-subprocess
+regression that rejects modification of an existing host file.
+
+`../results/native-skill-installation-v1.json` records passing local installation
+checks on Loop, Landing and PorscheConnect. This proves delivery/preservation,
+not model efficiency. The new skill is deliberately separate from the experimental
+native wrapper; the existing 16% result must not be attributed to guidance alone.
+
+The next adoption comparison should use natural tooling, the delivered skill, and
+the same skill plus the experimental wrapper. Count actual installation in the
+first measured task, retain each workspace, then change components. For the pinned
+PorscheConnect project, a useful second task is stale transient-auth field removal
+in `config_flow.py`, whose original tests are separate from sensor tests. Keep
+common independent repair grading identical across arms. Validate the wrapper's
+named checks separately by pass/fail/pass mutation, without requiring otherwise
+unused configuration files in the direct-native arms. Audit their actual commands
+descriptively rather than replaying arbitrary shell code. This comparison has not
+yet been run; no direct-guidance or wrapper-attribution claim is established.

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "loop_source_revision": "2e25c0c",
+  "kind": "deterministic_installation",
+  "model_tokens": null,
+  "records": [
+    {
+      "schema_version": 1,
+      "kind": "native_testing_skill_installation",
+      "profile": "loop-definition",
+      "source_revision": "375fa17407392287841ed16a5c62d3ea8634a00b",
+      "loop_sha256": "1146ffc85ff57564db724c39d02355847756f17667599095336ecd86149114bd",
+      "model_tokens": null,
+      "passed": true,
+      "checks": {
+        "installed": true,
+        "reported_one_skill": true,
+        "host_unchanged": true,
+        "only_skill_added": true,
+        "repeat_rejected_without_changes": true
+      },
+      "install": {
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_seconds": 0.21,
+        "output_bytes": 208,
+        "output_within_limit": true
+      },
+      "repeat": {
+        "exit_code": 2,
+        "timed_out": false,
+        "duration_seconds": 0.006,
+        "output_bytes": 131,
+        "output_within_limit": true
+      }
+    },
+    {
+      "schema_version": 1,
+      "kind": "native_testing_skill_installation",
+      "profile": "landing-counters",
+      "source_revision": "ef410d16b48d6e758bfa83d38531cc31caed52e9",
+      "loop_sha256": "1146ffc85ff57564db724c39d02355847756f17667599095336ecd86149114bd",
+      "model_tokens": null,
+      "passed": true,
+      "checks": {
+        "installed": true,
+        "reported_one_skill": true,
+        "host_unchanged": true,
+        "only_skill_added": true,
+        "repeat_rejected_without_changes": true
+      },
+      "install": {
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_seconds": 0.147,
+        "output_bytes": 208,
+        "output_within_limit": true
+      },
+      "repeat": {
+        "exit_code": 2,
+        "timed_out": false,
+        "duration_seconds": 0.012,
+        "output_bytes": 131,
+        "output_within_limit": true
+      }
+    },
+    {
+      "schema_version": 1,
+      "kind": "native_testing_skill_installation",
+      "profile": "porsche-timestamp",
+      "source_revision": "45009be1cba72fe2510990b368ee14aa74149a42",
+      "loop_sha256": "1146ffc85ff57564db724c39d02355847756f17667599095336ecd86149114bd",
+      "model_tokens": null,
+      "passed": true,
+      "checks": {
+        "installed": true,
+        "reported_one_skill": true,
+        "host_unchanged": true,
+        "only_skill_added": true,
+        "repeat_rejected_without_changes": true
+      },
+      "install": {
+        "exit_code": 0,
+        "timed_out": false,
+        "duration_seconds": 0.265,
+        "output_bytes": 208,
+        "output_within_limit": true
+      },
+      "repeat": {
+        "exit_code": 2,
+        "timed_out": false,
+        "duration_seconds": 0.006,
+        "output_bytes": 131,
+        "output_within_limit": true
+      }
+    }
+  ],
+  "limitations": [
+    "Installation was executed on the development macOS host against pinned Go, Node and Python project snapshots.",
+    "Six-target CI separately exercises the generated skill and preservation contracts; this report is not cross-platform execution evidence.",
+    "No model efficiency claim; direct-guidance versus wrapper adoption remains unmeasured."
+  ]
+}
